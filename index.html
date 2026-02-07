@@ -1,30 +1,252 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Ulubilge Ulusoy — Portfolio</title>
-  </head>
-  <body style="font-family: system-ui; max-width: 800px; margin: 40px auto; padding: 0 16px;">
-    <h1>Ulubilge Ulusoy</h1>
-    <p>Short intro: what you do, your focus, what you’re looking for.</p>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ulubilge Ulusoy — Portfolio</title>
+  <meta name="description" content="Research portfolio of Ulubilge Ulusoy." />
 
-    <h2>Projects</h2>
-    <ul>
-      <li><a href="https://github.com/yourname/project1">Project 1</a> — one-line description</li>
-      <li><a href="https://github.com/yourname/project2">Project 2</a> — one-line description</li>
-    </ul>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#101826;
+      --text:#e6edf3;
+      --muted:#9fb0c0;
+      --link:#7cc0ff;
+      --border:#223044;
+      --max: 980px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    a{ color: var(--link); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
 
-    <h2>Publications / Writing</h2>
-    <ul>
-      <li>Paper Title (Year) — link</li>
-    </ul>
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 24px 18px 80px; }
 
-    <h2>Contact</h2>
-    <p>
-      Email: you@domain.com<br />
-      LinkedIn: link<br />
-      Google Scholar: link
-    </p>
-  </body>
+    /* Top nav */
+    .nav{
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,20,0.8);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+    .nav-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .nav a{ margin-right: 14px; color: var(--muted); }
+    .nav a:hover{ color: var(--text); text-decoration:none; }
+    .brand{ color: var(--text); font-weight: 700; margin-right: 18px; }
+
+    /* Hero */
+    .hero{
+      padding: 28px 0 18px;
+    }
+    h1{ font-size: 2.1rem; margin: 0 0 8px; }
+    .subtitle{ color: var(--muted); margin: 0 0 16px; }
+    .pillrow{ display:flex; flex-wrap:wrap; gap:10px; }
+    .pill{
+      border: 1px solid var(--border);
+      background: rgba(16,24,38,0.7);
+      padding: 8px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Sections */
+    section{ margin-top: 34px; }
+    h2{ font-size: 1.35rem; margin: 0 0 12px; }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 12;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 14px;
+      padding: 14px 14px 12px;
+    }
+    .card h3{ margin: 0 0 6px; font-size: 1.05rem; }
+    .meta{ color: var(--muted); font-size: 0.95rem; margin: 0 0 10px; }
+    .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top: 10px; }
+    .tag{
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (min-width: 760px){
+      .card.span6{ grid-column: span 6; }
+      .card.span4{ grid-column: span 4; }
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 46px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div>
+        <span class="brand">Ulubilge Ulusoy</span>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div>
+        <!-- Put your real links here -->
+        <a href="https://github.com/ulubilgeulusoy">GitHub</a>
+        <a href="#" title="Add your CV PDF link">CV</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <header class="hero" id="top">
+      <h1>Ulubilge Ulusoy</h1>
+      <p class="subtitle">
+        Smead Distinguished Postdoctoral Associate • Human–Robot Interaction • Space operations & maintenance simulation
+      </p>
+
+      <div class="pillrow">
+        <div class="pill">HRI + Human-AI teaming</div>
+        <div class="pill">FR3 robot arm • ROS 2 • MoveIt</div>
+        <div class="pill">Physio + multimodal data (BIOPAC, LSL, OpenFace)</div>
+      </div>
+    </header>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid">
+
+        <article class="card span6">
+          <h3>FR3 Kinesthetic Teaching + Vision Control</h3>
+          <p class="meta">Python • ROS 2 Humble • MoveIt2 • RealSense</p>
+          <p>
+            Robot arm interaction pipeline combining kinesthetic teaching and computer vision for real-time, responsive studies.
+          </p>
+          <p>
+            <a href="#">Repo</a> · <a href="#">Demo</a>
+          </p>
+          <div class="tags">
+            <span class="tag">robotics</span><span class="tag">ros2</span><span class="tag">computer-vision</span>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3>Pipe Inspection & Repair Study Testbed</h3>
+          <p class="meta">Experiment design • GUI tools • Task procedures</p>
+          <p>
+            Spaceflight-relevant maintenance simulation (leak check, visual inspection with ArUco markers, reporting) for HRI experiments.
+          </p>
+          <p>
+            <a href="#">Materials</a> · <a href="#">Protocol</a>
+          </p>
+          <div class="tags">
+            <span class="tag">human-factors</span><span class="tag">simulation</span><span class="tag">study-design</span>
+          </div>
+        </article>
+
+        <article class="card span6">
+          <h3>Multimodal Data Collection + Alignment</h3>
+          <p class="meta">BIOPAC MP160 • LSL • OpenFace • Python tooling</p>
+          <p>
+            Streaming and synchronization pipeline for physiology + video-derived measures, with robust alignment and dropout handling.
+          </p>
+          <p>
+            <a href="#">Repo</a>
+          </p>
+          <div class="tags">
+            <span class="tag">lsl</span><span class="tag">physiology</span><span class="tag">data-engineering</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <h2>Publications</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Ulusoy et al. (2025). Investment Construct in Human–Robot Teams</h3>
+          <p class="meta">Journal / conference • add venue here</p>
+          <p>
+            Short 1–2 sentence summary of the contribution. Link to PDF / DOI / preprint.
+          </p>
+          <p>
+            <a href="#">PDF</a> · <a href="#">DOI</a> · <a href="#">BibTeX</a>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>University of Colorado Boulder — Bioastronautics</h3>
+          <p class="meta">Smead Distinguished Postdoctoral Associate</p>
+          <ul>
+            <li>Leading experimental human factors research on human utilization of AI-enabled agents in space operations.</li>
+            <li>Developing spaceflight-relevant maintenance simulation scenarios to support ecologically valid studies.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="grid">
+        <article class="card span6">
+          <p><strong>Email:</strong> your.email@colorado.edu</p>
+          <p><strong>Google Scholar:</strong> <a href="#">link</a></p>
+          <p><strong>LinkedIn:</strong> <a href="#">link</a></p>
+        </article>
+
+        <article class="card span6">
+          <p><strong>GitHub:</strong> <a href="https://github.com/ulubilgeulusoy">github.com/ulubilgeulusoy</a></p>
+          <p><strong>CV:</strong> <a href="#">link to PDF</a></p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> Ulubilge Ulusoy • Hosted on GitHub Pages</div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
