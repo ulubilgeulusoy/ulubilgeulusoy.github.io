@@ -1,24 +1,24 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Projects — Ulubilge Ulusoy</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="nav">
+  <div class="nav">
     <div class="nav-inner">
       <div class="leftnav">
         <span class="brand"><a class="brand" href="index.html">Ulubilge Ulusoy</a></span>
-        <a  href="index.html">Home</a>
+        <a href="index.html">Home</a>
         <a class="active" href="projects.html">Projects</a>
-        <a  href="skills.html">Skills</a>
-        <a  href="experience.html">Experience</a>
-        <a  href="education.html">Education</a>
-        <a  href="publications.html">Publications</a>
-        <a  href="resume.html">Resume</a>
-        <a  href="contact.html">Contact</a>
+        <a href="skills.html">Skills</a>
+        <a href="experience.html">Experience</a>
+        <a href="education.html">Education</a>
+        <a href="publications.html">Publications</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html">Contact</a>
       </div>
       <div><a href="https://github.com/ulubilgeulusoy">GitHub</a></div>
     </div>
@@ -30,22 +30,24 @@
 
     <div class="grid">
       <article class="card">
-        <h3>Experiment Protocol Design and Execution</h3>
-        <p class="meta">May 2023 – May 2024 • Human Factors • Python (PyQt/OpenCV) • MATLAB</p>
+        <div class="card-header">
+          <h3>Human-AI Interaction Experiment Protocol Design and Execution</h3>
+          <button class="ghost-btn" data-modal-target="haii-modal">Open details</button>
+        </div>
+        <p class="meta">May 2023 - May 2024 • Human Factors • Python (PyQt/OpenCV) • MATLAB</p>
         <p>
-          Designed the experiment protocol, organized the experimental layout, recruited/trained 30+ participants,
-          conducted sessions, and analyzed data. Built automation for data collection and used prompt engineering
-          to initialize an LLM as mission control for the scenario.
+          Summary of the experiment design, participant management, and automation work. Click "Open details" to
+          view the full protocol, media, and analysis notes in a modal without leaving the page.
         </p>
         <p class="small">Example artifacts: protocol, training materials, data-collection tooling, analysis outputs.</p>
       </article>
 
       <article class="card">
         <h3>NASA STRI HOME Capstone 3 Demonstration</h3>
-        <p class="meta">Jan 2024 – Jun 2024 • Integration lead • Python OpenCV • OBS</p>
+        <p class="meta">Jan 2024 - Jun 2024 • Integration lead • Python OpenCV • OBS</p>
         <p>
           Coordinated multi-university stakeholders and integrated multiple graduate-level projects into a cohesive
-          deep-space maintenance demo. Demonstrated a human–AI assistance framework where assistance is quantified
+          deep-space maintenance demo. Demonstrated a human-AI assistance framework where assistance is quantified
           from message types/lengths exchanged during task execution.
         </p>
         <p class="small">Example artifacts: scenario design, integration plan, demo runbook, demo visuals.</p>
@@ -53,7 +55,7 @@
 
       <article class="card span6">
         <h3>Guidelines for Design & Test Readiness Reviews</h3>
-        <p class="meta">Mar 2020 – Sep 2020 • Systems Engineering</p>
+        <p class="meta">Mar 2020 - Sep 2020 • Systems Engineering</p>
         <p>
           Developed and implemented review standards (PDR/CDR/TRR) to streamline lab operations and bring
           industry-like development rigor into a fast academic environment.
@@ -61,8 +63,8 @@
       </article>
 
       <article class="card span6">
-        <h3>Pyro Igniter Integration for LOX–Kerosene Rocket Engine</h3>
-        <p class="meta">Aug 2019 – Sep 2019 • Hands-on assembly + wiring</p>
+        <h3>Pyro Igniter Integration for LOX-Kerosene Rocket Engine</h3>
+        <p class="meta">Aug 2019 - Sep 2019 • Hands-on assembly + wiring</p>
         <p>
           Mechanical integration of a 3D-printed igniter housing and electrical wiring of the ignition system
           to a DAQ box; supported rapid turnaround during static fire testing.
@@ -74,5 +76,76 @@
       Want the PDF version? <a href="resume.html">Open the portfolio PDF →</a>
     </footer>
   </main>
+
+  <div class="modal-overlay" data-modal="haii-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="haii-title" tabindex="-1">
+      <header class="modal-head">
+        <div>
+          <p class="overline">Project</p>
+          <h2 id="haii-title">Human-AI Interaction Experiment Protocol Design and Execution</h2>
+        </div>
+        <button class="modal-close" data-modal-close aria-label="Close dialog">×</button>
+      </header>
+      <section class="modal-body">
+        <p class="meta">May 2023 - May 2024 • Human Factors • Python (PyQt/OpenCV) • MATLAB</p>
+        <p>
+          Use this space to paste richer context: study goals, constraints, IRB flow, participant screening,
+          session scripts, autonomy handoff logic, and notes on the LLM-based mission control agent. You can
+          mix paragraphs, images, and video embeds below.
+        </p>
+        <div class="media-well">
+          <p class="small">Drop future media here (screenshots, protocol PDFs, short clips).</p>
+          <img src="index_2.jpg" alt="Experiment layout placeholder" class="modal-img">
+          <video class="modal-video" controls muted>
+            <source src="" type="video/mp4">
+          </video>
+        </div>
+      </section>
+      <footer class="modal-foot">
+        <button class="ghost-btn" data-modal-close>Close</button>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    const openButtons = document.querySelectorAll('[data-modal-target]');
+    const closeButtons = document.querySelectorAll('[data-modal-close]');
+    const overlays = document.querySelectorAll('.modal-overlay');
+
+    openButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-modal-target');
+        const modal = document.querySelector(`[data-modal="${id}"]`);
+        if (!modal) return;
+        modal.dataset.visible = 'true';
+        modal.setAttribute('aria-hidden', 'false');
+        modal.querySelector('.modal').focus({ preventScroll: true });
+      });
+    });
+
+    closeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const overlay = btn.closest('.modal-overlay');
+        if (!overlay) return;
+        overlay.dataset.visible = 'false';
+        overlay.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    overlays.forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.dataset.visible = 'false';
+          overlay.setAttribute('aria-hidden', 'true');
+        }
+      });
+      overlay.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          overlay.dataset.visible = 'false';
+          overlay.setAttribute('aria-hidden', 'true');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
