@@ -71,8 +71,7 @@ h3{ margin: 0 0 8px; }
   width: 100%;
   aspect-ratio: 16 / 9;
   max-height: clamp(180px, 35vh, 420px);
-  object-fit: cover;
-  transform: scale(3);
+  object-fit: contain;
   border-radius: 14px;
   border: 1px solid var(--border);
   margin: 4px 0 18px;
