@@ -90,6 +90,13 @@ h3{ margin: 0 0 8px; }
   gap: 14px;
   align-items: stretch;
 }
+.row-split > .card,
+.row-split > .stack{
+  grid-column: span 1;
+}
+.row-split .stack .card{
+  grid-column: span 1;
+}
 .stack{
   display:grid;
   gap: 14px;
@@ -109,7 +116,7 @@ h3{ margin: 0 0 8px; }
 @media (min-width: 760px){
   .span6{ grid-column: span 6; }
   .span4{ grid-column: span 4; }
-  .row-split{ grid-template-columns: repeat(2, 1fr); }
+  .row-split{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .row-split .stack{
     grid-template-rows: 1fr 1fr;
     height: 100%;
