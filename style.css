@@ -120,9 +120,19 @@ h3{ margin: 0 0 8px; }
   height: 200px;
   object-fit: contain;
   flex: 0 0 auto;
-  margin-top: -50px;
-  margin-bottom: -50px;
+  margin-top: -30px;
+  margin-bottom: -30px;
 }
+
+.edu-logousc{
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  margin-top: -60px;
+  margin-bottom: -60px;
+}
+
 .card.highlight{
   border-color: #2f855a;
   background: #0f1d18;
