@@ -112,7 +112,7 @@ h3{ margin: 0 0 8px; }
 .edu-row{
   display:flex;
   flex-direction: column;
-  gap: 8px;
+  gap: -20px;
   align-items: flex-start;
 }
 .edu-logo{
