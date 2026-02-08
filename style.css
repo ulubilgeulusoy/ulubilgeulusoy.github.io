@@ -111,12 +111,12 @@ h3{ margin: 0 0 8px; }
 }
 .edu-row{
   display:flex;
-  gap: 16px;
-  align-items: center;
+  gap: 12px;
+  align-items: flex-start;
 }
 .edu-logo{
-  width: 110px;
-  height: 110px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   flex: 0 0 auto;
 }
