@@ -70,7 +70,7 @@ h3{ margin: 0 0 8px; }
 .hero{
   width: 100%;
   aspect-ratio: 16 / 9;
-  max-height: clamp(180px, 40vh, 420px);
+  max-height: clamp(180px, 30vh, 420px);
   object-fit: contain;
   border-radius: 14px;
   border: 1px solid var(--border);
