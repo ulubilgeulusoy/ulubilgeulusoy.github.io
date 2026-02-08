@@ -77,7 +77,7 @@ h3{ margin: 0 0 8px; }
   border-radius: 14px;
   border: 1px solid var(--border);
   margin: 4px 0 18px;
-  opacity: 0.75;
+  opacity: 0.45;
 }
 
 .grid{
@@ -114,8 +114,8 @@ h3{ margin: 0 0 8px; }
   align-items: flex-start;
 }
 .edu-logo{
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
   flex: 0 0 auto;
 }
