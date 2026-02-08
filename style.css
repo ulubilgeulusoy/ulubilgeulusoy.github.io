@@ -84,6 +84,16 @@ h3{ margin: 0 0 8px; }
   grid-template-columns: repeat(12, 1fr);
   gap: 14px;
 }
+.row-split{
+  grid-column: span 12;
+  display:grid;
+  gap: 14px;
+  align-items: stretch;
+}
+.stack{
+  display:grid;
+  gap: 14px;
+}
 .card{
   grid-column: span 12;
   border: 1px solid var(--border);
@@ -99,6 +109,12 @@ h3{ margin: 0 0 8px; }
 @media (min-width: 760px){
   .span6{ grid-column: span 6; }
   .span4{ grid-column: span 4; }
+  .row-split{ grid-template-columns: repeat(2, 1fr); }
+  .row-split .stack{
+    grid-template-rows: 1fr 1fr;
+    height: 100%;
+  }
+  .row-split .stack .card{ height: 100%; }
 }
 
 .meta{ color: var(--muted); margin: 6px 0 10px; }
