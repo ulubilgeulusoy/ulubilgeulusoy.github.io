@@ -136,7 +136,6 @@ h3{ margin: 0 0 8px; }
 
 .meta{ color: var(--muted); margin: 6px 0 10px; }
 .small{ color: var(--muted); font-size: 0.95rem; }
-.tight{ margin: 4px 0 6px; }
 
 .pills{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
 .pill{
