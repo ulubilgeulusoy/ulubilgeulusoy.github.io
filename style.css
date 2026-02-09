@@ -256,7 +256,12 @@ ul{ margin: 10px 0 0 18px; }
   font-size: 20px;
   cursor: pointer;
 }
-.modal-body{ display: grid; gap: 12px; }
+.modal-body{ 
+  display: grid; 
+  gap: 6px;
+  margin: 0;
+ }
+
 .media-well{
   border: 1px dashed var(--border);
   background: rgba(16,24,38,0.6);
