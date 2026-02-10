@@ -203,6 +203,13 @@ ul{ margin: 10px 0 0 18px; }
   justify-content:space-between;
   gap:10px;
 }
+.card-header-highlight{
+  border: 1px solid #2f855a;
+  background: #0f1d18;
+  box-shadow: 0 0 0 1px rgba(47,133,90,0.35);
+  padding: 10px 12px;
+  border-radius: 12px;
+}
 .ghost-btn{
   border: 1px solid var(--border);
   background: rgba(16,24,38,0.6);
