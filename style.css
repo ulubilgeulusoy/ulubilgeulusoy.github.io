@@ -75,6 +75,13 @@ h3{ margin: 0 0 8px; }
   flex-wrap: wrap;
   gap: 10px;
   margin: 4px 0 8px;
+  align-items: center;
+}
+.section-label{
+  color: var(--muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 .section-pill{
   display: inline-block;
@@ -92,6 +99,19 @@ h3{ margin: 0 0 8px; }
 .section-head{
   grid-column: span 12;
   margin-top: 10px;
+}
+.card-tag{
+  align-self: flex-start;
+  display: inline-block;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #bff1d2;
+  border: 1px solid #2f855a;
+  background: rgba(15,29,24,0.9);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
 }
 
 .hero{
