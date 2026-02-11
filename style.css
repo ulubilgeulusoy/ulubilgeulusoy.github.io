@@ -327,7 +327,11 @@ ul{ margin: 10px 0 0 18px; }
   width: 100%;
   aspect-ratio: 4 / 1;          /* 4:1 shows roughly quarter the photo */
   object-fit: cover;
+<<<<<<< HEAD
   object-position: center 60%;   /* tweak what part stays visible */
+=======
+  object-position: center 40%;   /* tweak what part stays visible */
+>>>>>>> b7aed5b4f978220a544b22dce47956fcd391d0d3
   border-radius: 12px;
   border: 1px solid var(--border);
   opacity: 0.45;
