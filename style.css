@@ -116,12 +116,11 @@ h3{ margin: 0 0 8px; }
 
 .hero{
   width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: clamp(180px, 35vh, 420px);
+  aspect-ratio: 3 / 1;          
   object-fit: cover;
-  border-radius: 14px;
+  object-position: center 40%;   /* tweak what part stays visible */
+  border-radius: 12px;
   border: 1px solid var(--border);
-  margin: 4px 0 18px;
   opacity: 0.45;
 }
 
