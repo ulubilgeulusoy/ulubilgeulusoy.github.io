@@ -203,15 +203,12 @@ h3{ margin: 0 0 8px; }
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  margin: 2px 0 4px;
+  margin: -2px 0 10px;
 }
 .stack-label{
   color: #d6dbe3;
-  font-family: Georgia, "Times New Roman", serif;
-  font-style: italic;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  margin-right: 2px;
+      font-weight: 600;
+    margin-right: 2px;
 }
 .stack-chips{
   display: flex;
@@ -396,4 +393,5 @@ ul{ margin: 10px 0 0 18px; }
   color: var(--muted);
   margin: 0 0 4px;
 }
+
 
