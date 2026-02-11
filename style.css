@@ -1,4 +1,4 @@
-:root{
+﻿:root{
   /* Charcoal-forward palette */
   --bg:#1b1d21;
   --card:#242830;
@@ -198,6 +198,36 @@ h3{ margin: 0 0 8px; }
 .small{ color: var(--muted); font-size: 0.95rem; }
 
 .pills{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
+.stack-row{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 0 4px;
+}
+.stack-label{
+  color: #d6dbe3;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-right: 2px;
+}
+.stack-chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.stack-chip{
+  display: inline-block;
+  border: 1px solid #bcc3cd;
+  background: #d5dae1;
+  color: #1a1f27;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  line-height: 1.1;
+}
 .pill{
   border: 1px solid var(--border);
   background: rgba(16,24,38,0.7);
@@ -366,3 +396,4 @@ ul{ margin: 10px 0 0 18px; }
   color: var(--muted);
   margin: 0 0 4px;
 }
+
