@@ -325,9 +325,9 @@ ul{ margin: 10px 0 0 18px; }
 
 .modal-img-thumb{
   width: 100%;
-  aspect-ratio: 2 / 1;          /* 2:1 shows roughly half the photo */
+  aspect-ratio: 4 / 1;          /* 4:1 shows roughly quarter the photo */
   object-fit: cover;
-  object-position: center 20%;   /* tweak what part stays visible */
+  object-position: center 60%;   /* tweak what part stays visible */
   border-radius: 12px;
   border: 1px solid var(--border);
   opacity: 0.45;
