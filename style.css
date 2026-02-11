@@ -322,6 +322,14 @@ ul{ margin: 10px 0 0 18px; }
   display: grid;
   gap: 10px;
 }
+.modal-img-thumb{
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  max-height: 250px;
+}
+
 .modal-img{
   width: 100%;
   border-radius: 12px;
