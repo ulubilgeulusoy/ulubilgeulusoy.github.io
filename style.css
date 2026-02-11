@@ -1,10 +1,11 @@
 :root{
-  --bg:#0b0f14;
-  --card:#101826;
-  --text:#e6edf3;
-  --muted:#9fb0c0;
-  --link:#7cc0ff;
-  --border:#223044;
+  /* Charcoal-forward palette */
+  --bg:#1b1d21;
+  --card:#242830;
+  --text:#eef2f7;
+  --muted:#aab3c2;
+  --link:#7cd1ff;
+  --border:#2f3540;
   --max: 980px;
 }
 *{ box-sizing:border-box; }
