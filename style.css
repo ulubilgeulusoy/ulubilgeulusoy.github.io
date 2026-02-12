@@ -390,15 +390,18 @@ ul{ margin: 10px 0 0 18px; }
   border: 1px solid var(--border);
   background: rgba(36,40,48,0.50);
   border-radius: 12px;
-  padding: 6px 14px;
+  padding: 3px 14px;
+  text-align: center;   /* center text */
 }
 .media-caption-card h4{
   margin: 0 0 6px;
   font-size: 1rem;
+  font-weight: 400; 
 }
 .media-caption-card ul{
   margin: 0;
-  padding-left: 20px;
+  padding-left: 0;
+  list-style-position: inside;
 }
 .modal-foot{
   display:flex;
