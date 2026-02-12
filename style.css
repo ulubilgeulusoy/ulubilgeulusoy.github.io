@@ -351,6 +351,17 @@ ul{ margin: 10px 0 0 18px; }
   gap: 12px;
   align-items: stretch;
 }
+.media-item{
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.media-caption{
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
 
 .modal-img-thumb{
   width: 100%;
