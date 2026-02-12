@@ -347,9 +347,14 @@ ul{ margin: 10px 0 0 18px; }
   padding: 12px;
   border-radius: 12px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   align-items: stretch;
+}
+@media (max-width: 760px){
+  .media-well{
+    grid-template-columns: 1fr;
+  }
 }
 
 .modal-img-thumb{
