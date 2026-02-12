@@ -388,9 +388,9 @@ ul{ margin: 10px 0 0 18px; }
 }
 .media-caption-card{
   border: 1px solid var(--border);
-  background: rgba(36,40,48,0.75);
+  background: rgba(36,40,48,0.50);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 6px 14px;
 }
 .media-caption-card h4{
   margin: 0 0 6px;
