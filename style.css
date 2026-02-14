@@ -352,6 +352,11 @@ ul{ margin: 10px 0 0 18px; }
   gap: 12px;
   align-items: stretch;
 }
+.media-item{
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
 @media (max-width: 760px){
   .media-well{
     grid-template-columns: 1fr;
