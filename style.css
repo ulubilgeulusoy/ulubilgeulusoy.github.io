@@ -376,6 +376,17 @@ ul{ margin: 10px 0 0 18px; }
   border: 1px solid var(--border);
   opacity: 0.45;
 }
+
+.modal-img-thumb-3{
+  width: 100%;
+  aspect-ratio: 4 / 1;          /* 4:1 shows roughly quarter the photo */
+  object-fit: cover;
+  object-position: center 80%;   /* tweak what part stays visible */
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  opacity: 0.45;
+}
+
 .image-with-credit{
   position: relative;
   display: block;
