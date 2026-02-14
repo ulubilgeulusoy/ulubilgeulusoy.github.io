@@ -376,6 +376,14 @@ ul{ margin: 10px 0 0 18px; }
   border: 1px solid var(--border);
   opacity: 0.45;
 }
+.image-with-credit{
+  margin: 0;
+}
+.image-credit{
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
 
 .modal-img{
   width: 100%;
