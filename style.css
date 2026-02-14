@@ -379,8 +379,13 @@ ul{ margin: 10px 0 0 18px; }
 .image-with-credit{
   position: relative;
   display: block;
+  width: 100%;
   margin: 0;
   line-height: 0;
+}
+.image-with-credit > img{
+  display: block;
+  width: 100%;
 }
 .image-credit{
   position: absolute;
