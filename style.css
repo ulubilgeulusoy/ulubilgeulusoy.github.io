@@ -459,6 +459,29 @@ ul{ margin: 10px 0 0 18px; }
   text-decoration: none;
   filter: brightness(1.08);
 }
+.pub-row{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pub-citation{
+  flex: 1;
+  min-width: 0;
+}
+.pub-row .pub-actions{
+  margin-top: 0;
+  flex: 0 0 auto;
+}
+@media (max-width: 760px){
+  .pub-row{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .pub-row .pub-actions{
+    margin-top: 8px;
+  }
+}
 .modal-foot{
   display:flex;
   justify-content:flex-end;
