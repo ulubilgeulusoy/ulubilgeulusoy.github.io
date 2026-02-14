@@ -275,6 +275,7 @@ ul{ margin: 10px 0 0 18px; }
   align-items:flex-start;
   justify-content:space-between;
   gap:10px;
+  margin-top: 10px;
 }
 .card-header-highlight{
   border: 1px solid #2f855a;
@@ -358,6 +359,7 @@ ul{ margin: 10px 0 0 18px; }
 }
 
 .modal-img-thumb{
+  display: block;
   width: 100%;
   aspect-ratio: 4 / 1;          /* 4:1 shows roughly quarter the photo */
   object-fit: cover;
