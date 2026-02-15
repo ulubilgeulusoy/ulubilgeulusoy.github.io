@@ -157,25 +157,75 @@ h3{ margin: 0 0 8px; }
 .edu-row{
   display:flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
   align-items: flex-start;
 }
+.edu-content{
+  width: 100%;
+}
 .edu-logo{
-  width: 200px;
-  height: 200px;
+  width: 172px;
+  height: 172px;
   object-fit: contain;
   flex: 0 0 auto;
-  margin-top: -40px;
-  margin-bottom: -40px;
+  margin-top: -16px;
+  margin-bottom: -10px;
 }
 
 .edu-logousc{
-  width: 200px;
-  height: 200px;
+  width: 186px;
+  height: 186px;
   object-fit: contain;
   flex: 0 0 auto;
-  margin-top: -60px;
-  margin-bottom: -60px;
+  margin-top: -22px;
+  margin-bottom: -16px;
+}
+.edu-degree{
+  margin: 2px 0 2px;
+}
+.edu-school{
+  margin: 0;
+  color: #d8deea;
+  font-weight: 600;
+}
+.edu-date{
+  margin: 4px 0 8px;
+}
+.edu-glance{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.edu-chip{
+  display: inline-block;
+  border: 1px solid var(--border);
+  background: rgba(16,24,38,0.65);
+  color: #dce4f1;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.88rem;
+  line-height: 1.2;
+}
+.edu-sections{
+  display: grid;
+  gap: 8px;
+}
+.edu-kicker{
+  margin: 4px 0 0;
+  color: #c4ccda;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.education-grid ul{
+  margin: 4px 0 0 18px;
+}
+.education-grid li{
+  margin: 0 0 6px;
+  font-size: 0.98rem;
+  line-height: 1.5;
 }
 
 .card.highlight{
