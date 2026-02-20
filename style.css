@@ -534,6 +534,15 @@ ul{ margin: 10px 0 0 18px; }
   margin-top: 0;
   flex: 0 0 auto;
 }
+.news-meta-row{
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+.news-meta-row .meta,
+.news-meta-row .pub-actions{
+  margin: 0;
+}
 @media (max-width: 760px){
   .pub-row{
     flex-direction: column;
