@@ -466,6 +466,9 @@ ul{ margin: 10px 0 0 18px; }
   display: grid;
   gap: 10px;
 }
+.media-well-single{
+  grid-template-columns: 1fr;
+}
 @media (max-width: 760px){
   .media-well{
     grid-template-columns: 1fr;
