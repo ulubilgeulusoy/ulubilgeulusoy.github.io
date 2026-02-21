@@ -322,16 +322,22 @@ ul{ margin: 10px 0 0 18px; }
   margin-top: 4px;
 }
 .home-roles > ul{
-  margin: 6px 0 0 20px;
+  margin: 8px 0 0 0;
+  padding: 0;
+  list-style: none;
 }
-.home-roles > ul > li{
-  margin: 0 0 8px;
+.home-roles > ul > li.home-role-card{
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(16,24,38,0.55);
 }
-.home-roles > ul > li > ul{
-  margin: 4px 0 0 18px;
+.home-roles > ul > li.home-role-card > ul{
+  margin: 6px 0 0 18px;
 }
-.home-roles > ul > li > ul > li{
-  margin: 0 0 4px;
+.home-roles > ul > li.home-role-card > ul > li{
+  margin: 0 0 5px;
 }
 
 /* Service card */
