@@ -399,6 +399,46 @@ ul{ margin: 10px 0 0 18px; }
   text-decoration: underline;
 }
 
+/* Engagement talks */
+.talk-item + .talk-item{
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.talk-header{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.talk-title-group{
+  min-width: 0;
+}
+.talk-tag{
+  display: inline-block;
+  color: #dbe1ea;
+  background: #5e6675;
+  border: 1px solid #6f7786;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.talk-title{
+  margin: 10px 0 0;
+}
+.talk-actions{
+  margin: 0;
+  flex: 0 0 auto;
+}
+@media (max-width: 760px){
+  .talk-header{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* Modal */
 .card-header{
   display:flex;
