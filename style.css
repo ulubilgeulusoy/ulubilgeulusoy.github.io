@@ -406,13 +406,17 @@ ul{ margin: 10px 0 0 18px; }
   border-top: 1px solid var(--border);
 }
 .talk-item{
-  display: grid;
-  gap: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
 }
 .talk-header{
-  display: flex;
-  align-items: flex-start;
-  gap: 0;
+  display: block;
+}
+.talk-content{
+  min-width: 0;
+  flex: 1;
 }
 .talk-title-group{
   min-width: 0;
@@ -432,12 +436,16 @@ ul{ margin: 10px 0 0 18px; }
   margin: 10px 0 0;
 }
 .talk-actions{
-  margin: 6px 0 0;
-  justify-self: end;
+  margin: 0;
+  flex: 0 0 auto;
 }
 @media (max-width: 760px){
-  .talk-header{
+  .talk-item{
     display: block;
+  }
+  .talk-actions{
+    margin-top: 8px;
+    text-align: right;
   }
 }
 
