@@ -298,7 +298,6 @@ h3{ margin: 0 0 8px; }
   }
   .mobile-menu{
     display: block;
-    transform: translateX(-70px);
   }
   .mobile-menu-panel a{
     color: var(--muted);
@@ -312,11 +311,12 @@ h3{ margin: 0 0 8px; }
     border-color: var(--border);
   }
   .mobile-menu-panel{
-    left: 12px;
-    right: 12px;
+    left: 0;
+    right: auto;
     top: calc(100% + 8px);
     min-width: 0;
-    width: auto;
+    width: min(92vw, 320px);
+    max-width: calc(100vw - 24px);
   }
   .hero{
     aspect-ratio: 16 / 9;
@@ -804,5 +804,6 @@ ul{ margin: 10px 0 0 18px; }
   color: var(--muted);
   margin: 0 0 4px;
 }
+
 
 
