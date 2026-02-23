@@ -304,7 +304,7 @@ h3{ margin: 0 0 8px; }
   }
   .mobile-menu{
     display: block;
-    margin-left: 2px;
+    margin-left: -8px;
   }
   .nav-inner > div:last-child{
     margin-left: auto;
