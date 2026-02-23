@@ -151,7 +151,7 @@ h3{ margin: 0 0 8px; }
 
 .hero{
   width: 100%;
-  aspect-ratio: 3 / 1;          
+  height: clamp(180px, 33vw, 340px);
   object-fit: cover;
   object-position: center 50%;   /* tweak what part stays visible */
   border-radius: 12px;
@@ -296,9 +296,6 @@ h3{ margin: 0 0 8px; }
   .row-split .stack .card{ height: 100%; }
 }
 @media (max-width: 1080px){
-  .hero{
-    aspect-ratio: 2.7 / 1;
-  }
   .hero-pills{
     left: 10px;
     right: auto;
@@ -311,15 +308,7 @@ h3{ margin: 0 0 8px; }
     gap: 7px;
   }
 }
-@media (max-width: 930px){
-  .hero{
-    aspect-ratio: 2.35 / 1;
-  }
-}
 @media (max-width: 830px){
-  .hero{
-    aspect-ratio: 2.1 / 1;
-  }
   .nav-inner{
     justify-content: flex-start;
     gap: 0;
@@ -375,16 +364,8 @@ h3{ margin: 0 0 8px; }
   }
 }
 @media (max-width: 760px){
-  .hero{
-    aspect-ratio: 1.9 / 1;
-  }
   .hero-pills{
     transform: translateY(-8px);
-  }
-}
-@media (max-width: 640px){
-  .hero{
-    aspect-ratio: 16 / 9;
   }
 }
 
