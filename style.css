@@ -265,8 +265,9 @@ h3{ margin: 0 0 8px; }
   .hero-pills{
     left: 10px;
     right: 10px;
-    top: 10px;
+    top: 50%;
     bottom: auto;
+    transform: translateY(-50%);
     gap: 7px;
     display: flex;
     flex-direction: column;
