@@ -293,11 +293,21 @@ h3{ margin: 0 0 8px; }
   .row-split .stack .card{ height: 100%; }
 }
 @media (max-width: 760px){
+  .nav-inner{
+    justify-content: flex-start;
+  }
   .leftnav > a{
     display: none;
   }
+  .leftnav{
+    gap: 0;
+  }
   .mobile-menu{
     display: block;
+    margin-left: 8px;
+  }
+  .nav-inner > div:last-child{
+    margin-left: auto;
   }
   .mobile-menu-panel a{
     color: var(--muted);
