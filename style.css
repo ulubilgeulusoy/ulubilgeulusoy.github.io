@@ -368,6 +368,11 @@ h3{ margin: 0 0 8px; }
     transform: translateY(-8px);
   }
 }
+@media (max-width: 612px){
+  .hero{
+    height: clamp(240px, 58vw, 320px);
+  }
+}
 
 .meta{ color: var(--muted); margin: 6px 0 10px; }
 .small{ color: var(--muted); font-size: 0.95rem; }
