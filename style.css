@@ -168,6 +168,7 @@ h3{ margin: 0 0 8px; }
   bottom: 12px;
   margin-top: 0;
   z-index: 1;
+  justify-content: center;
 }
 .hero-pills .pill{
   background: rgba(94,102,117,0.88);
