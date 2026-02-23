@@ -296,6 +296,9 @@ h3{ margin: 0 0 8px; }
   .nav-inner{
     justify-content: flex-start;
   }
+  .brand{
+    margin-right: 0;
+  }
   .leftnav > a{
     display: none;
   }
@@ -304,7 +307,7 @@ h3{ margin: 0 0 8px; }
   }
   .mobile-menu{
     display: block;
-    margin-left: -8px;
+    margin-left: 0;
   }
   .nav-inner > div:last-child{
     margin-left: auto;
