@@ -283,7 +283,6 @@ h3{ margin: 0 0 8px; }
   color: #dbe1ea;
   font-size: 0.78rem;
   letter-spacing: 0.06em;
-  text-transform: lowercase;
 }
 
 .btnrow{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 14px; }
