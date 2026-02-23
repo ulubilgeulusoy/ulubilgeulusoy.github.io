@@ -271,7 +271,8 @@ h3{ margin: 0 0 8px; }
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-bottom: 5px;
   }
   .hero-pills .pill{
     font-size: 0.72rem;
