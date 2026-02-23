@@ -298,6 +298,7 @@ h3{ margin: 0 0 8px; }
   }
   .mobile-menu{
     display: block;
+    transform: translateX(-10px);
   }
   .mobile-menu-panel a{
     color: var(--muted);
