@@ -306,7 +306,7 @@ h3{ margin: 0 0 8px; }
     gap: 7px;
   }
 }
-@media (max-width: 1200px){
+@media (max-width: 860px){
   .nav-inner{
     justify-content: flex-start;
     gap: 0;
@@ -349,8 +349,6 @@ h3{ margin: 0 0 8px; }
     width: 220px;
     max-width: calc(100vw - 56px);
   }
-}
-@media (max-width: 760px){
   .hero{
     aspect-ratio: 16 / 9;
   }
