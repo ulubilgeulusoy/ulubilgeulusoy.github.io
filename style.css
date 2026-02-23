@@ -311,6 +311,13 @@ h3{ margin: 0 0 8px; }
     background: rgba(16,24,38,0.75);
     border-color: var(--border);
   }
+  .mobile-menu-panel{
+    left: 12px;
+    right: 12px;
+    top: calc(100% + 8px);
+    min-width: 0;
+    width: auto;
+  }
   .hero{
     aspect-ratio: 16 / 9;
   }
