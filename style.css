@@ -292,6 +292,19 @@ h3{ margin: 0 0 8px; }
   }
   .row-split .stack .card{ height: 100%; }
 }
+@media (max-width: 1080px){
+  .hero-pills{
+    left: 10px;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7px;
+  }
+}
 @media (max-width: 760px){
   .nav-inner{
     justify-content: flex-start;
