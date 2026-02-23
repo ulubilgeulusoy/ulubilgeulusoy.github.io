@@ -295,9 +295,13 @@ h3{ margin: 0 0 8px; }
 @media (max-width: 760px){
   .nav-inner{
     justify-content: flex-start;
+    gap: 0;
   }
   .brand{
     margin-right: 0;
+  }
+  .leftnav > .brand{
+    padding-right: 2px;
   }
   .leftnav > a{
     display: none;
