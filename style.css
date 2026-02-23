@@ -173,6 +173,8 @@ h3{ margin: 0 0 8px; }
 .hero-pills .pill{
   background: rgba(94,102,117,0.88);
   backdrop-filter: blur(2px);
+  font-size: 0.72rem;
+  padding: 6px 11px;
 }
 
 .grid{
@@ -367,10 +369,6 @@ h3{ margin: 0 0 8px; }
   }
   .hero-pills{
     transform: translateY(-8px);
-  }
-  .hero-pills .pill{
-    font-size: 0.72rem;
-    padding: 6px 11px;
   }
 }
 
