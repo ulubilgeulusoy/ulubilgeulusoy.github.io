@@ -288,6 +288,90 @@
       });
       updateCarousel(false);
     })();
+
+    (function initNewsCubeCarousel() {
+      const newsGrid = document.querySelector(".news-grid");
+      if (!newsGrid) return;
+      const cards = Array.from(newsGrid.querySelectorAll(".news-flip-card"));
+      if (cards.length < 2) return;
+
+      const mobileQuery = window.matchMedia("(max-width: 760px)");
+      let index = 0;
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let isAnimating = false;
+
+      function setStates() {
+        cards.forEach(function (card, i) {
+          card.classList.remove("cube-current", "cube-next", "cube-prev", "cube-hidden");
+          const next = (index + 1) % cards.length;
+          const prev = (index - 1 + cards.length) % cards.length;
+          if (i === index) {
+            card.classList.add("cube-current");
+          } else if (i === next) {
+            card.classList.add("cube-next");
+          } else if (i === prev) {
+            card.classList.add("cube-prev");
+          } else {
+            card.classList.add("cube-hidden");
+          }
+        });
+      }
+
+      function goNext() {
+        if (isAnimating) return;
+        isAnimating = true;
+        index = (index + 1) % cards.length;
+        setStates();
+        window.setTimeout(function () { isAnimating = false; }, 430);
+      }
+
+      function goPrev() {
+        if (isAnimating) return;
+        isAnimating = true;
+        index = (index - 1 + cards.length) % cards.length;
+        setStates();
+        window.setTimeout(function () { isAnimating = false; }, 430);
+      }
+
+      function enableMobileCube() {
+        newsGrid.classList.add("cube-mode");
+        setStates();
+      }
+
+      function disableMobileCube() {
+        newsGrid.classList.remove("cube-mode");
+        cards.forEach(function (card) {
+          card.classList.remove("cube-current", "cube-next", "cube-prev", "cube-hidden");
+        });
+      }
+
+      function syncMode() {
+        if (mobileQuery.matches) enableMobileCube();
+        else disableMobileCube();
+      }
+
+      newsGrid.addEventListener("touchstart", function (event) {
+        if (!mobileQuery.matches) return;
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      }, { passive: true });
+
+      newsGrid.addEventListener("touchend", function (event) {
+        if (!mobileQuery.matches) return;
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        const isHorizontalSwipe = Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY);
+        if (!isHorizontalSwipe) return;
+        if (deltaX < 0) goNext();
+        else goPrev();
+      }, { passive: true });
+
+      mobileQuery.addEventListener("change", syncMode);
+      syncMode();
+    })();
   </script>
 </body>
 </html>
