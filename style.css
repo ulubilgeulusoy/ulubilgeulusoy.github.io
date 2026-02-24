@@ -378,7 +378,17 @@ h3{ margin: 0 0 8px; }
 
 .small{ color: var(--muted); font-size: 0.95rem; }
 
-.index_role{ color: var(--muted); margin: 0px 0 0px; font-size: 20px;}
+.index_role{
+  color: var(--muted);
+  margin: 0;
+  font-size: 18px;
+
+  border: 1px solid currentColor; /* outline only */
+  background: transparent;         /* no fill */
+  border-radius: 0;                /* not pill */
+  display: inline-block;           /* border wraps the text */
+  padding: 2px 6px;                /* optional spacing inside */
+}
 
 .pills{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
 .stack-row{
