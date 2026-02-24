@@ -191,41 +191,60 @@
       if (!carousel || !track || !prevBtn || !nextBtn || !dotsWrap) return;
 
       const slides = Array.from(track.querySelectorAll(".highlight-slide"));
-      let index = 0;
+      if (slides.length < 2) return;
+
+      const firstClone = slides[0].cloneNode(true);
+      const lastClone = slides[slides.length - 1].cloneNode(true);
+      firstClone.setAttribute("aria-hidden", "true");
+      lastClone.setAttribute("aria-hidden", "true");
+      track.insertBefore(lastClone, slides[0]);
+      track.appendChild(firstClone);
+
+      const allSlides = Array.from(track.querySelectorAll(".highlight-slide"));
+      let index = 1; // start at first real slide
+      let isTransitioning = false;
+
       const dots = slides.map(function (_, i) {
         const dot = document.createElement("button");
         dot.className = "carousel-dot";
         dot.type = "button";
         dot.setAttribute("aria-label", `Go to highlight ${i + 1}`);
         dot.addEventListener("click", function () {
-          index = i;
-          updateCarousel();
+          if (isTransitioning) return;
+          index = i + 1;
+          updateCarousel(true);
         });
         dotsWrap.appendChild(dot);
         return dot;
       });
 
-      function updateCarousel() {
-        const maxIndex = Math.max(0, slides.length - 1);
-        if (index > maxIndex) index = 0;
-        if (index < 0) index = maxIndex;
-        const slideWidth = slides[0].getBoundingClientRect().width;
+      function activeDotIndex() {
+        if (index === 0) return slides.length - 1;
+        if (index === allSlides.length - 1) return 0;
+        return index - 1;
+      }
+
+      function updateCarousel(withTransition) {
+        const slideWidth = allSlides[0].getBoundingClientRect().width;
+        track.style.transition = withTransition ? "transform 320ms ease" : "none";
         track.style.transform = `translateX(-${index * slideWidth}px)`;
-        prevBtn.disabled = false;
-        nextBtn.disabled = false;
         dots.forEach(function (dot, dotIndex) {
-          dot.classList.toggle("active", dotIndex === index);
+          dot.classList.toggle("active", dotIndex === activeDotIndex());
         });
       }
 
       prevBtn.addEventListener("click", function () {
+        if (isTransitioning) return;
+        isTransitioning = true;
         index -= 1;
-        updateCarousel();
+        updateCarousel(true);
       });
 
       nextBtn.addEventListener("click", function () {
+        if (isTransitioning) return;
+        isTransitioning = true;
         index += 1;
-        updateCarousel();
+        updateCarousel(true);
       });
 
       let touchStartX = 0;
@@ -242,17 +261,32 @@
         const deltaY = touch.clientY - touchStartY;
         const isHorizontalSwipe = Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY);
         if (!isHorizontalSwipe) return;
+        if (isTransitioning) return;
 
+        isTransitioning = true;
         if (deltaX < 0) {
           index += 1;
         } else {
           index -= 1;
         }
-        updateCarousel();
+        updateCarousel(true);
       }, { passive: true });
 
-      window.addEventListener("resize", updateCarousel);
-      updateCarousel();
+      track.addEventListener("transitionend", function () {
+        if (index === 0) {
+          index = slides.length;
+          updateCarousel(false);
+        } else if (index === allSlides.length - 1) {
+          index = 1;
+          updateCarousel(false);
+        }
+        isTransitioning = false;
+      });
+
+      window.addEventListener("resize", function () {
+        updateCarousel(false);
+      });
+      updateCarousel(false);
     })();
   </script>
 </body>
