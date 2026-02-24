@@ -378,7 +378,7 @@ h3{ margin: 0 0 8px; }
 
 .small{ color: var(--muted); font-size: 0.95rem; }
 
-.index_role{ color: var(--muted); margin: 6px 0 10px; font-size: 16px;}
+.index_role{ color: var(--muted); margin: 0px 0 0px; font-size: 16px;}
 
 .pills{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 10px; }
 .stack-row{
