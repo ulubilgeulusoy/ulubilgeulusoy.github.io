@@ -379,11 +379,11 @@ h3{ margin: 0 0 8px; }
 .small{ color: var(--muted); font-size: 0.95rem; }
 
 .index_role{
-  color: var(--muted);
+  color: #2f855a;
   margin: 0px 0 8px;
   font-size: 17px;
 
-  border: 1px solid currentColor; /* outline only */
+  border: 1px solid #2f855a; /* outline only */
   background: transparent;         /* no fill */
   border-radius: 0;                /* not pill */
   display: inline-block;           /* border wraps the text */
