@@ -1175,15 +1175,16 @@ ul{ margin: 10px 0 0 18px; }
     min-height: 360px;
   }
   .highlight-footer{
-    position: static;
-    left: auto;
-    right: auto;
-    bottom: auto;
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
     display: block;
+    z-index: 1;
   }
   .highlight-footer h3{
-    max-width: 100%;
-    padding-top: 40px;
+    max-width: calc(100% - 170px);
+    padding-top: 0;
   }
   .highlight-slide .pub-actions{
     position: absolute;
