@@ -707,6 +707,17 @@ ul{ margin: 10px 0 0 18px; }
   opacity: 0.45;
 }
 
+.modal-img-thumb-news{
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;          /* 4:1 shows roughly quarter the photo */
+  object-fit: cover;
+  object-position: center 80%;   /* tweak what part stays visible */
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  opacity: 0.45;
+}
+
 .modal-img-thumb-talk{
   display: block;
   width: 100%;
@@ -830,7 +841,15 @@ ul{ margin: 10px 0 0 18px; }
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .news-grid .card{
+  display: flex;
+  flex-direction: column;
   grid-column: span 1;
+}
+.news-grid .news-meta-row{
+  margin-top: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 @media (max-width: 980px){
   .news-grid{
