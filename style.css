@@ -1095,24 +1095,90 @@ ul{ margin: 10px 0 0 18px; }
 }
 .highlights-track{
   display: flex;
-  gap: 14px;
+  gap: 0;
   transition: transform 320ms ease;
   will-change: transform;
 }
 .highlight-slide{
-  flex: 0 0 calc((100% - 28px) / 3);
+  flex: 0 0 100%;
+  min-height: 420px;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
 }
-@media (max-width: 980px){
-  .highlight-slide{
-    flex-basis: calc((100% - 14px) / 2);
-  }
+.highlight-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  border: 0;
+  opacity: 0.46;
+}
+.highlight-slide::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 12, 20, 0.82), rgba(8, 12, 20, 0.45) 45%, rgba(8,12,20,0.25));
+  pointer-events: none;
+}
+.highlight-slide .overline{
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  margin: 0;
+}
+.highlight-slide h3{
+  margin: 0;
+}
+.highlight-footer{
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  z-index: 1;
+}
+.highlight-footer h3{
+  max-width: 72%;
+}
+.highlight-footer .pub-actions{
+  margin: 0;
+}
+.carousel-dots{
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 6px 0 18px;
+}
+.carousel-dot{
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(150,165,190,0.38);
+  cursor: pointer;
+}
+.carousel-dot.active{
+  background: #dbe7ff;
 }
 @media (max-width: 760px){
   .highlights-header{
     align-items: flex-start;
   }
   .highlight-slide{
-    flex-basis: 100%;
+    min-height: 360px;
+  }
+  .highlight-footer{
+    align-items: flex-start;
+  }
+  .highlight-footer h3{
+    max-width: 100%;
   }
 }
 

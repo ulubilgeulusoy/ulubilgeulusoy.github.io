@@ -63,32 +63,48 @@
     <section class="highlights-carousel" aria-label="Highlights carousel">
       <div class="highlights-track" id="highlights-track">
         <article class="card highlight-slide">
+          <img class="highlight-image" src="index_pictures/index_4.jpg" alt="Projects highlight image placeholder" />
           <p class="overline">Projects</p>
-          <h3>Explore current and past project work across human factors and space operations.</h3>
-          <p class="pub-actions"><a class="pub-link-btn" href="projects.html">View Projects</a></p>
+          <div class="highlight-footer">
+            <h3>Explore current and past project work across human factors and space operations.</h3>
+            <p class="pub-actions"><a class="pub-link-btn" href="projects.html">View Projects</a></p>
+          </div>
         </article>
         <article class="card highlight-slide">
+          <img class="highlight-image" src="index_pictures/index_4.jpg" alt="Experience highlight image placeholder" />
           <p class="overline">Experience</p>
-          <h3>See roles, technical impact, and research leadership across teams.</h3>
-          <p class="pub-actions"><a class="pub-link-btn" href="experience.html">View Experience</a></p>
+          <div class="highlight-footer">
+            <h3>See roles, technical impact, and research leadership across teams.</h3>
+            <p class="pub-actions"><a class="pub-link-btn" href="experience.html">View Experience</a></p>
+          </div>
         </article>
         <article class="card highlight-slide">
+          <img class="highlight-image" src="index_pictures/index_4.jpg" alt="Education highlight image placeholder" />
           <p class="overline">Education</p>
-          <h3>Review degrees, coursework, and academic milestones.</h3>
-          <p class="pub-actions"><a class="pub-link-btn" href="education.html">View Education</a></p>
+          <div class="highlight-footer">
+            <h3>Review degrees, coursework, and academic milestones.</h3>
+            <p class="pub-actions"><a class="pub-link-btn" href="education.html">View Education</a></p>
+          </div>
         </article>
         <article class="card highlight-slide">
+          <img class="highlight-image" src="index_pictures/index_4.jpg" alt="Engagement highlight image placeholder" />
           <p class="overline">Engagement</p>
-          <h3>Find talks, keynotes, workshops, and news coverage highlights.</h3>
-          <p class="pub-actions"><a class="pub-link-btn" href="engagement.html">View Engagement</a></p>
+          <div class="highlight-footer">
+            <h3>Find talks, keynotes, workshops, and news coverage highlights.</h3>
+            <p class="pub-actions"><a class="pub-link-btn" href="engagement.html">View Engagement</a></p>
+          </div>
         </article>
         <article class="card highlight-slide">
+          <img class="highlight-image" src="index_pictures/index_4.jpg" alt="About highlight image placeholder" />
           <p class="overline">About</p>
-          <h3>Read the full profile, mission focus, and collaboration interests.</h3>
-          <p class="pub-actions"><a class="pub-link-btn" href="about.html">View About</a></p>
+          <div class="highlight-footer">
+            <h3>Read the full profile, mission focus, and collaboration interests.</h3>
+            <p class="pub-actions"><a class="pub-link-btn" href="about.html">View About</a></p>
+          </div>
         </article>
       </div>
     </section>
+    <div class="carousel-dots" id="highlights-dots" aria-label="Highlights slide selectors"></div>
 
     <h2 id="section-news">Ulu in the News</h2>
     <div class="grid news-grid">
@@ -170,26 +186,34 @@
       const track = document.getElementById("highlights-track");
       const prevBtn = document.getElementById("highlights-prev");
       const nextBtn = document.getElementById("highlights-next");
-      if (!track || !prevBtn || !nextBtn) return;
+      const dotsWrap = document.getElementById("highlights-dots");
+      if (!track || !prevBtn || !nextBtn || !dotsWrap) return;
 
       const slides = Array.from(track.querySelectorAll(".highlight-slide"));
       let index = 0;
-
-      function getVisibleCount() {
-        if (window.matchMedia("(max-width: 760px)").matches) return 1;
-        if (window.matchMedia("(max-width: 980px)").matches) return 2;
-        return 3;
-      }
+      const dots = slides.map(function (_, i) {
+        const dot = document.createElement("button");
+        dot.className = "carousel-dot";
+        dot.type = "button";
+        dot.setAttribute("aria-label", `Go to highlight ${i + 1}`);
+        dot.addEventListener("click", function () {
+          index = i;
+          updateCarousel();
+        });
+        dotsWrap.appendChild(dot);
+        return dot;
+      });
 
       function updateCarousel() {
-        const visible = getVisibleCount();
-        const maxIndex = Math.max(0, slides.length - visible);
+        const maxIndex = Math.max(0, slides.length - 1);
         index = Math.max(0, Math.min(index, maxIndex));
         const slideWidth = slides[0].getBoundingClientRect().width;
-        const gap = 14;
-        track.style.transform = `translateX(-${index * (slideWidth + gap)}px)`;
+        track.style.transform = `translateX(-${index * slideWidth}px)`;
         prevBtn.disabled = index === 0;
         nextBtn.disabled = index === maxIndex;
+        dots.forEach(function (dot, dotIndex) {
+          dot.classList.toggle("active", dotIndex === index);
+        });
       }
 
       prevBtn.addEventListener("click", function () {
