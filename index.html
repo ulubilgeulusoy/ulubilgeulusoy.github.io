@@ -183,11 +183,12 @@
     document.getElementById("year").textContent = new Date().getFullYear();
 
     (function initHighlightsCarousel() {
+      const carousel = document.querySelector(".highlights-carousel");
       const track = document.getElementById("highlights-track");
       const prevBtn = document.getElementById("highlights-prev");
       const nextBtn = document.getElementById("highlights-next");
       const dotsWrap = document.getElementById("highlights-dots");
-      if (!track || !prevBtn || !nextBtn || !dotsWrap) return;
+      if (!carousel || !track || !prevBtn || !nextBtn || !dotsWrap) return;
 
       const slides = Array.from(track.querySelectorAll(".highlight-slide"));
       let index = 0;
@@ -225,6 +226,29 @@
         index += 1;
         updateCarousel();
       });
+
+      let touchStartX = 0;
+      let touchStartY = 0;
+      carousel.addEventListener("touchstart", function (event) {
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+      }, { passive: true });
+
+      carousel.addEventListener("touchend", function (event) {
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+        const isHorizontalSwipe = Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY);
+        if (!isHorizontalSwipe) return;
+
+        if (deltaX < 0) {
+          index += 1;
+        } else {
+          index -= 1;
+        }
+        updateCarousel();
+      }, { passive: true });
 
       window.addEventListener("resize", updateCarousel);
       updateCarousel();
