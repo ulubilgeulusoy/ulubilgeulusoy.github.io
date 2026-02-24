@@ -1183,8 +1183,9 @@ ul{ margin: 10px 0 0 18px; }
   }
   .highlight-footer .pub-actions{
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 16px;
+    right: 16px;
+    z-index: 2;
   }
 }
 
