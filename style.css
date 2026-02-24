@@ -381,7 +381,7 @@ h3{ margin: 0 0 8px; }
 .index_role{
   color: var(--muted);
   margin: 4px 0 8px;
-  font-size: 16px;
+  font-size: 17px;
 
   border: 1px solid currentColor; /* outline only */
   background: transparent;         /* no fill */
