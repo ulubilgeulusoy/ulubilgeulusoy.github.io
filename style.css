@@ -960,7 +960,8 @@ ul{ margin: 10px 0 0 18px; }
     min-height: 390px;
   }
   .news-face{
-    position: relative;
+    position: absolute;
+    inset: 0;
     backface-visibility: visible;
     -webkit-backface-visibility: visible;
   }
