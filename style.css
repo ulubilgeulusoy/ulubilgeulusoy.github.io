@@ -1175,6 +1175,10 @@ ul{ margin: 10px 0 0 18px; }
     min-height: 360px;
   }
   .highlight-footer{
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
     display: block;
   }
   .highlight-footer h3{
