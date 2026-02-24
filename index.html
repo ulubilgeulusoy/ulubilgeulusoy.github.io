@@ -53,39 +53,42 @@
       safety, and mission success.
     </p>      
 
-    <h2>Highlights</h2>
-    <div class="grid">
-      <div class="card span6">
-        <p class="overline">Projects</p>
-        <h3>Human-Robot Interaction Experiment Protocol Design and Execution</h3>
-        <p class="meta">Human Factors • AI-Augmented Development</p>
-        <p class="pub-actions"><a class="pub-link-btn" href="#" aria-label="Add project link for Human-Robot Interaction Experiment Protocol Design and Execution">See Details</a></p>
-      </div>
-
-      <div class="card span6">
-        <p class="overline">Projects</p>
-        <div class="image-with-credit">
-          <img class="modal-img-thumb-2" src="project_pictures/astronaut_study.jpg" alt="Former astronauts survey study"/>
-          <span class="image-credit">Image credit: NASA</span>
-        </div>
-        <h3>Characterization of Space Habitat Maintenance Ops with 10 Former Astronauts</h3>
-        <p class="meta">Human Factors • Space Operations</p>
-        <p class="pub-actions"><a class="pub-link-btn" href="#" aria-label="Add project link for Characterization of Space Habitat Maintenance Ops with 10 Former Astronauts">See Details</a></p>
-      </div>
-   
-      <div class="card span6">
-        <p class="overline">In the News</p>
-        <h3>AI and astronauts: How one CU Boulder researcher is helping prepare humans for Mars</h3>
-        <p class="meta">Daily Camera • Jan 2026</p>
-        <p class="pub-actions"><a class="pub-link-btn" href="#" aria-label="Add news link for AI and astronauts article">Read Article</a></p>
-      </div>
-      <div class="card span6">
-        <p class="overline">Keynotes and Talks</p>
-        <h3>The Real-Time Support Needs of Astronauts for Maintenance</h3>
-        <p class="meta">Lunar Surface Infrastructure Workshop • Sept 2025</p>
-        <p class="pub-actions"><a class="pub-link-btn" href="#" aria-label="Add talk link for The Real-Time Support Needs of Astronauts for Maintenance">See Details</a></p>
+    <div class="highlights-header">
+      <h2>Highlights</h2>
+      <div class="carousel-controls" aria-label="Highlight carousel controls">
+        <button class="carousel-btn" id="highlights-prev" type="button" aria-label="Show previous highlights">&#8249;</button>
+        <button class="carousel-btn" id="highlights-next" type="button" aria-label="Show next highlights">&#8250;</button>
       </div>
     </div>
+    <section class="highlights-carousel" aria-label="Highlights carousel">
+      <div class="highlights-track" id="highlights-track">
+        <article class="card highlight-slide">
+          <p class="overline">Projects</p>
+          <h3>Explore current and past project work across human factors and space operations.</h3>
+          <p class="pub-actions"><a class="pub-link-btn" href="projects.html">View Projects</a></p>
+        </article>
+        <article class="card highlight-slide">
+          <p class="overline">Experience</p>
+          <h3>See roles, technical impact, and research leadership across teams.</h3>
+          <p class="pub-actions"><a class="pub-link-btn" href="experience.html">View Experience</a></p>
+        </article>
+        <article class="card highlight-slide">
+          <p class="overline">Education</p>
+          <h3>Review degrees, coursework, and academic milestones.</h3>
+          <p class="pub-actions"><a class="pub-link-btn" href="education.html">View Education</a></p>
+        </article>
+        <article class="card highlight-slide">
+          <p class="overline">Engagement</p>
+          <h3>Find talks, keynotes, workshops, and news coverage highlights.</h3>
+          <p class="pub-actions"><a class="pub-link-btn" href="engagement.html">View Engagement</a></p>
+        </article>
+        <article class="card highlight-slide">
+          <p class="overline">About</p>
+          <h3>Read the full profile, mission focus, and collaboration interests.</h3>
+          <p class="pub-actions"><a class="pub-link-btn" href="about.html">View About</a></p>
+        </article>
+      </div>
+    </section>
 
     <h2 id="section-news">Ulu in the News</h2>
     <div class="grid news-grid">
@@ -162,6 +165,46 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function initHighlightsCarousel() {
+      const track = document.getElementById("highlights-track");
+      const prevBtn = document.getElementById("highlights-prev");
+      const nextBtn = document.getElementById("highlights-next");
+      if (!track || !prevBtn || !nextBtn) return;
+
+      const slides = Array.from(track.querySelectorAll(".highlight-slide"));
+      let index = 0;
+
+      function getVisibleCount() {
+        if (window.matchMedia("(max-width: 760px)").matches) return 1;
+        if (window.matchMedia("(max-width: 980px)").matches) return 2;
+        return 3;
+      }
+
+      function updateCarousel() {
+        const visible = getVisibleCount();
+        const maxIndex = Math.max(0, slides.length - visible);
+        index = Math.max(0, Math.min(index, maxIndex));
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        const gap = 14;
+        track.style.transform = `translateX(-${index * (slideWidth + gap)}px)`;
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === maxIndex;
+      }
+
+      prevBtn.addEventListener("click", function () {
+        index -= 1;
+        updateCarousel();
+      });
+
+      nextBtn.addEventListener("click", function () {
+        index += 1;
+        updateCarousel();
+      });
+
+      window.addEventListener("resize", updateCarousel);
+      updateCarousel();
+    })();
   </script>
 </body>
 </html>
