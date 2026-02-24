@@ -901,6 +901,10 @@ ul{ margin: 10px 0 0 18px; }
 }
 .news-face-back{
   transform: rotateY(180deg);
+  z-index: 2;
+}
+.news-face-front{
+  z-index: 1;
 }
 .news-face-front h3{
   position: absolute;
@@ -928,18 +932,21 @@ ul{ margin: 10px 0 0 18px; }
   inset: 0;
   margin: 0;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  gap: 0;
   z-index: 1;
 }
 .news-face-back .news-meta-row .pub-actions{
   margin: 0;
 }
-.news-grid .news-meta-row{
-  margin-top: auto;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
+.news-flip-card .news-meta-row{
+  margin-top: 0;
+}
+.news-flip-card .pub-link-btn{
+  position: relative;
+  z-index: 2;
 }
 @media (hover: none){
   .news-flip-card .news-flip-inner{
