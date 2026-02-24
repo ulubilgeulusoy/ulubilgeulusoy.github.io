@@ -1175,10 +1175,16 @@ ul{ margin: 10px 0 0 18px; }
     min-height: 360px;
   }
   .highlight-footer{
-    align-items: flex-start;
+    display: block;
   }
   .highlight-footer h3{
     max-width: 100%;
+    padding-top: 40px;
+  }
+  .highlight-footer .pub-actions{
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 }
 
