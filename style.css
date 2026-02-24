@@ -1181,11 +1181,12 @@ ul{ margin: 10px 0 0 18px; }
     max-width: 100%;
     padding-top: 40px;
   }
-  .highlight-footer .pub-actions{
+  .highlight-slide .pub-actions{
     position: absolute;
     top: 16px;
     right: 16px;
     z-index: 2;
+    margin: 0;
   }
 }
 
