@@ -865,6 +865,7 @@ ul{ margin: 10px 0 0 18px; }
   filter: brightness(1.08);
 }
 .repo-actions{
+  display: inline-flex;
   margin-top: 0;
 }
 .repo-link-btn{
@@ -872,10 +873,11 @@ ul{ margin: 10px 0 0 18px; }
   align-items: center;
   gap: 8px;
 }
-.pub-list li:has(.repo-actions){
+.repo-list-row{
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  align-items: center;
 }
 .repo-icon{
   width: 15px;
