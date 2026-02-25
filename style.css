@@ -864,6 +864,26 @@ ul{ margin: 10px 0 0 18px; }
   text-decoration: none;
   filter: brightness(1.08);
 }
+.repo-actions{
+  margin-top: 8px;
+}
+.repo-link-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.repo-icon{
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  text-indent: -9999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  filter: brightness(1.05);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23e8edf8'%3E%3Cpath d='M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.34c-2.24.49-2.71-1.08-2.71-1.08-.37-.92-.9-1.16-.9-1.16-.73-.5.06-.49.06-.49.82.06 1.25.84 1.25.84.71 1.22 1.87.86 2.33.66.08-.52.28-.86.5-1.06-1.78-.2-3.64-.89-3.64-3.98 0-.88.31-1.6.83-2.17-.08-.2-.36-1.02.08-2.13 0 0 .68-.22 2.2.83a7.62 7.62 0 0 1 4 0c1.52-1.05 2.2-.83 2.2-.83.44 1.11.16 1.93.08 2.13.52.57.83 1.29.83 2.17 0 3.1-1.87 3.78-3.65 3.98.29.25.54.73.54 1.47v2.18c0 .21.15.45.55.38A8 8 0 0 0 8 0Z'/%3E%3C/svg%3E");
+}
 .pub-row{
   display: flex;
   align-items: flex-start;
