@@ -213,6 +213,39 @@ h3{ margin: 0 0 8px; }
   border-radius: 14px;
   padding: 12px 14px;
 }
+.experience-accordion{
+  padding: 0;
+}
+.experience-accordion summary{
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  position: relative;
+}
+.experience-accordion summary::-webkit-details-marker{
+  display: none;
+}
+.experience-accordion summary h3{
+  margin: 0 34px 4px 0;
+}
+.experience-accordion summary .meta{
+  margin: 0;
+}
+.experience-accordion summary::after{
+  content: "+";
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1;
+}
+.experience-accordion[open] summary::after{
+  content: "-";
+}
+.experience-accordion > ul{
+  margin: 0 14px 14px 32px;
+}
 .edu-row{
   display:flex;
   flex-direction: column;
