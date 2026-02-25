@@ -865,11 +865,16 @@ ul{ margin: 10px 0 0 18px; }
   filter: brightness(1.08);
 }
 .repo-actions{
-  margin-top: 8px;
+  margin-top: 0;
 }
 .repo-link-btn{
   display: inline-flex;
   align-items: center;
+  gap: 8px;
+}
+.pub-list li:has(.repo-actions){
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 .repo-icon{
