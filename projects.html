@@ -33,19 +33,20 @@
     </div>
   </div>
 
-  <main class="wrap">
+  <main class="wrap projects-tabs-mode">
     <h1>Projects</h1>
     <p class="subtitle">This page presents a curated showcase of my work, reflecting research, engineering, and leadership.
        Click the buttons below to explore projects organized by domain.</p>
     
-    <div class="section-nav">
+    <div class="section-nav projects-tabs" role="tablist" aria-label="Project domains">
       <span class="section-label">Domains</span>
-      <a class="section-pill" href="#domain-human-factors">Human Factors</a>
-      <a class="section-pill" href="#domain-project-management">Project Management</a>
-      <a class="section-pill" href="#domain-other">Other</a>
+      <button class="section-pill active" type="button" role="tab" aria-selected="true" data-domain-tab="all">All</button>
+      <button class="section-pill" type="button" role="tab" aria-selected="false" data-domain-tab="human-factors">Human Factors</button>
+      <button class="section-pill" type="button" role="tab" aria-selected="false" data-domain-tab="project-management">Project Management</button>
+      <button class="section-pill" type="button" role="tab" aria-selected="false" data-domain-tab="other">Other</button>
     </div>
 
-          <article class="card highlight">
+          <article class="card highlight project-card" data-domain="human-factors">
         <div class="card-tag">Active</div>
         <img class="modal-img-thumb" src="project_pictures/experiment_setup_hri.jpg"/>
         <div class="card-header">
@@ -58,13 +59,13 @@
         <p class="small">Stack: Python (OpenCV, PyQt, ViSP), C++ (Kinesthetic Teaching), Lab Streaming Layer (LSL), BIOPAC.</p>
       </article>
 
-    <div class="grid">
+    <div class="grid" id="projects-panel">
 
       <div class="section-head" id="domain-human-factors">
         <h2>Human Factors</h2>
       </div>
 
-      <article class="card">
+      <article class="card project-card" data-domain="human-factors">
         <img class="modal-img-thumb" src="project_pictures/experiment_setup.jpg"/>
         <div class="card-header">
           <h3>Human-AI Interaction Experiment Protocol Design and Execution</h3>
@@ -78,7 +79,7 @@
         
       </article>
 
-      <article class="card">
+      <article class="card project-card" data-domain="human-factors">
         <div class="image-with-credit">
           <img class="modal-img-thumb-2" src="project_pictures/astronaut_study.jpg" alt="Former astronauts survey study"/>
           <span class="image-credit">Image credit: NASA</span>
@@ -99,7 +100,7 @@
         <h2>Project Management</h2>
       </div>
 
-      <article class="card">
+      <article class="card project-card" data-domain="project-management">
         <img class="modal-img-thumb" src="project_pictures/cap3_demo.jpg"/>
         <div class="card-header">
           <h3>NASA HOME Capstone Demonstration</h3>
@@ -117,7 +118,7 @@
         <p class="small">Stack: Python (OpenCV and PyQt), Open Broadcaster Software (OBS).</p>
       </article>
 
-      <article class="card">
+      <article class="card project-card" data-domain="project-management">
       <div class="image-with-credit">
         <img class="modal-img-thumb" src="project_pictures/balerion.jpg"/>
         <span class="image-credit">Image credit: USC LPL</span>
@@ -135,7 +136,7 @@
         <p class="small">Skills: Stakeholder Communication, Proposal Development, Timeline Coordination.</p>
       </article>
 
-      <article class="card">
+      <article class="card project-card" data-domain="project-management">
         <div class="image-with-credit">
         <img class="modal-img-thumb" src="project_pictures/crytos.jpg"/>
         <span class="image-credit">Image credit: USC LPL</span>
@@ -156,7 +157,7 @@
         <h2>Other</h2>
       </div>
 
-      <article class="card">
+      <article class="card project-card" data-domain="other">
         <img class="modal-img-thumb" src="project_pictures/LPL_reviews.JPG"/>
         <div class="card-header">
           <h3>Guidelines for Design &amp; Test Readiness Reviews</h3>
@@ -169,7 +170,7 @@
         <p class="small">Skills: Review Process Development.</p>
       </article>
 
-      <article class="card">
+      <article class="card project-card" data-domain="other">
         <div class="image-with-credit">
         <img class="modal-img-thumb-2" src="project_pictures/pyro_igniter_3.jpg"/>
         <span class="image-credit">Image credit: USC LPL</span>
@@ -695,6 +696,36 @@
         }
       });
     });
+
+    const domainTabs = document.querySelectorAll('[data-domain-tab]');
+    const projectCards = document.querySelectorAll('.project-card');
+    const domainHeaders = document.querySelectorAll('.projects-tabs-mode .section-head');
+
+    function setDomainTab(domain) {
+      domainTabs.forEach(tab => {
+        const selected = tab.getAttribute('data-domain-tab') === domain;
+        tab.classList.toggle('active', selected);
+        tab.setAttribute('aria-selected', selected ? 'true' : 'false');
+      });
+
+      projectCards.forEach(card => {
+        const cardDomain = card.getAttribute('data-domain');
+        const visible = domain === 'all' || cardDomain === domain;
+        card.style.display = visible ? '' : 'none';
+      });
+
+      domainHeaders.forEach(header => {
+        header.style.display = domain === 'all' ? '' : 'none';
+      });
+    }
+
+    domainTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        setDomainTab(tab.getAttribute('data-domain-tab'));
+      });
+    });
+
+    setDomainTab('all');
   </script>
 </body>
 </html>

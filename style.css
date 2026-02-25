@@ -120,6 +120,9 @@ h3{ margin: 0 0 8px; }
 }
 .section-pill{
   display: inline-block;
+  appearance: none;
+  font: inherit;
+  cursor: pointer;
   border: 1px solid var(--border);
   background: rgba(16,24,38,0.7);
   color: var(--text);
@@ -130,6 +133,10 @@ h3{ margin: 0 0 8px; }
 .section-pill:hover{
   text-decoration: none;
   filter: brightness(1.08);
+}
+.projects-tabs .section-pill.active{
+  background: rgba(42,52,68,0.9);
+  border-color: #4c5d79;
 }
 .section-head{
   grid-column: span 12;
