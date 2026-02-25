@@ -424,12 +424,12 @@ h3{ margin: 0 0 8px; }
   font-size: 13.3px;
   font-weight: bold;
 }
-main.wrap > h1:first-of-type,
-main.wrap > .index_role,
-main.wrap > .subtitle{
+.home-name,
+.index_role,
+.index_role + .subtitle{
   text-align: center;
 }
-main.wrap > .subtitle{
+.index_role + .subtitle{
   max-width: 980px;
   margin-left: auto;
   margin-right: auto;
