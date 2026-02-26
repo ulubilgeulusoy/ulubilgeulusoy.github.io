@@ -851,6 +851,10 @@ ul{ margin: 10px 0 0 18px; }
 .pub-actions{
   margin-top: 10px;
 }
+.home-resume-cta{
+  margin-top: 6px;
+  text-align: center;
+}
 .pub-link-btn{
   display: inline-block;
   border: 1px solid var(--border);
