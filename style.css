@@ -1276,8 +1276,15 @@ ul{ margin: 10px 0 0 18px; }
   margin: 6px 0 18px;
 }
 .carousel-dot{
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  box-sizing: border-box;
+  display: inline-block;
   width: 9px;
   height: 9px;
+  min-width: 9px;
+  min-height: 9px;
   border-radius: 50%;
   border: 0;
   background: rgba(150,165,190,0.38);
