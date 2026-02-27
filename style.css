@@ -593,6 +593,61 @@ footer{
   border-radius: 12px;
   overflow: hidden;
 }
+.about-carousels{
+  margin-top: 16px;
+}
+.about-carousel-grid{
+  display: grid;
+  gap: 14px;
+}
+.about-carousel-grid-top{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 14px;
+}
+.about-carousel-grid-bottom{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.about-carousel-card{
+  padding: 12px;
+  border-color: #35507a;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(120,173,230,0.1), transparent 44%),
+    linear-gradient(160deg, rgba(20,28,43,0.9), rgba(25,32,47,0.9));
+}
+.about-carousel-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.about-carousel-head h3{
+  margin: 0;
+  font-size: 1.06rem;
+}
+.about-carousel{
+  overflow: hidden;
+  border: 1px solid #314a71;
+  border-radius: 12px;
+  background: rgba(9,14,25,0.52);
+}
+.about-carousel-track{
+  display: flex;
+  transition: transform 320ms ease;
+  will-change: transform;
+}
+.about-slide{
+  flex: 0 0 100%;
+  min-height: 170px;
+  padding: 14px;
+}
+.about-slide h4{
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+}
+.about-slide p{
+  margin: 0;
+}
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip{
   background: #1f2430;
@@ -1508,6 +1563,13 @@ ul{ margin: 10px 0 0 18px; }
   background: #dbe7ff;
 }
 @media (max-width: 760px){
+  .about-carousel-grid-top,
+  .about-carousel-grid-bottom{
+    grid-template-columns: 1fr;
+  }
+  .about-slide{
+    min-height: 145px;
+  }
   .highlights-header{
     align-items: flex-start;
   }
