@@ -107,11 +107,16 @@ h1{ font-size: 2.1rem; margin: 18px 0 8px; }
   flex-wrap: wrap;
 }
 .resume-title-row h1{
-  margin: 18px 0 8px;
+  margin: 18px 0 12px;
+  line-height: 1;
 }
 .resume-title-row .btn{
   margin-top: 0;
-  padding: 6px 12px;   /* first value controls vertical size */
+  padding: 5px 12px;
+  font-size: 0.95rem;
+  line-height: 1.1;
+  display: inline-flex;
+  align-items: center;
 }
 h2{ font-size: 1.35rem; margin: 30px 0 12px; }
 h3{ margin: 0 0 8px; }
