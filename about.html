@@ -117,12 +117,20 @@
       const mapEl = document.getElementById("about-map");
       if (!mapEl) return;
 
+      const worldBounds = L.latLngBounds(
+        L.latLng(-85, -180),
+        L.latLng(85, 180)
+      );
+
       const map = L.map("about-map", {
-        zoomControl: true
+        zoomControl: true,
+        maxBounds: worldBounds,
+        maxBoundsViscosity: 1.0
       }).setView([38.9, -10], 2);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18,
+        noWrap: true,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
@@ -163,7 +171,6 @@
   </script>
 </body>
 </html>
-
 
 
 
