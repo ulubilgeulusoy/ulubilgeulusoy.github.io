@@ -274,6 +274,32 @@
         bounds.push(place.coords);
       });
 
+      map.on("popupopen", function (event) {
+        const popup = event.popup;
+        if (!popup) return;
+
+        function refreshPopupLayout() {
+          popup.update();
+          map.panInside(popup.getLatLng(), {
+            paddingTopLeft: [24, 24],
+            paddingBottomRight: [24, 24]
+          });
+        }
+
+        refreshPopupLayout();
+
+        const popupEl = popup.getElement();
+        if (!popupEl) return;
+
+        const videos = popupEl.querySelectorAll("video");
+        videos.forEach(function (video) {
+          if (video.dataset.popupBound === "true") return;
+          video.dataset.popupBound = "true";
+          video.addEventListener("loadedmetadata", refreshPopupLayout);
+          video.addEventListener("loadeddata", refreshPopupLayout);
+        });
+      });
+
       if (bounds.length > 1) {
         map.fitBounds(bounds, { padding: [30, 30] });
       }
