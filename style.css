@@ -660,6 +660,15 @@ footer{
   letter-spacing: 0.07em;
   text-transform: uppercase;
 }
+.about-slide-image{
+  width: 100%;
+  height: 120px;
+  border-radius: 10px;
+  border: 1px solid #3f5f8d;
+  margin-bottom: 12px;
+  object-fit: cover;
+  display: block;
+}
 .about-slide h4{
   margin: 0 0 8px;
   font-size: 1.15rem;
@@ -1590,6 +1599,9 @@ ul{ margin: 10px 0 0 18px; }
     min-height: 145px;
   }
   .about-slide-media{
+    height: 100px;
+  }
+  .about-slide-image{
     height: 100px;
   }
   .highlights-header{
