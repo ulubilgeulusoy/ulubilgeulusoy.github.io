@@ -114,12 +114,12 @@
                 <p>Improbable</p>
               </div>
               <div class="about-slide">
-                <img class="about-slide-image about-slide-image-book" src="about_pictures/books/the_dice_man_luke_rhinehart.jpg" alt="The Dice Man by Luke Rhinehart book cover">
-                <p>The Dice Man</p>
-              </div>
-              <div class="about-slide">
                 <img class="about-slide-image about-slide-image-book" src="about_pictures/books/the_end_of_eternity_isaac_asimov.jpg" alt="The End of Eternity by Isaac Asimov book cover">
                 <p>The End of Eternity</p>
+              </div>
+              <div class="about-slide">
+                <img class="about-slide-image about-slide-image-book" src="about_pictures/books/the_dice_man_luke_rhinehart.jpg" alt="The Dice Man by Luke Rhinehart book cover">
+                <p>The Dice Man</p>
               </div>
               <div class="about-slide">
                 <img class="about-slide-image about-slide-image-book" src="about_pictures/books/robot_visions_isaac_asimov.jpg" alt="Robot Visions by Isaac Asimov book cover">
@@ -251,9 +251,7 @@
         {
           name: "Istanbul, Türkiye",
           coords: [41.0082, 28.9784],
-          detail:
-            'Istanbul is where I spent eighteen years of my life. There, I attended Sehremini Anatolian High School and was captain of the basketball team for two years. I later began my space engineering journey at Istanbul Technical University and completed my undergraduate thesis on designing a human mission beyond the heliopause, just outside our solar system.' +
-            '<video class="about-popup-media" controls preload="metadata"><source src="project_videos/balerion.mp4" type="video/mp4"></video>'
+          detail: "Istanbul is where I spent eighteen years of my life. There, I attended Sehremini Anatolian High School and was captain of the basketball team for two years. I later began my space engineering journey at Istanbul Technical University and completed my undergraduate thesis on designing a human mission beyond the heliopause, just outside our solar system."
         },
         {
           name: "Los Angeles, California",
@@ -270,41 +268,8 @@
       const bounds = [];
       places.forEach(function (place) {
         const marker = L.marker(place.coords).addTo(map);
-        marker.bindPopup("<strong>" + place.name + "</strong><br>" + place.detail, {
-          maxWidth: 420,
-          minWidth: 320,
-          autoPan: true,
-          autoPanPaddingTopLeft: [24, 120],
-          autoPanPaddingBottomRight: [24, 24],
-          offset: [0, -14]
-        });
+        marker.bindPopup("<strong>" + place.name + "</strong><br>" + place.detail);
         bounds.push(place.coords);
-      });
-
-      map.on("popupopen", function (event) {
-        const popup = event.popup;
-        if (!popup) return;
-
-        function refreshPopupLayout() {
-          popup.update();
-          map.panInside(popup.getLatLng(), {
-            paddingTopLeft: [24, 120],
-            paddingBottomRight: [24, 24]
-          });
-        }
-
-        refreshPopupLayout();
-
-        const popupEl = popup.getElement();
-        if (!popupEl) return;
-
-        const videos = popupEl.querySelectorAll("video");
-        videos.forEach(function (video) {
-          if (video.dataset.popupBound === "true") return;
-          video.dataset.popupBound = "true";
-          video.addEventListener("loadedmetadata", refreshPopupLayout);
-          video.addEventListener("loadeddata", refreshPopupLayout);
-        });
       });
 
       if (bounds.length > 1) {

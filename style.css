@@ -705,13 +705,6 @@ footer{
   background: #1f2430;
   color: var(--text);
 }
-.about-popup-media{
-  display: block;
-  width: 100%;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: 1px solid #314a71;
-}
 .leaflet-container a{
   color: #9bd1ff;
 }
