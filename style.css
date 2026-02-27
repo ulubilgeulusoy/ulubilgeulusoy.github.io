@@ -596,6 +596,17 @@ footer{
 .about-carousels{
   margin-top: 16px;
 }
+.about-text-card{
+  margin: 0 0 14px;
+  border-color: #35507a;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(120,173,230,0.1), transparent 44%),
+    linear-gradient(160deg, rgba(20,28,43,0.9), rgba(25,32,47,0.9));
+}
+.about-text-card .subtitle{
+  margin: 6px 0 0;
+  max-width: 72ch;
+}
 .about-carousel-grid{
   display: grid;
   gap: 14px;
@@ -634,10 +645,6 @@ footer{
 .about-carousel-head h3{
   margin: 0;
   font-size: 1.06rem;
-}
-.about-carousel-head .subtitle{
-  margin: 4px 0 0;
-  max-width: 46ch;
 }
 .about-carousel{
   overflow: hidden;
