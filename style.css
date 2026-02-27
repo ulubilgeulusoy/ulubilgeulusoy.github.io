@@ -635,6 +635,10 @@ footer{
   margin: 0;
   font-size: 1.06rem;
 }
+.about-carousel-head .subtitle{
+  margin: 4px 0 0;
+  max-width: 46ch;
+}
 .about-carousel{
   overflow: hidden;
   border: 1px solid #314a71;
