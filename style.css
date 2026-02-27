@@ -605,7 +605,11 @@ footer{
   margin-bottom: 14px;
 }
 .about-carousel-grid-bottom{
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.about-carousel-grid-bottom .about-card-wide,
+.about-carousel-grid-bottom .about-card-narrow{
+  grid-column: span 1;
 }
 .about-carousel-card{
   padding: 12px;
