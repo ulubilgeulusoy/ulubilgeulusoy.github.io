@@ -270,7 +270,14 @@
       const bounds = [];
       places.forEach(function (place) {
         const marker = L.marker(place.coords).addTo(map);
-        marker.bindPopup("<strong>" + place.name + "</strong><br>" + place.detail);
+        marker.bindPopup("<strong>" + place.name + "</strong><br>" + place.detail, {
+          maxWidth: 420,
+          minWidth: 320,
+          autoPan: true,
+          autoPanPaddingTopLeft: [24, 120],
+          autoPanPaddingBottomRight: [24, 24],
+          offset: [0, -14]
+        });
         bounds.push(place.coords);
       });
 
@@ -281,7 +288,7 @@
         function refreshPopupLayout() {
           popup.update();
           map.panInside(popup.getLatLng(), {
-            paddingTopLeft: [24, 24],
+            paddingTopLeft: [24, 120],
             paddingBottomRight: [24, 24]
           });
         }
