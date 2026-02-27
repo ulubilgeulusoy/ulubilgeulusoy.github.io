@@ -606,6 +606,7 @@ footer{
 .about-text-card .subtitle{
   margin: 6px 0 0;
   max-width: none;
+  text-align: justify;
 }
 .about-carousel-grid{
   display: grid;
