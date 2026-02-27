@@ -600,6 +600,9 @@ footer{
   display: grid;
   gap: 14px;
 }
+.about-carousel-grid > .about-carousel-card{
+  grid-column: auto;
+}
 .about-carousel-grid-top{
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-bottom: 14px;
@@ -640,6 +643,22 @@ footer{
   flex: 0 0 100%;
   min-height: 170px;
   padding: 14px;
+}
+.about-slide-media{
+  height: 120px;
+  border-radius: 10px;
+  border: 1px solid #3f5f8d;
+  margin-bottom: 12px;
+  background:
+    linear-gradient(135deg, rgba(80,130,198,0.5), rgba(23,33,52,0.72)),
+    radial-gradient(circle at 20% 25%, rgba(210,230,255,0.3), transparent 45%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d7e6ff;
+  font-size: 0.85rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
 }
 .about-slide h4{
   margin: 0 0 8px;
@@ -1569,6 +1588,9 @@ ul{ margin: 10px 0 0 18px; }
   }
   .about-slide{
     min-height: 145px;
+  }
+  .about-slide-media{
+    height: 100px;
   }
   .highlights-header{
     align-items: flex-start;
