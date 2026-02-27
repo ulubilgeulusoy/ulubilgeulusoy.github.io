@@ -604,11 +604,11 @@ footer{
   grid-column: auto;
 }
 .about-carousel-grid-top{
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 2fr 1fr;
   margin-bottom: 14px;
 }
 .about-carousel-grid-bottom{
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr 2fr;
 }
 .about-carousel-card{
   padding: 12px;
@@ -616,6 +616,12 @@ footer{
   background:
     radial-gradient(circle at 85% 20%, rgba(120,173,230,0.1), transparent 44%),
     linear-gradient(160deg, rgba(20,28,43,0.9), rgba(25,32,47,0.9));
+}
+.about-card-wide{
+  grid-column: auto;
+}
+.about-card-narrow{
+  grid-column: auto;
 }
 .about-carousel-head{
   display: flex;
@@ -641,11 +647,11 @@ footer{
 }
 .about-slide{
   flex: 0 0 100%;
-  min-height: 170px;
+  min-height: 245px;
   padding: 14px;
 }
 .about-slide-media{
-  height: 120px;
+  height: 190px;
   border-radius: 10px;
   border: 1px solid #3f5f8d;
   margin-bottom: 12px;
@@ -662,7 +668,7 @@ footer{
 }
 .about-slide-image{
   width: 100%;
-  height: 120px;
+  height: 190px;
   border-radius: 10px;
   border: 1px solid #3f5f8d;
   margin-bottom: 12px;
@@ -1596,13 +1602,13 @@ ul{ margin: 10px 0 0 18px; }
     grid-template-columns: 1fr;
   }
   .about-slide{
-    min-height: 145px;
+    min-height: 200px;
   }
   .about-slide-media{
-    height: 100px;
+    height: 150px;
   }
   .about-slide-image{
-    height: 100px;
+    height: 150px;
   }
   .highlights-header{
     align-items: flex-start;
