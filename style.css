@@ -633,6 +633,41 @@ footer{
 .book-shelf-card .small{
   margin: 0;
 }
+.engagement-tabs{
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0 0 12px;
+}
+.engagement-tab{
+  border: 1px solid #3f4b5f;
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(180deg, rgba(38,49,66,0.95), rgba(25,33,46,0.95));
+  color: #bdc8d8;
+  padding: 8px 14px 9px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 120ms ease, color 120ms ease, transform 120ms ease;
+}
+.engagement-tab:hover{
+  color: var(--text);
+  filter: brightness(1.08);
+}
+.engagement-tab.active{
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(53,67,89,0.98), rgba(33,44,61,0.98));
+  border-color: #4f617d;
+  transform: translateY(1px);
+}
+.engagement-panel{
+  border-top: 1px solid #4f617d;
+  padding-top: 12px;
+}
+.engagement-panel[hidden]{
+  display: none !important;
+}
 ul{ margin: 10px 0 0 18px; }
 .home-roles{
   margin-top: 4px;
