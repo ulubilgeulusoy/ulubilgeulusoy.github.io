@@ -248,37 +248,41 @@ h3{ margin: 0 0 8px; }
 }
 .edu-row{
   display:flex;
-  flex-direction: column;
   gap: 2px;
   align-items: flex-start;
 }
 .edu-content{
   width: 100%;
 }
-.edu-logo{
-  width: 172px;
-  height: 172px;
-  object-fit: contain;
-  flex: 0 0 auto;
-  margin-top: -16px;
-  margin-bottom: -10px;
+.edu-head{
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
 }
-
-.edu-logousc{
-  width: 186px;
-  height: 186px;
-  object-fit: contain;
+.edu-mark{
   flex: 0 0 auto;
-  margin-top: -22px;
-  margin-bottom: -16px;
+  display: flex;
+  align-items: stretch;
+}
+.edu-logo-mark{
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+.edu-head-text{
+  display: grid;
+  gap: 2px;
 }
 .edu-degree{
-  margin: 2px 0 2px;
+  margin: 0;
+  line-height: 1.2;
 }
 .edu-school{
   margin: 0;
   color: #d8deea;
   font-weight: 600;
+  line-height: 1.2;
 }
 .edu-date{
   margin: 4px 0 8px;
@@ -302,6 +306,37 @@ h3{ margin: 0 0 8px; }
 .edu-sections{
   display: grid;
   gap: 8px;
+}
+.edu-expand{
+  margin: 0;
+}
+.edu-expand-toggle{
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: rgba(16,24,38,0.65);
+  color: #dce4f1;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+.edu-expand-toggle::-webkit-details-marker{
+  display: none;
+}
+.edu-expand-toggle::before{
+  content: "+";
+  font-weight: 700;
+  font-size: 1rem;
+}
+.edu-expand[open] .edu-expand-toggle{
+  margin-bottom: 8px;
+}
+.edu-expand[open] .edu-expand-toggle::before{
+  content: "-";
 }
 .edu-kicker{
   margin: 4px 0 0;
