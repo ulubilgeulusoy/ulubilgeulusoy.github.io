@@ -644,7 +644,7 @@ footer{
 }
 .about-slide{
   flex: 0 0 100%;
-  min-height: 470px;
+  min-height: 420px;
   padding: 14px;
 }
 .about-slide-media{
@@ -1604,7 +1604,7 @@ ul{ margin: 10px 0 0 18px; }
     grid-column: span 1;
   }
   .about-slide{
-    min-height: 390px;
+    min-height: 345px;
   }
   .about-slide-media{
     height: 300px;
