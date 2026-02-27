@@ -700,6 +700,17 @@ footer{
 .about-slide p{
   margin: 0;
 }
+.about-books-card .about-slide{
+  min-height: 420px;
+  padding-bottom: 10px;
+}
+.about-books-card .about-slide-image{
+  height: 390px;
+  margin-bottom: 0;
+}
+.about-books-card .about-slide p{
+  display: none;
+}
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip{
   background: #1f2430;
@@ -1631,6 +1642,12 @@ ul{ margin: 10px 0 0 18px; }
   }
   .about-slide-image{
     height: 300px;
+  }
+  .about-books-card .about-slide{
+    min-height: 350px;
+  }
+  .about-books-card .about-slide-image{
+    height: 320px;
   }
   .highlights-header{
     align-items: flex-start;
