@@ -604,11 +604,11 @@ footer{
   grid-column: auto;
 }
 .about-carousel-grid-top{
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-bottom: 14px;
 }
 .about-carousel-grid-bottom{
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .about-carousel-card{
   padding: 12px;
@@ -618,10 +618,10 @@ footer{
     linear-gradient(160deg, rgba(20,28,43,0.9), rgba(25,32,47,0.9));
 }
 .about-card-wide{
-  grid-column: auto;
+  grid-column: span 2;
 }
 .about-card-narrow{
-  grid-column: auto;
+  grid-column: span 1;
 }
 .about-carousel-head{
   display: flex;
@@ -1600,6 +1600,10 @@ ul{ margin: 10px 0 0 18px; }
   .about-carousel-grid-top,
   .about-carousel-grid-bottom{
     grid-template-columns: 1fr;
+  }
+  .about-card-wide,
+  .about-card-narrow{
+    grid-column: span 1;
   }
   .about-slide{
     min-height: 200px;
