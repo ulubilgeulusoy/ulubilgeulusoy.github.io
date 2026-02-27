@@ -644,11 +644,11 @@ footer{
 }
 .about-slide{
   flex: 0 0 100%;
-  min-height: 368px;
+  min-height: 470px;
   padding: 14px;
 }
 .about-slide-media{
-  height: 285px;
+  height: 360px;
   border-radius: 10px;
   border: 1px solid #3f5f8d;
   margin-bottom: 12px;
@@ -665,11 +665,12 @@ footer{
 }
 .about-slide-image{
   width: 100%;
-  height: 285px;
+  height: 360px;
   border-radius: 10px;
   border: 1px solid #3f5f8d;
   margin-bottom: 12px;
-  object-fit: cover;
+  object-fit: contain;
+  background: #0b1220;
   display: block;
 }
 .about-slide h4{
@@ -1603,13 +1604,13 @@ ul{ margin: 10px 0 0 18px; }
     grid-column: span 1;
   }
   .about-slide{
-    min-height: 300px;
+    min-height: 390px;
   }
   .about-slide-media{
-    height: 225px;
+    height: 300px;
   }
   .about-slide-image{
-    height: 225px;
+    height: 300px;
   }
   .highlights-header{
     align-items: flex-start;
