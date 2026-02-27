@@ -256,23 +256,21 @@ h3{ margin: 0 0 8px; }
 }
 .edu-head{
   display: flex;
-  align-items: stretch;
+  align-items: center;
   gap: 12px;
 }
 .edu-mark{
   flex: 0 0 auto;
-  display: flex;
-  align-items: stretch;
 }
 .edu-logo-mark{
-  height: 100%;
+  height: clamp(46px, 5vw, 64px);
   width: auto;
   object-fit: contain;
   display: block;
 }
 .edu-head-text{
   display: grid;
-  gap: 2px;
+  gap: 4px;
 }
 .edu-degree{
   margin: 0;
