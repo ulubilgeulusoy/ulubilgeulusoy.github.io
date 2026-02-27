@@ -586,6 +586,21 @@ footer{
   color: var(--muted);
   font-size: 0.88rem;
 }
+.about-map{
+  width: 100%;
+  height: 420px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip{
+  background: #1f2430;
+  color: var(--text);
+}
+.leaflet-container a{
+  color: #9bd1ff;
+}
 ul{ margin: 10px 0 0 18px; }
 .home-roles{
   margin-top: 4px;
