@@ -888,6 +888,47 @@ ul{ margin: 10px 0 0 18px; }
   margin-top: 6px;
   text-align: center;
 }
+.home-name-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.home-name-row .home-name{
+  margin: 0;
+}
+.home-name-resume-btn{
+  font-size: 0.86rem;
+  padding: 6px 11px;
+}
+.home-social-cta{
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.home-social-btn{
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(16,24,38,0.7);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.home-social-btn svg{
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+.home-social-btn:hover{
+  text-decoration: none;
+  filter: brightness(1.1);
+}
 .pub-link-btn{
   display: inline-block;
   border: 1px solid var(--border);
