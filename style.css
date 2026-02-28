@@ -1629,28 +1629,70 @@ ul{ margin: 10px 0 0 18px; }
   background: #dbe7ff;
 }
 @media (max-width: 760px){
+  .about-carousels{
+    margin-top: 10px;
+  }
+  .about-carousels > h2{
+    font-size: 1.8rem;
+    line-height: 1.15;
+    margin: 0 0 14px;
+  }
+  .about-text-card,
+  .about-carousel-card{
+    padding: 10px;
+    border-radius: 12px;
+  }
+  .about-text-card{
+    margin-bottom: 12px;
+  }
+  .about-text-card .subtitle{
+    font-size: 1rem;
+    line-height: 1.6;
+    text-align: left;
+  }
   .about-carousel-grid-top,
   .about-carousel-grid-bottom{
     grid-template-columns: 1fr;
+  }
+  .about-carousel-grid-top,
+  .about-carousel-grid-bottom{
+    gap: 12px;
+    margin-bottom: 12px;
   }
   .about-card-wide,
   .about-card-narrow{
     grid-column: span 1;
   }
+  .about-carousel-head{
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .about-carousel-head .overline{
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+  }
+  .carousel-controls{
+    gap: 6px;
+  }
+  .carousel-btn{
+    width: 34px;
+    height: 34px;
+  }
   .about-slide{
-    min-height: 345px;
+    min-height: 320px;
+    padding: 10px;
   }
   .about-slide-media{
-    height: 300px;
+    height: 276px;
   }
   .about-slide-image{
-    height: 300px;
+    height: 276px;
   }
   .about-books-card .about-slide{
-    min-height: 350px;
+    min-height: 320px;
   }
   .about-books-card .about-slide-image{
-    height: 320px;
+    height: 290px;
   }
   .highlights-header{
     align-items: flex-start;

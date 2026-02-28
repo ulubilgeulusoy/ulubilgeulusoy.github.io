@@ -288,6 +288,9 @@
         const prevBtn = card.querySelector(".about-carousel-btn-prev");
         const nextBtn = card.querySelector(".about-carousel-btn-next");
         let index = 0;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchActive = false;
 
         function update() {
           track.style.transform = "translateX(-" + (index * 100) + "%)";
@@ -308,6 +311,30 @@
             update();
           });
         }
+
+        carousel.addEventListener("touchstart", function (event) {
+          if (!event.touches || event.touches.length !== 1) return;
+          touchStartX = event.touches[0].clientX;
+          touchStartY = event.touches[0].clientY;
+          touchActive = true;
+        }, { passive: true });
+
+        carousel.addEventListener("touchend", function (event) {
+          if (!touchActive || !event.changedTouches || event.changedTouches.length !== 1) return;
+
+          const deltaX = event.changedTouches[0].clientX - touchStartX;
+          const deltaY = event.changedTouches[0].clientY - touchStartY;
+          touchActive = false;
+
+          if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+          if (deltaX < 0) {
+            index = Math.min(slides.length - 1, index + 1);
+          } else {
+            index = Math.max(0, index - 1);
+          }
+          update();
+        }, { passive: true });
 
         update();
       });
