@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="style.css">
   <link
     rel="stylesheet"
-    href="https://unpkg.com/maplibre-gl@5.18.0/dist/maplibre-gl.css"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
   >
 </head>
 <body>
@@ -212,10 +214,14 @@
       <a class="page-pager-link" href="resume.html" aria-label="Go to next page: Resume">Next: Resume &rarr;</a>
     </footer>
   </main>
-  <script src="https://unpkg.com/maplibre-gl@5.18.0/dist/maplibre-gl.js"></script>
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
   <script>
     (function initAboutMap() {
-      if (!window.maplibregl) return;
+      if (!window.L) return;
       const mapEl = document.getElementById("about-map");
       if (!mapEl) return;
 
@@ -246,68 +252,78 @@
         }
       ];
 
-      const map = new maplibregl.Map({
-        container: "about-map",
-        style: "https://demotiles.maplibre.org/style.json",
-        center: [-10, 38.9],
-        zoom: 1.55,
-        pitch: 42,
-        bearing: -8,
-        antialias: true,
-        attributionControl: true,
-        renderWorldCopies: false
+      const worldBounds = L.latLngBounds(
+        L.latLng(-85, -180),
+        L.latLng(85, 180)
+      );
+
+      const map = L.map("about-map", {
+        zoomControl: true,
+        maxBounds: worldBounds,
+        maxBoundsViscosity: 1,
+        worldCopyJump: false,
+        scrollWheelZoom: false
       });
 
-      map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+        maxZoom: 19,
+        noWrap: true,
+        subdomains: "abcd",
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+      }).addTo(map);
 
-      map.on("load", function () {
-        const bounds = new maplibregl.LngLatBounds();
+      const markerIcon = L.divIcon({
+        className: "about-map-marker-wrap",
+        html: '<span class="about-map-marker"><span class="about-map-marker-core"></span></span>',
+        iconSize: [26, 26],
+        iconAnchor: [13, 13],
+        popupAnchor: [0, -12]
+      });
 
-        places.forEach(function (place) {
-          bounds.extend([place.lng, place.lat]);
-
-          const markerEl = document.createElement("button");
-          markerEl.type = "button";
-          markerEl.className = "about-map-marker";
-          markerEl.setAttribute("aria-label", "Open details for " + place.name);
-          markerEl.innerHTML = '<span class="about-map-marker-core"></span>';
-
-          const popup = new maplibregl.Popup({
+      const bounds = [];
+      places.forEach(function (place) {
+        const marker = L.marker([place.lat, place.lng], { icon: markerIcon }).addTo(map);
+        marker.bindPopup(
+          '<div class="about-map-popup-content"><h3>' + place.name + '</h3><p>' + place.detail + '</p></div>',
+          {
+            className: "about-map-leaflet-popup",
             closeButton: true,
-            closeOnClick: true,
-            offset: 18,
-            maxWidth: "320px",
-            className: "about-maplibre-popup"
-          }).setHTML(
-            "<h3>" + place.name + "</h3><p>" + place.detail + "</p>"
-          );
+            autoPanPadding: [24, 24]
+          }
+        );
 
-          markerEl.addEventListener("click", function () {
-            map.flyTo({
-              center: [place.lng, place.lat],
-              zoom: 4.2,
-              pitch: 50,
-              bearing: place.lng < -30 ? -26 : 12,
-              essential: true
-            });
+        marker.on("click", function () {
+          map.flyTo([place.lat, place.lng], 4, {
+            animate: true,
+            duration: 1.15
           });
-
-          new maplibregl.Marker({
-            element: markerEl,
-            anchor: "bottom"
-          })
-            .setLngLat([place.lng, place.lat])
-            .setPopup(popup)
-            .addTo(map);
         });
 
+        bounds.push([place.lat, place.lng]);
+      });
+
+      if (bounds.length > 1) {
         map.fitBounds(bounds, {
-          padding: { top: 60, right: 70, bottom: 60, left: 70 },
-          pitch: 34,
-          bearing: -8,
-          maxZoom: 2.35,
-          duration: 0
+          padding: [36, 36],
+          maxZoom: 2
         });
+      }
+
+      map.on("popupopen", function (event) {
+        const popupLatLng = event.popup.getLatLng();
+        if (!popupLatLng) return;
+        map.flyTo(popupLatLng, Math.max(map.getZoom(), 4), {
+          animate: true,
+          duration: 1
+        });
+      });
+
+      mapEl.addEventListener("mouseenter", function () {
+        map.scrollWheelZoom.enable();
+      });
+
+      mapEl.addEventListener("mouseleave", function () {
+        map.scrollWheelZoom.disable();
       });
     })();
 

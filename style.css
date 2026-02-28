@@ -600,33 +600,31 @@ footer{
 .about-map canvas{
   display: block;
 }
-.about-map .maplibregl-canvas{
-  border-radius: 12px;
-}
-.about-map .maplibregl-ctrl-top-right{
-  top: 12px;
-  right: 12px;
-}
-.about-map .maplibregl-ctrl-group{
+.about-map .leaflet-control-zoom{
+  margin: 12px;
   border: 1px solid rgba(128, 181, 255, 0.22);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 14px 26px rgba(0, 0, 0, 0.22);
 }
-.about-map .maplibregl-ctrl-group button{
+.about-map .leaflet-control-zoom a{
   width: 34px;
   height: 34px;
+  line-height: 34px;
+  border: 0;
   background: rgba(9, 15, 27, 0.88);
+  color: #e7f2ff;
 }
-.about-map .maplibregl-ctrl-group button .maplibregl-ctrl-icon{
-  filter: invert(1) brightness(1.25);
-}
-.about-map .maplibregl-ctrl-attrib{
+.about-map .leaflet-control-attribution{
   background: rgba(7, 12, 21, 0.76);
   color: #c0d5ef;
 }
-.about-map .maplibregl-ctrl-attrib a{
+.about-map .leaflet-control-attribution a{
   color: #9bd1ff;
+}
+.about-map-marker-wrap{
+  background: transparent;
+  border: 0;
 }
 .about-map-marker{
   position: relative;
@@ -635,9 +633,7 @@ footer{
   width: 26px;
   height: 26px;
   padding: 0;
-  border: 0;
   background: transparent;
-  cursor: pointer;
 }
 .about-map-marker::before{
   content: "";
@@ -675,29 +671,31 @@ footer{
     height: 500px;
   }
 }
-.about-maplibre-popup .maplibregl-popup-content{
-  padding: 14px 16px;
+.about-map-leaflet-popup .leaflet-popup-content-wrapper{
   border: 1px solid rgba(137, 194, 255, 0.26);
   border-radius: 14px;
   background: rgba(8, 14, 26, 0.94);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
   color: #d4deee;
 }
-.about-maplibre-popup .maplibregl-popup-close-button{
-  top: 6px;
-  right: 8px;
+.about-map-leaflet-popup .leaflet-popup-content{
+  margin: 14px 16px;
+}
+.about-map-leaflet-popup .leaflet-popup-close-button{
+  top: 8px;
+  right: 10px;
   color: #e3eefc;
   font-size: 1.3rem;
 }
-.about-maplibre-popup .maplibregl-popup-tip{
-  border-top-color: rgba(8, 14, 26, 0.94);
+.about-map-leaflet-popup .leaflet-popup-tip{
+  background: rgba(8, 14, 26, 0.94);
 }
-.about-maplibre-popup h3{
+.about-map-popup-content h3{
   margin: 0 22px 8px 0;
   font-size: 1.05rem;
   color: #f1f6ff;
 }
-.about-maplibre-popup p{
+.about-map-popup-content p{
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.55;
