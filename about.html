@@ -260,71 +260,25 @@
       const map = L.map("about-map", {
         zoomControl: true,
         maxBounds: worldBounds,
-        maxBoundsViscosity: 1,
-        worldCopyJump: false,
-        scrollWheelZoom: false
-      });
+        maxBoundsViscosity: 1.0
+      }).setView([38.9, -10], 2);
 
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-        maxZoom: 19,
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
         noWrap: true,
-        subdomains: "abcd",
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
-
-      const markerIcon = L.divIcon({
-        className: "about-map-marker-wrap",
-        html: '<span class="about-map-marker"><span class="about-map-marker-core"></span></span>',
-        iconSize: [26, 26],
-        iconAnchor: [13, 13],
-        popupAnchor: [0, -12]
-      });
 
       const bounds = [];
       places.forEach(function (place) {
-        const marker = L.marker([place.lat, place.lng], { icon: markerIcon }).addTo(map);
-        marker.bindPopup(
-          '<div class="about-map-popup-content"><h3>' + place.name + '</h3><p>' + place.detail + '</p></div>',
-          {
-            className: "about-map-leaflet-popup",
-            closeButton: true,
-            autoPanPadding: [24, 24]
-          }
-        );
-
-        marker.on("click", function () {
-          map.flyTo([place.lat, place.lng], 4, {
-            animate: true,
-            duration: 1.15
-          });
-        });
-
+        const marker = L.marker([place.lat, place.lng]).addTo(map);
+        marker.bindPopup("<strong>" + place.name + "</strong><br>" + place.detail);
         bounds.push([place.lat, place.lng]);
       });
 
       if (bounds.length > 1) {
-        map.fitBounds(bounds, {
-          padding: [36, 36],
-          maxZoom: 2
-        });
+        map.fitBounds(bounds, { padding: [30, 30] });
       }
-
-      map.on("popupopen", function (event) {
-        const popupLatLng = event.popup.getLatLng();
-        if (!popupLatLng) return;
-        map.flyTo(popupLatLng, Math.max(map.getZoom(), 4), {
-          animate: true,
-          duration: 1
-        });
-      });
-
-      mapEl.addEventListener("mouseenter", function () {
-        map.scrollWheelZoom.enable();
-      });
-
-      mapEl.addEventListener("mouseleave", function () {
-        map.scrollWheelZoom.disable();
-      });
     })();
 
     (function initAboutCarousels() {
