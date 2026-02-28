@@ -5,12 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>About - Ulubilge Ulusoy</title>
   <link rel="stylesheet" href="style.css">
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  >
 </head>
 <body>
   <div class="nav">
@@ -48,7 +42,13 @@
     <h2>My Places</h2>
     <div class="grid">
       <div class="card span">
-        <div id="about-map" class="about-map" role="region" aria-label="Interactive map of important places"></div>
+        <div id="about-map" class="about-map" role="region" aria-label="Interactive 3D globe of important places">
+          <div class="about-map-popup" id="about-map-popup" hidden>
+            <button class="about-map-popup-close" id="about-map-popup-close" type="button" aria-label="Close place details">&times;</button>
+            <h3 class="about-map-popup-title" id="about-map-popup-title"></h3>
+            <p class="about-map-popup-detail" id="about-map-popup-detail"></p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -214,66 +214,101 @@
       <a class="page-pager-link" href="resume.html" aria-label="Go to next page: Resume">Next: Resume &rarr;</a>
     </footer>
   </main>
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/globe.gl"></script>
   <script>
     (function initAboutMap() {
-      if (!window.L) return;
+      if (!window.Globe) return;
       const mapEl = document.getElementById("about-map");
+      const popupEl = document.getElementById("about-map-popup");
+      const popupTitleEl = document.getElementById("about-map-popup-title");
+      const popupDetailEl = document.getElementById("about-map-popup-detail");
+      const popupCloseEl = document.getElementById("about-map-popup-close");
       if (!mapEl) return;
-
-      const worldBounds = L.latLngBounds(
-        L.latLng(-85, -180),
-        L.latLng(85, 180)
-      );
-
-      const map = L.map("about-map", {
-        zoomControl: true,
-        maxBounds: worldBounds,
-        maxBoundsViscosity: 1.0
-      }).setView([38.9, -10], 2);
-
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 18,
-        noWrap: true,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(map);
 
       const places = [
         {
           name: "Adana, Türkiye",
-          coords: [37.0, 35.3213],
+          lat: 37.0,
+          lng: 35.3213,
           detail: "I was born in Adana, Türkiye, where I lived until I was six before moving to Istanbul with my family. I am a classic Mediterranean at heart and have always felt most at home near the sea."
         },
         {
           name: "Istanbul, Türkiye",
-          coords: [41.0082, 28.9784],
+          lat: 41.0082,
+          lng: 28.9784,
           detail: "Istanbul is where I spent eighteen years of my life. There, I attended Sehremini Anatolian High School and was captain of the basketball team for two years. I later began my space engineering journey at Istanbul Technical University and completed my undergraduate thesis on the conceptual design of an artificial gravity spacecraft."
         },
         {
           name: "Los Angeles, California",
-          coords: [34.0522, -118.2437],
+          lat: 34.0522,
+          lng: -118.2437,
           detail: "In late 2018, I moved to Los Angeles, where I lived for seven years. During this time, I deepened my focus on liquid propulsion and human spaceflight while pursuing my Master's and PhD. I had the opportunity to be advised by a former NASA astronaut, which further shaped my perspective on operational human spaceflight."
         },
         {
           name: "Boulder, Colorado",
-          coords: [40.01499, -105.27055],
+          lat: 40.01499,
+          lng: -105.27055,
           detail: "I am now in Boulder, continuing to grow and contribute to human spaceflight research. At the Bioastronautics Laboratory at CU Boulder, I focus on understanding the human element of space operations by evaluating physiological signals during interaction with AI and robotic systems."
         }
       ];
 
-      const bounds = [];
-      places.forEach(function (place) {
-        const marker = L.marker(place.coords).addTo(map);
-        marker.bindPopup("<strong>" + place.name + "</strong><br>" + place.detail);
-        bounds.push(place.coords);
+      function showPopup(place) {
+        if (!popupEl || !popupTitleEl || !popupDetailEl) return;
+        popupTitleEl.textContent = place.name;
+        popupDetailEl.textContent = place.detail;
+        popupEl.hidden = false;
+      }
+
+      function hidePopup() {
+        if (!popupEl) return;
+        popupEl.hidden = true;
+      }
+
+      const globe = Globe()(mapEl)
+        .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
+        .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
+        .backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png")
+        .atmosphereColor("#89c2ff")
+        .atmosphereAltitude(0.18)
+        .htmlElementsData(places)
+        .htmlLat(function (place) { return place.lat; })
+        .htmlLng(function (place) { return place.lng; })
+        .htmlAltitude(0.02)
+        .htmlElement(function (place) {
+          const pin = document.createElement("button");
+          pin.type = "button";
+          pin.className = "about-map-pin";
+          pin.setAttribute("aria-label", "Open details for " + place.name);
+          pin.innerHTML = '<span class="about-map-pin-core"></span>';
+          pin.addEventListener("click", function (event) {
+            event.stopPropagation();
+            globe.pointOfView({ lat: place.lat, lng: place.lng, altitude: 1.4 }, 1200);
+            showPopup(place);
+          });
+          return pin;
+        });
+
+      const controls = globe.controls();
+      if (controls) {
+        controls.enablePan = false;
+        controls.minDistance = 180;
+        controls.maxDistance = 320;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.35;
+      }
+
+      globe.pointOfView({ lat: 38.9, lng: -10, altitude: 2.15 }, 0);
+
+      mapEl.addEventListener("click", function (event) {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        if (target.closest(".about-map-pin") || target.closest(".about-map-popup")) return;
+        hidePopup();
       });
 
-      if (bounds.length > 1) {
-        map.fitBounds(bounds, { padding: [30, 30] });
+      if (popupCloseEl) {
+        popupCloseEl.addEventListener("click", hidePopup);
       }
     })();
 
