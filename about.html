@@ -269,17 +269,9 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      const markerIcon = L.divIcon({
-        className: "about-map-marker-wrap",
-        html: '<span class="about-map-marker"></span>',
-        iconSize: [16, 24],
-        iconAnchor: [8, 24],
-        popupAnchor: [0, -22]
-      });
-
       const bounds = [];
       places.forEach(function (place) {
-        const marker = L.marker([place.lat, place.lng], { icon: markerIcon }).addTo(map);
+        const marker = L.marker([place.lat, place.lng]).addTo(map);
         marker.bindPopup("<strong>" + place.name + "</strong><br>" + place.detail);
         bounds.push([place.lat, place.lng]);
       });
