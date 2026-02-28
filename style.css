@@ -691,6 +691,9 @@ footer{
   display: block;
 }
 .about-slide-image-book{
+  object-fit: cover;
+}
+.about-slide-image-tg{
   object-fit: contain;
 }
 .about-slide h4{
