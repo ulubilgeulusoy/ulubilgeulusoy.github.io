@@ -557,6 +557,11 @@ footer{
   padding-top: 18px;
   font-size: 0.95rem;
 }
+.site-note{
+  margin: 46px 0 12px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
 .page-pager{
   display: flex;
   align-items: center;
