@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>About - Ulubilge Ulusoy</title>
   <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/cesium/Build/Cesium/Widgets/widgets.css"
+  >
 </head>
 <body>
   <div class="nav">
@@ -43,6 +47,7 @@
     <div class="grid">
       <div class="card span">
         <div id="about-map" class="about-map" role="region" aria-label="Interactive 3D globe of important places">
+          <div class="about-map-globe" id="about-map-globe" aria-hidden="true"></div>
           <div class="about-map-popup" id="about-map-popup" hidden>
             <button class="about-map-popup-close" id="about-map-popup-close" type="button" aria-label="Close place details">&times;</button>
             <h3 class="about-map-popup-title" id="about-map-popup-title"></h3>
@@ -214,17 +219,18 @@
       <a class="page-pager-link" href="resume.html" aria-label="Go to next page: Resume">Next: Resume &rarr;</a>
     </footer>
   </main>
-  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/globe.gl"></script>
+  <script>window.CESIUM_BASE_URL = "https://unpkg.com/cesium/Build/Cesium/";</script>
+  <script src="https://unpkg.com/cesium/Build/Cesium/Cesium.js"></script>
   <script>
     (function initAboutMap() {
-      if (!window.Globe) return;
+      if (!window.Cesium) return;
       const mapEl = document.getElementById("about-map");
+      const globeEl = document.getElementById("about-map-globe");
       const popupEl = document.getElementById("about-map-popup");
       const popupTitleEl = document.getElementById("about-map-popup-title");
       const popupDetailEl = document.getElementById("about-map-popup-detail");
       const popupCloseEl = document.getElementById("about-map-popup-close");
-      if (!mapEl) return;
+      if (!mapEl || !globeEl) return;
 
       const places = [
         {
@@ -265,50 +271,102 @@
         popupEl.hidden = true;
       }
 
-      const globe = Globe()(mapEl)
-        .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
-        .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
-        .backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png")
-        .atmosphereColor("#89c2ff")
-        .atmosphereAltitude(0.18)
-        .htmlElementsData(places)
-        .htmlLat(function (place) { return place.lat; })
-        .htmlLng(function (place) { return place.lng; })
-        .htmlAltitude(0.02)
-        .htmlElement(function (place) {
-          const pin = document.createElement("button");
-          pin.type = "button";
-          pin.className = "about-map-pin";
-          pin.setAttribute("aria-label", "Open details for " + place.name);
-          pin.innerHTML = '<span class="about-map-pin-core"></span>';
-          pin.addEventListener("click", function (event) {
-            event.stopPropagation();
-            globe.pointOfView({ lat: place.lat, lng: place.lng, altitude: 1.4 }, 1200);
-            showPopup(place);
-          });
-          return pin;
-        });
-
-      const controls = globe.controls();
-      if (controls) {
-        controls.enablePan = false;
-        controls.minDistance = 180;
-        controls.maxDistance = 320;
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.35;
-      }
-
-      globe.pointOfView({ lat: 38.9, lng: -10, altitude: 2.15 }, 0);
-
-      mapEl.addEventListener("click", function (event) {
-        const target = event.target;
-        if (!(target instanceof Element)) return;
-        if (target.closest(".about-map-pin") || target.closest(".about-map-popup")) return;
-        hidePopup();
+      const viewer = new Cesium.Viewer(globeEl, {
+        animation: false,
+        baseLayerPicker: false,
+        fullscreenButton: false,
+        geocoder: false,
+        homeButton: false,
+        infoBox: false,
+        navigationHelpButton: false,
+        sceneModePicker: false,
+        selectionIndicator: false,
+        timeline: false,
+        terrainProvider: new Cesium.EllipsoidTerrainProvider()
       });
 
+      viewer.scene.skyAtmosphere.hueShift = -0.02;
+      viewer.scene.skyAtmosphere.saturationShift = 0.1;
+      viewer.scene.skyAtmosphere.brightnessShift = -0.15;
+      viewer.scene.globe.enableLighting = true;
+      viewer.scene.globe.baseColor = Cesium.Color.fromCssColorString("#07111f");
+      viewer.scene.screenSpaceCameraController.enableTilt = true;
+      viewer.scene.screenSpaceCameraController.enableLook = true;
+      viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
+      const cityEntities = places.map(function (place) {
+        const entity = viewer.entities.add({
+          id: place.name,
+          position: Cesium.Cartesian3.fromDegrees(place.lng, place.lat),
+          point: {
+            pixelSize: 14,
+            color: Cesium.Color.fromCssColorString("#63b8ff"),
+            outlineColor: Cesium.Color.WHITE,
+            outlineWidth: 2,
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+          },
+          label: {
+            text: place.name,
+            font: "600 13px Segoe UI, sans-serif",
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            fillColor: Cesium.Color.WHITE,
+            outlineColor: Cesium.Color.fromCssColorString("#0b1320"),
+            outlineWidth: 4,
+            verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+            pixelOffset: new Cesium.Cartesian2(0, -18),
+            disableDepthTestDistance: Number.POSITIVE_INFINITY
+          }
+        });
+        entity.placeData = place;
+        return entity;
+      });
+
+      const initialDestination = Cesium.Cartesian3.fromDegrees(-10, 38.9, 24000000);
+      viewer.camera.setView({
+        destination: initialDestination,
+        orientation: {
+          heading: Cesium.Math.toRadians(15),
+          pitch: Cesium.Math.toRadians(-28),
+          roll: 0
+        }
+      });
+
+      const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+      handler.setInputAction(function (movement) {
+        const pickedObject = viewer.scene.pick(movement.position);
+        if (Cesium.defined(pickedObject) && pickedObject.id && pickedObject.id.placeData) {
+          const place = pickedObject.id.placeData;
+          viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(place.lng, place.lat, 3500000),
+            orientation: {
+              heading: Cesium.Math.toRadians(0),
+              pitch: Cesium.Math.toRadians(-45),
+              roll: 0
+            },
+            duration: 1.6
+          });
+          showPopup(place);
+          return;
+        }
+        hidePopup();
+      }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+      if (cityEntities.length) {
+        viewer.flyTo(cityEntities, {
+          duration: 0,
+          offset: new Cesium.HeadingPitchRange(
+            Cesium.Math.toRadians(10),
+            Cesium.Math.toRadians(-38),
+            18000000
+          )
+        });
+      }
+
       if (popupCloseEl) {
-        popupCloseEl.addEventListener("click", hidePopup);
+        popupCloseEl.addEventListener("click", function () {
+          hidePopup();
+          viewer.selectedEntity = undefined;
+        });
       }
     })();
 
