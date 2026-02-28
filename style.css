@@ -959,7 +959,7 @@ ul{ margin: 10px 0 0 18px; }
   visibility: hidden;
   opacity: 0;
   transition: opacity 160ms ease, visibility 160ms ease;
-  z-index: 20;
+  z-index: 1200;
 }
 .modal-overlay[data-visible="true"]{
   visibility: visible;
