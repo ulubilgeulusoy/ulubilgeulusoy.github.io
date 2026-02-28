@@ -597,74 +597,123 @@ footer{
     radial-gradient(circle at 50% 30%, rgba(82, 136, 214, 0.14), transparent 38%),
     linear-gradient(180deg, #06101d, #030814 72%);
 }
-.about-map-globe{
-  width: 100%;
-  height: 100%;
-}
 .about-map canvas{
   display: block;
 }
-.about-map .cesium-viewer,
-.about-map .cesium-widget,
-.about-map .cesium-widget canvas{
-  width: 100%;
-  height: 100%;
+.about-map .maplibregl-canvas{
+  border-radius: 12px;
 }
-.about-map .cesium-viewer-toolbar,
-.about-map .cesium-viewer-animationContainer,
-.about-map .cesium-viewer-timelineContainer{
-  display: none;
+.about-map .maplibregl-ctrl-top-right{
+  top: 12px;
+  right: 12px;
 }
-.about-map-popup{
-  position: absolute;
-  left: 18px;
-  top: 18px;
-  z-index: 3;
-  width: min(320px, calc(100% - 36px));
-  padding: 14px 16px 16px;
-  border: 1px solid rgba(137, 194, 255, 0.26);
-  border-radius: 14px;
-  background: rgba(8, 14, 26, 0.9);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
-  backdrop-filter: blur(10px);
+.about-map .maplibregl-ctrl-group{
+  border: 1px solid rgba(128, 181, 255, 0.22);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.22);
 }
-.about-map-popup[hidden]{
-  display: none;
+.about-map .maplibregl-ctrl-group button{
+  width: 34px;
+  height: 34px;
+  background: rgba(9, 15, 27, 0.88);
 }
-.about-map-popup-close{
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 32px;
-  height: 32px;
+.about-map .maplibregl-ctrl-group button .maplibregl-ctrl-icon{
+  filter: invert(1) brightness(1.25);
+}
+.about-map .maplibregl-ctrl-attrib{
+  background: rgba(7, 12, 21, 0.76);
+  color: #c0d5ef;
+}
+.about-map .maplibregl-ctrl-attrib a{
+  color: #9bd1ff;
+}
+.about-map-marker{
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
   border: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #e3eefc;
-  font-size: 1.3rem;
-  line-height: 1;
+  background: transparent;
   cursor: pointer;
 }
-.about-map-popup-title{
-  margin: 0 28px 8px 0;
-  font-size: 1.05rem;
+.about-map-marker::before{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: rgba(98, 181, 255, 0.18);
+  transform: translate(-50%, -50%);
+  animation: about-map-pulse 2.2s ease-out infinite;
 }
-.about-map-popup-detail{
-  margin: 0;
-  color: #d4deee;
-  font-size: 0.95rem;
-  line-height: 1.55;
+.about-map-marker::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 2px;
+  height: 16px;
+  background: linear-gradient(180deg, rgba(102, 186, 255, 0.9), rgba(102, 186, 255, 0));
+  transform: translateX(-50%);
+}
+.about-map-marker-core{
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #9ad7ff, #2f79d5);
+  box-shadow: 0 0 16px rgba(103, 182, 255, 0.72);
 }
 @media (max-width: 720px){
   .about-map{
     height: 500px;
   }
-  .about-map-popup{
-    left: 12px;
-    right: 12px;
-    top: auto;
-    bottom: 12px;
-    width: auto;
+}
+.about-maplibre-popup .maplibregl-popup-content{
+  padding: 14px 16px;
+  border: 1px solid rgba(137, 194, 255, 0.26);
+  border-radius: 14px;
+  background: rgba(8, 14, 26, 0.94);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
+  color: #d4deee;
+}
+.about-maplibre-popup .maplibregl-popup-close-button{
+  top: 6px;
+  right: 8px;
+  color: #e3eefc;
+  font-size: 1.3rem;
+}
+.about-maplibre-popup .maplibregl-popup-tip{
+  border-top-color: rgba(8, 14, 26, 0.94);
+}
+.about-maplibre-popup h3{
+  margin: 0 22px 8px 0;
+  font-size: 1.05rem;
+  color: #f1f6ff;
+}
+.about-maplibre-popup p{
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+@keyframes about-map-pulse{
+  0%{
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.75;
+  }
+  70%{
+    transform: translate(-50%, -50%) scale(1.9);
+    opacity: 0;
+  }
+  100%{
+    transform: translate(-50%, -50%) scale(1.9);
+    opacity: 0;
   }
 }
 .about-carousels{
