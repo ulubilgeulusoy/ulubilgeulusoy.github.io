@@ -1706,6 +1706,8 @@ ul{ margin: 10px 0 0 18px; }
   .about-books-card .about-slide-image{
     height: 276px;
     object-fit: contain;
+    background:
+      linear-gradient(165deg, rgba(25,33,46,0.9), rgba(20,26,37,0.92));
   }
   .highlights-header{
     align-items: flex-start;
