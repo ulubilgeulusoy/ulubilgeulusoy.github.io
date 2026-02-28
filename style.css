@@ -695,6 +695,7 @@ footer{
 }
 .about-slide-image-tg{
   object-fit: contain;
+  background: #242830;
 }
 .about-slide h4{
   margin: 0 0 8px;
@@ -1702,6 +1703,7 @@ ul{ margin: 10px 0 0 18px; }
   }
   .about-books-card .about-slide-image{
     height: 276px;
+    object-fit: contain;
   }
   .highlights-header{
     align-items: flex-start;
