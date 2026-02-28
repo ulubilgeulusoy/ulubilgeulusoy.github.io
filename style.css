@@ -695,7 +695,9 @@ footer{
 }
 .about-slide-image-tg{
   object-fit: contain;
-  background: var(--card);
+  background:
+    radial-gradient(circle at 85% 20%, rgba(120,173,230,0.1), transparent 44%),
+    linear-gradient(160deg, rgba(20,28,43,0.9), rgba(25,32,47,0.9));
 }
 .about-slide h4{
   margin: 0 0 8px;
