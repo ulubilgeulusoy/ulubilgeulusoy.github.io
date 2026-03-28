@@ -787,10 +787,14 @@ footer{
 }
 .engagement-panel{
   border-top: 1px solid #4f617d;
-  padding-top: 12px;
+  padding-top: 18px;
 }
 .engagement-panel[hidden]{
   display: none !important;
+}
+.engagement-panel > h2,
+.engagement-panel > .section-title{
+  display: none;
 }
 ul{ margin: 10px 0 0 18px; }
 .home-roles{
