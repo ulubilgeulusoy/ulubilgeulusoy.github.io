@@ -156,6 +156,9 @@ h3{ margin: 0 0 8px; }
   background: rgba(42,52,68,0.9);
   border-color: #4c5d79;
 }
+.projects-tabs-mode #projects-panel{
+  margin-top: 18px;
+}
 .section-head{
   grid-column: span 12;
   margin-top: 10px;
