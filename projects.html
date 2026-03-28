@@ -784,8 +784,40 @@
     });
 
     const domainTabs = document.querySelectorAll('[data-domain-tab]');
-    const projectCards = document.querySelectorAll('.project-card');
-    const domainHeaders = document.querySelectorAll('.projects-tabs-mode .section-head');
+    const projectsPanel = document.getElementById('projects-panel');
+    const projectCards = Array.from(document.querySelectorAll('.project-card'));
+    const domainHeaders = Array.from(document.querySelectorAll('.projects-tabs-mode .section-head'));
+    const panelInitialOrder = Array.from(projectsPanel.children);
+
+    const monthToIndex = {
+      jan: 0, january: 0,
+      feb: 1, february: 1,
+      mar: 2, march: 2,
+      apr: 3, april: 3,
+      may: 4,
+      jun: 5, june: 5,
+      jul: 6, july: 6,
+      aug: 7, august: 7,
+      sep: 8, sept: 8, september: 8,
+      oct: 9, october: 9,
+      nov: 10, november: 10,
+      dec: 11, december: 11
+    };
+
+    function getCardStartTime(card) {
+      const meta = card.querySelector('.meta');
+      if (!meta) return 0;
+      const text = meta.textContent || '';
+      const match = text.match(/([A-Za-z]+)\s+(\d{4})\s+to/i);
+      if (!match) return 0;
+      const monthKey = match[1].toLowerCase();
+      const year = Number(match[2]);
+      const month = monthToIndex[monthKey];
+      if (!Number.isFinite(year) || month === undefined) return 0;
+      return new Date(year, month, 1).getTime();
+    }
+
+    const cardsByStartDesc = [...projectCards].sort((a, b) => getCardStartTime(b) - getCardStartTime(a));
 
     function setDomainTab(domain) {
       domainTabs.forEach(tab => {
@@ -794,14 +826,28 @@
         tab.setAttribute('aria-selected', selected ? 'true' : 'false');
       });
 
+      if (domain === 'all') {
+        domainHeaders.forEach(header => {
+          header.style.display = 'none';
+        });
+        cardsByStartDesc.forEach(card => {
+          card.style.display = '';
+          projectsPanel.appendChild(card);
+        });
+        return;
+      }
+
+      panelInitialOrder.forEach(node => {
+        projectsPanel.appendChild(node);
+      });
+
       projectCards.forEach(card => {
         const cardDomain = card.getAttribute('data-domain');
-        const visible = domain === 'all' || cardDomain === domain;
-        card.style.display = visible ? '' : 'none';
+        card.style.display = cardDomain === domain ? '' : 'none';
       });
 
       domainHeaders.forEach(header => {
-        header.style.display = domain === 'all' ? '' : 'none';
+        header.style.display = header.id === `domain-${domain}` ? '' : 'none';
       });
     }
 
