@@ -845,9 +845,8 @@
         const cardDomain = card.getAttribute('data-domain');
         card.style.display = cardDomain === domain ? '' : 'none';
       });
-
       domainHeaders.forEach(header => {
-        header.style.display = header.id === `domain-${domain}` ? '' : 'none';
+        header.style.display = 'none';
       });
     }
 
