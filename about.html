@@ -312,34 +312,50 @@
       });
 
       map.addControl(new maplibregl.NavigationControl(), "top-right");
-
-      let minLng = Infinity;
-      let minLat = Infinity;
-      let maxLng = -Infinity;
-      let maxLat = -Infinity;
-      places.forEach(function (place) {
-        const popup = new maplibregl.Popup({ offset: 18 }).setHTML(
-          "<strong>" + place.name + "</strong><br>" + place.detail
-        );
-        new maplibregl.Marker()
-          .setLngLat([place.lng, place.lat])
-          .setPopup(popup)
-          .addTo(map);
-        minLng = Math.min(minLng, place.lng);
-        minLat = Math.min(minLat, place.lat);
-        maxLng = Math.max(maxLng, place.lng);
-        maxLat = Math.max(maxLat, place.lat);
+      map.on("error", function (e) {
+        console.error("MapLibre error:", e && (e.error || e));
       });
 
-      if (places.length > 1) {
-        map.fitBounds(
-          [[minLng, minLat], [maxLng, maxLat]],
-          {
-          padding: 30,
-          maxZoom: 5
-          }
-        );
-      }
+      map.on("load", function () {
+        let minLng = Infinity;
+        let minLat = Infinity;
+        let maxLng = -Infinity;
+        let maxLat = -Infinity;
+        let validCount = 0;
+
+        places.forEach(function (place) {
+          const lng = Number(place.lng);
+          const lat = Number(place.lat);
+          if (!Number.isFinite(lng) || !Number.isFinite(lat)) return;
+
+          const popup = new maplibregl.Popup({ offset: 18 }).setHTML(
+            "<strong>" + place.name + "</strong><br>" + place.detail
+          );
+          new maplibregl.Marker()
+            .setLngLat([lng, lat])
+            .setPopup(popup)
+            .addTo(map);
+
+          minLng = Math.min(minLng, lng);
+          minLat = Math.min(minLat, lat);
+          maxLng = Math.max(maxLng, lng);
+          maxLat = Math.max(maxLat, lat);
+          validCount += 1;
+        });
+
+        if (
+          validCount > 1 &&
+          Number.isFinite(minLng) &&
+          Number.isFinite(minLat) &&
+          Number.isFinite(maxLng) &&
+          Number.isFinite(maxLat)
+        ) {
+          map.fitBounds([[minLng, minLat], [maxLng, maxLat]], {
+            padding: 30,
+            maxZoom: 5
+          });
+        }
+      });
     })();
 
     (function initAboutCarousels() {
