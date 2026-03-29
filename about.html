@@ -293,8 +293,8 @@
         style: new ol.style.Style({
           image: new ol.style.Circle({
             radius: 6,
-            fill: new ol.style.Fill({ color: "#ff7043" }),
-            stroke: new ol.style.Stroke({ color: "#ffffff", width: 2 })
+            fill: new ol.style.Fill({ color: "#242830" }),
+            stroke: new ol.style.Stroke({ color: "#d8e0ee", width: 2 })
           })
         })
       });
@@ -322,9 +322,9 @@
         layers: [
           new ol.layer.Tile({
             source: new ol.source.XYZ({
-              url: "https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png",
+              url: "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
               attributions:
-                'Map tiles by <a href="https://stamen.com">Stamen Design</a>, under <a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.'
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             })
           }),
           vectorLayer
