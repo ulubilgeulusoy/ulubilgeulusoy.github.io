@@ -7,13 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link
     rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  >
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+    href="https://cdn.jsdelivr.net/npm/ol@9.2.4/ol.css"
   >
 </head>
 <body>
@@ -250,19 +244,12 @@
       <a class="page-pager-link" href="resume.html" aria-label="Go to next page: Resume">Next: Resume &rarr;</a>
     </footer>
   </main>
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
-  <script
-    src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"
-  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/ol@9.2.4/dist/ol.js"></script>
   <script>
     (function initAboutMap() {
+      if (!window.ol) return;
       const mapEl = document.getElementById("about-map");
       if (!mapEl) return;
-      const debugTag = "[AboutMap]";
 
       const places = [
         {
@@ -291,206 +278,87 @@
         }
       ];
 
-      if (window.L) {
-        console.info(debugTag, "Using Leaflet fallback renderer");
-        const worldBounds = L.latLngBounds(
-          L.latLng(-85, -180),
-          L.latLng(85, 180)
-        );
-        const leafMap = L.map("about-map", {
-          zoomControl: true,
-          maxBounds: worldBounds,
-          maxBoundsViscosity: 1.0
-        }).setView([38.9, -10], 2);
-
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 18,
-          noWrap: true,
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(leafMap);
-
-        const bounds = [];
-        places.forEach(function (place) {
-          const marker = L.marker([place.lat, place.lng]).addTo(leafMap);
-          marker.bindPopup("<strong>" + place.name + "</strong><br>" + place.detail);
-          bounds.push([place.lat, place.lng]);
+      const features = places.map(function (place) {
+        const feature = new ol.Feature({
+          geometry: new ol.geom.Point(ol.proj.fromLonLat([place.lng, place.lat])),
+          name: place.name,
+          detail: place.detail
         });
-
-        if (bounds.length > 1) {
-          leafMap.fitBounds(bounds, { padding: [30, 30] });
-        }
-        console.info(debugTag, "Leaflet map ready", { markerCount: places.length });
-        return;
-      }
-
-      if (!window.maplibregl) {
-        console.error(debugTag, "Neither Leaflet nor MapLibre is available");
-        return;
-      }
-
-      const map = new maplibregl.Map({
-        container: "about-map",
-        style: {
-          version: 8,
-          sources: {
-            osmRaster: {
-              type: "raster",
-              tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-              tileSize: 256,
-              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }
-          },
-          layers: [
-            {
-              id: "osm-raster",
-              type: "raster",
-              source: "osmRaster"
-            }
-          ]
-        },
-        center: [-10, 38.9],
-        zoom: 2,
-        maxZoom: 18,
-        maxBounds: [[-180, -85], [180, 85]]
+        return feature;
       });
 
-      console.info(debugTag, "Map created", {
-        containerSize: { width: mapEl.clientWidth, height: mapEl.clientHeight },
-        style: "inline-raster-osm"
-      });
-
-      map.addControl(new maplibregl.NavigationControl(), "top-right");
-      map.on("error", function (e) {
-        console.error(debugTag, "MapLibre error:", e && (e.error || e), e);
-      });
-      map.on("styledata", function () {
-        const style = map.getStyle();
-        console.info(debugTag, "styledata", {
-          layers: style && style.layers ? style.layers.length : 0,
-          sources: style && style.sources ? Object.keys(style.sources) : []
-        });
-      });
-      map.on("sourcedata", function (e) {
-        if (e && e.sourceId && (e.isSourceLoaded || e.sourceDataType === "content")) {
-          console.info(debugTag, "sourcedata", {
-            sourceId: e.sourceId,
-            sourceType: e.source && e.source.type ? e.source.type : undefined,
-            isSourceLoaded: e.isSourceLoaded,
-            sourceDataType: e.sourceDataType
-          });
-        }
-      });
-      map.on("render", function () {
-        if (!map.__aboutMapRenderLogged) {
-          map.__aboutMapRenderLogged = true;
-          console.info(debugTag, "first render frame");
-        }
-      });
-      map.on("idle", function () {
-        const style = map.getStyle();
-        console.info(debugTag, "idle", {
-          zoom: map.getZoom(),
-          center: map.getCenter(),
-          layers: style && style.layers ? style.layers.length : 0
-        });
-      });
-
-      map.on("load", function () {
-        console.info(debugTag, "load event fired");
-        let minLng = Infinity;
-        let minLat = Infinity;
-        let maxLng = -Infinity;
-        let maxLat = -Infinity;
-        let validCount = 0;
-
-        places.forEach(function (place) {
-          const lng = Number(place.lng);
-          const lat = Number(place.lat);
-          if (!Number.isFinite(lng) || !Number.isFinite(lat)) return;
-
-          minLng = Math.min(minLng, lng);
-          minLat = Math.min(minLat, lat);
-          maxLng = Math.max(maxLng, lng);
-          maxLat = Math.max(maxLat, lat);
-          validCount += 1;
-        });
-
-        const placeFeatures = places
-          .map(function (place) {
-            const lng = Number(place.lng);
-            const lat = Number(place.lat);
-            if (!Number.isFinite(lng) || !Number.isFinite(lat)) return null;
-            return {
-              type: "Feature",
-              properties: {
-                name: place.name,
-                detail: place.detail
-              },
-              geometry: {
-                type: "Point",
-                coordinates: [lng, lat]
-              }
-            };
+      const vectorSource = new ol.source.Vector({ features: features });
+      const vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: new ol.style.Style({
+          image: new ol.style.Circle({
+            radius: 6,
+            fill: new ol.style.Fill({ color: "#ff7043" }),
+            stroke: new ol.style.Stroke({ color: "#ffffff", width: 2 })
           })
-          .filter(Boolean);
+        })
+      });
 
-        map.addSource("places", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: placeFeatures
-          }
+      const popupEl = document.createElement("div");
+      popupEl.className = "ol-popup";
+      popupEl.style.display = "none";
+      mapEl.appendChild(popupEl);
+
+      const popupOverlay = new ol.Overlay({
+        element: popupEl,
+        offset: [0, -14],
+        positioning: "bottom-center",
+        stopEvent: false
+      });
+
+      const map = new ol.Map({
+        target: "about-map",
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }),
+          vectorLayer
+        ],
+        overlays: [popupOverlay],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([-10, 38.9]),
+          zoom: 2,
+          minZoom: 2,
+          maxZoom: 18
+        }),
+        controls: ol.control.defaults.defaults()
+      });
+
+      const extent = vectorSource.getExtent();
+      if (extent && !ol.extent.isEmpty(extent)) {
+        map.getView().fit(extent, {
+          padding: [30, 30, 30, 30],
+          maxZoom: 5,
+          duration: 0
+        });
+      }
+
+      map.on("singleclick", function (event) {
+        let hitFeature = null;
+        map.forEachFeatureAtPixel(event.pixel, function (feature) {
+          hitFeature = feature;
+          return true;
         });
 
-        map.addLayer({
-          id: "places-circle",
-          type: "circle",
-          source: "places",
-          paint: {
-            "circle-radius": 6,
-            "circle-color": "#ff7043",
-            "circle-stroke-width": 2,
-            "circle-stroke-color": "#ffffff"
-          }
-        });
-
-        map.on("click", "places-circle", function (e) {
-          const feature = e && e.features && e.features[0];
-          if (!feature) return;
-          const coordinates = feature.geometry.coordinates.slice();
-          const props = feature.properties || {};
-          new maplibregl.Popup({ offset: 18 })
-            .setLngLat(coordinates)
-            .setHTML("<strong>" + (props.name || "") + "</strong><br>" + (props.detail || ""))
-            .addTo(map);
-        });
-
-        map.on("mouseenter", "places-circle", function () {
-          map.getCanvas().style.cursor = "pointer";
-        });
-        map.on("mouseleave", "places-circle", function () {
-          map.getCanvas().style.cursor = "";
-        });
-
-        if (
-          validCount > 1 &&
-          Number.isFinite(minLng) &&
-          Number.isFinite(minLat) &&
-          Number.isFinite(maxLng) &&
-          Number.isFinite(maxLat)
-        ) {
-          map.fitBounds([[minLng, minLat], [maxLng, maxLat]], {
-            padding: 30,
-            maxZoom: 5
-          });
-          console.info(debugTag, "fitBounds applied", {
-            minLng: minLng,
-            minLat: minLat,
-            maxLng: maxLng,
-            maxLat: maxLat,
-            markerCount: validCount
-          });
+        if (!hitFeature) {
+          popupEl.style.display = "none";
+          return;
         }
+
+        popupEl.innerHTML =
+          "<strong>" + hitFeature.get("name") + "</strong><br>" + hitFeature.get("detail");
+        popupEl.style.display = "block";
+        popupOverlay.setPosition(event.coordinate);
+      });
+
+      map.on("pointermove", function (event) {
+        const hit = map.hasFeatureAtPixel(event.pixel);
+        map.getTargetElement().style.cursor = hit ? "pointer" : "";
       });
     })();
 
