@@ -344,7 +344,11 @@
       if (cards.length < 2) return;
 
       const mobileQuery = window.matchMedia("(max-width: 760px)");
-      let index = cards.length > 2 ? 1 : 0;
+      const preferredStartIndex = cards.findIndex(function (card) {
+        const articleLink = card.querySelector('a[href*="dailycamera.com"]');
+        return Boolean(articleLink);
+      });
+      let index = preferredStartIndex >= 0 ? preferredStartIndex : (cards.length > 2 ? 1 : 0);
       let touchStartX = 0;
       let touchStartY = 0;
       let isAnimating = false;
