@@ -601,12 +601,12 @@ footer{
   border-radius: 12px;
   overflow: hidden;
 }
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip{
+.maplibregl-popup-content,
+.maplibregl-popup-tip{
   background: #1f2430;
   color: var(--text);
 }
-.leaflet-container a{
+.maplibregl-map a{
   color: #9bd1ff;
 }
 .about-carousels{
