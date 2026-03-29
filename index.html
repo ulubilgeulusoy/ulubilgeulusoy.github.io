@@ -320,7 +320,7 @@
       if (cards.length < 2) return;
 
       const mobileQuery = window.matchMedia("(max-width: 760px)");
-      let index = 0;
+      let index = cards.length > 2 ? 1 : 0;
       let touchStartX = 0;
       let touchStartY = 0;
       let isAnimating = false;
@@ -359,6 +359,7 @@
       }
 
       function enableMobileCube() {
+        newsGrid.classList.remove("desktop-deck");
         newsGrid.classList.add("cube-mode");
         setStates();
       }
@@ -370,10 +371,50 @@
         });
       }
 
+      function setDesktopStates() {
+        cards.forEach(function (card, i) {
+          card.classList.remove("deck-left", "deck-center", "deck-right", "deck-hidden");
+          const delta = (i - index + cards.length) % cards.length;
+          if (delta === 0) {
+            card.classList.add("deck-center");
+          } else if (delta === 1) {
+            card.classList.add("deck-right");
+          } else if (delta === cards.length - 1) {
+            card.classList.add("deck-left");
+          } else {
+            card.classList.add("deck-hidden");
+          }
+        });
+      }
+
+      function enableDesktopDeck() {
+        disableMobileCube();
+        newsGrid.classList.add("desktop-deck");
+        setDesktopStates();
+      }
+
       function syncMode() {
         if (mobileQuery.matches) enableMobileCube();
-        else disableMobileCube();
+        else enableDesktopDeck();
       }
+
+      cards.forEach(function (card, i) {
+        card.addEventListener("click", function () {
+          if (mobileQuery.matches) return;
+          if (i === index) return;
+          index = i;
+          setDesktopStates();
+        });
+
+        card.addEventListener("keydown", function (event) {
+          if (mobileQuery.matches) return;
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          if (i === index) return;
+          index = i;
+          setDesktopStates();
+        });
+      });
 
       newsGrid.addEventListener("touchstart", function (event) {
         if (!mobileQuery.matches) return;
