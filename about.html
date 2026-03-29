@@ -252,6 +252,7 @@
       if (!window.maplibregl) return;
       const mapEl = document.getElementById("about-map");
       if (!mapEl) return;
+      const debugTag = "[AboutMap]";
 
       const places = [
         {
@@ -289,12 +290,49 @@
         maxBounds: [[-180, -85], [180, 85]]
       });
 
+      console.info(debugTag, "Map created", {
+        containerSize: { width: mapEl.clientWidth, height: mapEl.clientHeight },
+        style: "https://tiles.openfreemap.org/styles/liberty"
+      });
+
       map.addControl(new maplibregl.NavigationControl(), "top-right");
       map.on("error", function (e) {
-        console.error("MapLibre error:", e && (e.error || e));
+        console.error(debugTag, "MapLibre error:", e && (e.error || e), e);
+      });
+      map.on("styledata", function () {
+        const style = map.getStyle();
+        console.info(debugTag, "styledata", {
+          layers: style && style.layers ? style.layers.length : 0,
+          sources: style && style.sources ? Object.keys(style.sources) : []
+        });
+      });
+      map.on("sourcedata", function (e) {
+        if (e && e.sourceId && (e.isSourceLoaded || e.sourceDataType === "content")) {
+          console.info(debugTag, "sourcedata", {
+            sourceId: e.sourceId,
+            sourceType: e.source && e.source.type ? e.source.type : undefined,
+            isSourceLoaded: e.isSourceLoaded,
+            sourceDataType: e.sourceDataType
+          });
+        }
+      });
+      map.on("render", function () {
+        if (!map.__aboutMapRenderLogged) {
+          map.__aboutMapRenderLogged = true;
+          console.info(debugTag, "first render frame");
+        }
+      });
+      map.on("idle", function () {
+        const style = map.getStyle();
+        console.info(debugTag, "idle", {
+          zoom: map.getZoom(),
+          center: map.getCenter(),
+          layers: style && style.layers ? style.layers.length : 0
+        });
       });
 
       map.on("load", function () {
+        console.info(debugTag, "load event fired");
         let minLng = Infinity;
         let minLat = Infinity;
         let maxLng = -Infinity;
@@ -331,6 +369,13 @@
           map.fitBounds([[minLng, minLat], [maxLng, maxLat]], {
             padding: 30,
             maxZoom: 5
+          });
+          console.info(debugTag, "fitBounds applied", {
+            minLng: minLng,
+            minLat: minLat,
+            maxLng: maxLng,
+            maxLat: maxLat,
+            markerCount: validCount
           });
         }
       });
