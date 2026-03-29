@@ -313,7 +313,10 @@
 
       map.addControl(new maplibregl.NavigationControl(), "top-right");
 
-      const bounds = [];
+      let minLng = Infinity;
+      let minLat = Infinity;
+      let maxLng = -Infinity;
+      let maxLat = -Infinity;
       places.forEach(function (place) {
         const popup = new maplibregl.Popup({ offset: 18 }).setHTML(
           "<strong>" + place.name + "</strong><br>" + place.detail
@@ -322,14 +325,20 @@
           .setLngLat([place.lng, place.lat])
           .setPopup(popup)
           .addTo(map);
-        bounds.push([place.lng, place.lat]);
+        minLng = Math.min(minLng, place.lng);
+        minLat = Math.min(minLat, place.lat);
+        maxLng = Math.max(maxLng, place.lng);
+        maxLat = Math.max(maxLat, place.lat);
       });
 
-      if (bounds.length > 1) {
-        map.fitBounds(bounds, {
+      if (places.length > 1) {
+        map.fitBounds(
+          [[minLng, minLat], [maxLng, maxLat]],
+          {
           padding: 30,
           maxZoom: 5
-        });
+          }
+        );
       }
     })();
 
