@@ -283,7 +283,24 @@
 
       const map = new maplibregl.Map({
         container: "about-map",
-        style: "https://tiles.openfreemap.org/styles/liberty",
+        style: {
+          version: 8,
+          sources: {
+            osmRaster: {
+              type: "raster",
+              tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+              tileSize: 256,
+              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }
+          },
+          layers: [
+            {
+              id: "osm-raster",
+              type: "raster",
+              source: "osmRaster"
+            }
+          ]
+        },
         center: [-10, 38.9],
         zoom: 2,
         maxZoom: 18,
@@ -292,7 +309,7 @@
 
       console.info(debugTag, "Map created", {
         containerSize: { width: mapEl.clientWidth, height: mapEl.clientHeight },
-        style: "https://tiles.openfreemap.org/styles/liberty"
+        style: "inline-raster-osm"
       });
 
       map.addControl(new maplibregl.NavigationControl(), "top-right");
@@ -344,19 +361,68 @@
           const lat = Number(place.lat);
           if (!Number.isFinite(lng) || !Number.isFinite(lat)) return;
 
-          const popup = new maplibregl.Popup({ offset: 18 }).setHTML(
-            "<strong>" + place.name + "</strong><br>" + place.detail
-          );
-          new maplibregl.Marker()
-            .setLngLat([lng, lat])
-            .setPopup(popup)
-            .addTo(map);
-
           minLng = Math.min(minLng, lng);
           minLat = Math.min(minLat, lat);
           maxLng = Math.max(maxLng, lng);
           maxLat = Math.max(maxLat, lat);
           validCount += 1;
+        });
+
+        const placeFeatures = places
+          .map(function (place) {
+            const lng = Number(place.lng);
+            const lat = Number(place.lat);
+            if (!Number.isFinite(lng) || !Number.isFinite(lat)) return null;
+            return {
+              type: "Feature",
+              properties: {
+                name: place.name,
+                detail: place.detail
+              },
+              geometry: {
+                type: "Point",
+                coordinates: [lng, lat]
+              }
+            };
+          })
+          .filter(Boolean);
+
+        map.addSource("places", {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: placeFeatures
+          }
+        });
+
+        map.addLayer({
+          id: "places-circle",
+          type: "circle",
+          source: "places",
+          paint: {
+            "circle-radius": 6,
+            "circle-color": "#ff7043",
+            "circle-stroke-width": 2,
+            "circle-stroke-color": "#ffffff"
+          }
+        });
+
+        map.on("click", "places-circle", function (e) {
+          const feature = e && e.features && e.features[0];
+          if (!feature) return;
+          const coordinates = feature.geometry.coordinates.slice();
+          const props = feature.properties || {};
+          new maplibregl.Popup({ offset: 18 })
+            .setLngLat(coordinates)
+            .setHTML("<strong>" + (props.name || "") + "</strong><br>" + (props.detail || ""))
+            .addTo(map);
+        });
+
+        map.on("mouseenter", "places-circle", function () {
+          map.getCanvas().style.cursor = "pointer";
+        });
+        map.on("mouseleave", "places-circle", function () {
+          map.getCanvas().style.cursor = "";
         });
 
         if (
