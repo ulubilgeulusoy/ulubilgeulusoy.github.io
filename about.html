@@ -322,7 +322,7 @@
         layers: [
           new ol.layer.Tile({
             source: new ol.source.XYZ({
-              url: "https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
+              url: "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
               attributions:
                 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             })
@@ -332,7 +332,7 @@
         overlays: [popupOverlay],
         view: new ol.View({
           center: ol.proj.fromLonLat([-25, 45]),
-          zoom: 1.7,
+          zoom: 2.5,
           minZoom: 1.5,
           maxZoom: 18
         }),
