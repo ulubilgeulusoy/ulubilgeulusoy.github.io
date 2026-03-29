@@ -321,22 +321,13 @@
         ],
         overlays: [popupOverlay],
         view: new ol.View({
-          center: ol.proj.fromLonLat([-10, 38.9]),
-          zoom: 2,
-          minZoom: 2,
+          center: ol.proj.fromLonLat([-25, 45]),
+          zoom: 1.7,
+          minZoom: 1.5,
           maxZoom: 18
         }),
         controls: ol.control.defaults.defaults()
       });
-
-      const extent = vectorSource.getExtent();
-      if (extent && !ol.extent.isEmpty(extent)) {
-        map.getView().fit(extent, {
-          padding: [30, 30, 30, 30],
-          maxZoom: 5,
-          duration: 0
-        });
-      }
 
       map.on("singleclick", function (event) {
         let hitFeature = null;
