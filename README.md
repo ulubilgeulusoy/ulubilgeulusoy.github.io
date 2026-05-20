@@ -1,6 +1,11 @@
-﻿# ulubilgeulusoy.github.io
+# ulubilgeulusoy.github.io
 
 Personal portfolio website built with static HTML and CSS.
+
+## License
+
+- Code (`.html`, `.css`, `.js`): MIT License. See `LICENSE`.
+- Content and media assets (text, images, videos, PDFs, branding): All Rights Reserved. See `LICENSE-CONTENT`.
 
 ## Optional Google Analytics 
 
