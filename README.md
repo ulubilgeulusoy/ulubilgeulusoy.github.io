@@ -6,6 +6,7 @@ Personal portfolio website built with static HTML and CSS.
 
 - Code (`.html`, `.css`, `.js`): MIT License. See `LICENSE`.
 - Content and media assets (text, images, videos, PDFs, branding): All Rights Reserved. See `LICENSE-CONTENT`.
+- Third-party assets are documented separately in `THIRD_PARTY_ASSETS.md` and remain under their respective owners' terms.
 
 ## Optional Google Analytics 
 
