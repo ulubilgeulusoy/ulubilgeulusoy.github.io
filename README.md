@@ -2,6 +2,40 @@
 
 Personal portfolio website built with static HTML and CSS.
 
+## 3D Globe (About Page)
+
+The **My Places** section on `about.html` uses a 3D interactive globe powered by **globe.gl**.
+
+References:
+- https://globe.gl/
+- [vasturiano/globe.gl](https://github.com/vasturiano/globe.gl)
+
+### How It Is Implemented
+
+- `about.html` loads globe.gl from CDN:
+  - `<script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>`
+- The globe is rendered inside:
+  - `<div id="about-map" class="about-map">...</div>`
+- Location data is defined as a local JavaScript array (`places`) with:
+  - `name`, `lat`, `lng`, `detail`
+- A points layer is created from `places` and passed to:
+  - `.pointsData(...)`
+  - `.pointAltitude(...)`
+  - `.pointRadius(...)`
+  - `.pointColor(...)`
+- Current globe visual style:
+  - Dark-blue/night Earth texture (`earth-night.jpg`)
+  - Topology bump map (`earth-topology.png`)
+  - Starfield background (`night-sky.png`)
+  - Subtle atmosphere tint for depth
+- Interaction behavior:
+  - On pin click (`.onPointClick(...)`), the selected city title and text are shown in the left-side info panel (outside the globe).
+  - Camera animates toward the clicked location with `pointOfView(...)`.
+- Responsive layout and panel styling are handled in `style.css` with:
+  - `.about-globe-layout`
+  - `.about-places-panel`
+  - `.about-map`
+
 ## License
 
 - Code (`.html`, `.css`, `.js`): MIT License. See `LICENSE`.
