@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>About - Ulubilge Ulusoy</title>
   <link rel="stylesheet" href="style.css">
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/ol@9.2.4/ol.css"
-  >
 </head>
 <body>
   <div class="nav">
@@ -46,7 +42,13 @@
     <h2>My Places</h2>
     <div class="grid">
       <div class="card span">
-        <div id="about-map" class="about-map" role="region" aria-label="Interactive map of important places"></div>
+        <div class="about-globe-layout">
+          <article class="about-places-panel" aria-live="polite">
+            <h3 id="about-place-name">My Places</h3>
+            <p id="about-place-detail">Click a pin on the globe to see details about that city.</p>
+          </article>
+          <div id="about-map" class="about-map" role="region" aria-label="Interactive globe of important places"></div>
+        </div>
       </div>
     </div>
 
@@ -244,12 +246,14 @@
       <a class="page-pager-link" href="resume.html" aria-label="Go to next page: Resume">Next: Resume &rarr;</a>
     </footer>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/ol@9.2.4/dist/ol.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
   <script>
     (function initAboutMap() {
-      if (!window.ol) return;
+      if (!window.Globe) return;
       const mapEl = document.getElementById("about-map");
       if (!mapEl) return;
+      const placeNameEl = document.getElementById("about-place-name");
+      const placeDetailEl = document.getElementById("about-place-detail");
 
       const places = [
         {
@@ -274,93 +278,41 @@
           name: "Boulder, Colorado",
           lat: 40.01499,
           lng: -105.27055,
-          detail: "I am now in Boulder, continuing to grow and contribute to human spaceflight research. At the Bioastronautics Laboratory at CU Boulder, I focus on understanding the human element of space operations by evaluating physiological signals during interaction with AI and robotic systems."
+          detail: "I now live in Boulder, where I contribute to human spaceflight research at the Bioastronautics Laboratory at CU Boulder. My work focuses on understanding the human element of space operations by evaluating physiological signals during interactions with AI and robotic systems."
         }
       ];
 
-      const features = places.map(function (place) {
-        const feature = new ol.Feature({
-          geometry: new ol.geom.Point(ol.proj.fromLonLat([place.lng, place.lat])),
-          name: place.name,
-          detail: place.detail
-        });
-        return feature;
+      const points = places.map(function (place) {
+        return Object.assign({}, place, { size: 0.2, color: "#c9d1de" });
       });
 
-      const vectorSource = new ol.source.Vector({ features: features });
-      const vectorLayer = new ol.layer.Vector({
-        source: vectorSource,
-        style: new ol.style.Style({
-          image: new ol.style.Circle({
-            radius: 6,
-            fill: new ol.style.Fill({ color: "#242830" }),
-            stroke: new ol.style.Stroke({ color: "#d8e0ee", width: 2 })
-          })
-        })
-      });
-
-      const popupEl = document.createElement("div");
-      popupEl.className = "ol-popup";
-      popupEl.style.display = "none";
-      mapEl.appendChild(popupEl);
-
-      const popupOverlay = new ol.Overlay({
-        element: popupEl,
-        offset: [0, -14],
-        positioning: "bottom-center",
-        stopEvent: false,
-        autoPan: {
-          animation: {
-            duration: 220
-          },
-          margin: 28
-        }
-      });
-
-      const map = new ol.Map({
-        target: "about-map",
-        layers: [
-          new ol.layer.Tile({
-            source: new ol.source.XYZ({
-              url: "https://a.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png",
-              attributions:
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            })
-          }),
-          vectorLayer
-        ],
-        overlays: [popupOverlay],
-        view: new ol.View({
-          center: ol.proj.fromLonLat([-25, 45]),
-          zoom: 2.5,
-          minZoom: 1.5,
-          maxZoom: 18
-        }),
-        controls: ol.control.defaults.defaults()
-      });
-
-      map.on("singleclick", function (event) {
-        let hitFeature = null;
-        map.forEachFeatureAtPixel(event.pixel, function (feature) {
-          hitFeature = feature;
-          return true;
+      const globe = Globe()(mapEl)
+        .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-night.jpg")
+        .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
+        .backgroundColor("rgba(0,0,0,0)")
+        .backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png")
+        .atmosphereColor("#9ba8bb")
+        .atmosphereAltitude(0.13)
+        .pointsData(points)
+        .pointAltitude("size")
+        .pointRadius(0.45)
+        .pointColor("color")
+        .pointLabel(function (p) { return p.name; })
+        .onPointClick(function (p) {
+          if (placeNameEl) placeNameEl.textContent = p.name;
+          if (placeDetailEl) placeDetailEl.textContent = p.detail;
+          globe.pointOfView({ lat: p.lat, lng: p.lng, altitude: 1.5 }, 900);
         });
 
-        if (!hitFeature) {
-          popupEl.style.display = "none";
-          return;
-        }
+      globe.controls().autoRotate = false;
+      globe.pointOfView({ lat: 35, lng: -10, altitude: 2.0 }, 0);
 
-        popupEl.innerHTML =
-          "<strong>" + hitFeature.get("name") + "</strong><br>" + hitFeature.get("detail");
-        popupEl.style.display = "block";
-        popupOverlay.setPosition(event.coordinate);
-      });
-
-      map.on("pointermove", function (event) {
-        const hit = map.hasFeatureAtPixel(event.pixel);
-        map.getTargetElement().style.cursor = hit ? "pointer" : "";
-      });
+      function resizeGlobe() {
+        globe.width(mapEl.clientWidth);
+        globe.height(mapEl.clientHeight);
+      }
+      window.addEventListener("resize", resizeGlobe);
+      resizeGlobe();
     })();
 
     (function initAboutCarousels() {

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Globe Test (Standalone)</title>
+  <style>
+    :root {
+      --bg-a: #05070c;
+      --bg-b: #0b1220;
+      --text: #e7eef8;
+      --muted: #9fb0c8;
+      --accent: #6fd3ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 600px at 12% 10%, #14233f 0%, transparent 60%),
+        radial-gradient(900px 500px at 88% 90%, #101c36 0%, transparent 58%),
+        linear-gradient(145deg, var(--bg-a), var(--bg-b));
+      overflow: hidden;
+    }
+
+    .shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    #globeViz {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hud {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 5;
+      padding: 10px 12px;
+      border: 1px solid rgba(140, 170, 210, 0.35);
+      border-radius: 10px;
+      background: rgba(6, 11, 20, 0.72);
+      backdrop-filter: blur(6px);
+      max-width: min(92vw, 360px);
+    }
+
+    .hud h1 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+    }
+
+    .hud p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .preset-bar {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      z-index: 5;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      max-width: min(92vw, 520px);
+    }
+
+    .preset-btn {
+      appearance: none;
+      border: 1px solid rgba(140, 170, 210, 0.45);
+      background: rgba(6, 11, 20, 0.72);
+      color: #d6e5f8;
+      border-radius: 999px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .preset-btn.active {
+      border-color: #7cd7ff;
+      color: #7cd7ff;
+      background: rgba(8, 18, 34, 0.92);
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div id="globeViz" aria-label="Interactive Earth globe"></div>
+    <div class="hud">
+      <h1>Location Details</h1>
+      <p id="locationText">Click the Los Angeles pin to view details.</p>
+    </div>
+    <div class="preset-bar" aria-label="Globe style presets">
+      <button class="preset-btn active" type="button" data-preset="day">Day</button>
+      <button class="preset-btn" type="button" data-preset="darkBlue">Dark Blue</button>
+      <button class="preset-btn" type="button" data-preset="minimal">Minimal</button>
+      <button class="preset-btn" type="button" data-preset="highContrast">High Contrast</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
+  <script>
+    const points = [
+      {
+        city: "Los Angeles",
+        lat: 34.0522,
+        lng: -118.2437,
+        size: 0.2,
+        color: "#ff6b6b",
+        description: "Los Angeles pin selected. This text panel is rendered outside the globe on the left."
+      }
+    ];
+    const locationText = document.getElementById("locationText");
+    const presetButtons = Array.from(document.querySelectorAll("[data-preset]"));
+
+    const globe = Globe()(document.getElementById("globeViz"))
+      .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
+      .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
+      .backgroundColor("rgba(0,0,0,0)")
+      .atmosphereColor("#9ed1ff")
+      .atmosphereAltitude(0.15)
+      .pointsData(points)
+      .pointAltitude("size")
+      .pointRadius(0.5)
+      .pointColor("color")
+      .pointLabel(p => p.city)
+      .onPointClick((p) => {
+        locationText.textContent = p.description;
+        globe.pointOfView({ lat: p.lat, lng: p.lng, altitude: 1.6 }, 900);
+      });
+
+    globe.controls().autoRotate = false;
+    globe.pointOfView({ lat: 20, lng: -100, altitude: 2.0 }, 0);
+
+    const presets = {
+      day: {
+        globeImageUrl: "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg",
+        bumpImageUrl: "https://unpkg.com/three-globe/example/img/earth-topology.png",
+        backgroundColor: "rgba(0,0,0,0)",
+        atmosphereColor: "#9ed1ff",
+        atmosphereAltitude: 0.15,
+        showAtmosphere: true
+      },
+      darkBlue: {
+        globeImageUrl: "https://unpkg.com/three-globe/example/img/earth-night.jpg",
+        bumpImageUrl: "https://unpkg.com/three-globe/example/img/earth-topology.png",
+        backgroundColor: "rgba(0,0,0,0)",
+        atmosphereColor: "#5ca8ff",
+        atmosphereAltitude: 0.18,
+        showAtmosphere: true
+      },
+      minimal: {
+        globeImageUrl: null,
+        bumpImageUrl: null,
+        backgroundColor: "rgba(0,0,0,0)",
+        atmosphereColor: "#7db5ff",
+        atmosphereAltitude: 0.11,
+        showAtmosphere: true
+      },
+      highContrast: {
+        globeImageUrl: "https://unpkg.com/three-globe/example/img/earth-water.png",
+        bumpImageUrl: "https://unpkg.com/three-globe/example/img/earth-topology.png",
+        backgroundColor: "rgba(0,0,0,0)",
+        atmosphereColor: "#bfe4ff",
+        atmosphereAltitude: 0.2,
+        showAtmosphere: true
+      }
+    };
+
+    function applyPreset(key) {
+      const preset = presets[key];
+      if (!preset) return;
+      globe
+        .globeImageUrl(preset.globeImageUrl)
+        .bumpImageUrl(preset.bumpImageUrl)
+        .backgroundColor(preset.backgroundColor)
+        .showAtmosphere(preset.showAtmosphere)
+        .atmosphereColor(preset.atmosphereColor)
+        .atmosphereAltitude(preset.atmosphereAltitude);
+      presetButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.preset === key);
+      });
+    }
+
+    presetButtons.forEach((btn) => {
+      btn.addEventListener("click", () => applyPreset(btn.dataset.preset));
+    });
+
+    window.addEventListener("resize", () => {
+      globe.width(window.innerWidth);
+      globe.height(window.innerHeight);
+    });
+
+    applyPreset("day");
+    globe.width(window.innerWidth);
+    globe.height(window.innerHeight);
+  </script>
+</body>
+</html>
+

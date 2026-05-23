@@ -601,17 +601,27 @@ footer{
   border-radius: 12px;
   overflow: hidden;
 }
-.ol-popup{
-  background: rgba(24, 28, 36, 0.96);
-  color: var(--text);
-  border: 1px solid #3a4456;
-  border-radius: 10px;
-  padding: 8px 10px;
-  max-width: min(320px, calc(100vw - 72px));
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+.about-globe-layout{
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
 }
-.about-map a{
-  color: #9bd1ff;
+.about-places-panel{
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(16,24,38,0.65);
+}
+.about-places-panel h3{
+  margin: 0 0 8px;
+  color: #d8dee9;
+}
+.about-places-panel p{
+  margin: 0;
+  color: var(--text);
+  line-height: 1.6;
+  text-align: left;
 }
 .about-carousels{
   margin-top: 16px;
@@ -1665,6 +1675,12 @@ ul{ margin: 10px 0 0 18px; }
   background: #dbe7ff;
 }
 @media (max-width: 760px){
+  .about-globe-layout{
+    grid-template-columns: 1fr;
+  }
+  .about-map{
+    height: 360px;
+  }
   .about-carousels{
     margin-top: 10px;
   }
