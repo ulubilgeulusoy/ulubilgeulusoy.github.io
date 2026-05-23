@@ -2,7 +2,7 @@
 
 Personal portfolio website built with static HTML and CSS.
 
-Portfolio website: [https://ulubilgeulusoy.github.io/](https://ulubilgeulusoy.github.io/)
+Portfolio website: <a href="https://ulubilgeulusoy.github.io/" target="_blank" rel="noopener noreferrer">https://ulubilgeulusoy.github.io/</a>
 
 ## 3D Globe (About Page)
 
