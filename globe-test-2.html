@@ -66,29 +66,6 @@
       line-height: 1.4;
     }
 
-    .moon-photo-pin {
-      width: 122px;
-      border: 1px solid rgba(220, 232, 248, 0.6);
-      border-radius: 8px;
-      overflow: hidden;
-      background: rgba(8, 14, 26, 0.9);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
-      cursor: pointer;
-      transition: transform 160ms ease, filter 160ms ease;
-    }
-
-    .moon-photo-pin:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-    }
-
-    .moon-photo-pin img {
-      display: block;
-      width: 100%;
-      height: 74px;
-      object-fit: cover;
-    }
-
   </style>
 </head>
 <body>
@@ -96,7 +73,7 @@
     <div id="globeViz" aria-label="Interactive Earth globe"></div>
     <div class="hud">
       <h1>Location Details</h1>
-      <p id="locationText">Click a rectangle or photo to open the related highlight page.</p>
+      <p id="locationText">Click a rectangle or badge label to open the related highlight page.</p>
     </div>
   </div>
 
@@ -156,27 +133,18 @@
         }
       }
     ];
-    const photoPins = [
-      { name: "Projects", lat: 0, lng: -137.5, img: "project_pictures/experiment_setup.jpg", url: "projects.html" },
-      { name: "Experience", lat: 0, lng: -97.5, img: "highlight_pictures/experience.jpg", url: "experience.html" },
-      { name: "Education", lat: 0, lng: -57.5, img: "highlight_pictures/about.jpg", url: "education.html" },
-      { name: "Engagement", lat: 0, lng: -17.5, img: "highlight_pictures/engagement.jpg", url: "engagement.html" },
-      { name: "About", lat: 0, lng: 22.5, img: "galatasaray/gala_1.jpg", url: "about.html" }
-    ];
     const labelBadges = [
-      { name: "Projects", lat: -9.3, lng: -137.5, url: "projects.html", color: "#0b0b0b" },
-      { name: "Experience", lat: -9.3, lng: -97.5, url: "experience.html", color: "#0b0b0b" },
-      { name: "Education", lat: -9.3, lng: -57.5, url: "education.html", color: "#0b0b0b" },
-      { name: "Engagement", lat: -9.3, lng: -17.5, url: "engagement.html", color: "#0b0b0b" },
-      { name: "About", lat: -9.3, lng: 22.5, url: "about.html", color: "#0b0b0b" }
+      { name: "Projects", lat: 0, lng: -137.5, url: "projects.html", color: "#1f232b" },
+      { name: "Experience", lat: 0, lng: -97.5, url: "experience.html", color: "#1f232b" },
+      { name: "Education", lat: 0, lng: -57.5, url: "education.html", color: "#1f232b" },
+      { name: "Engagement", lat: 0, lng: -17.5, url: "engagement.html", color: "#1f232b" },
+      { name: "About", lat: 0, lng: 22.5, url: "about.html", color: "#1f232b" }
     ];
-    const pinEls = new Map();
 
     const globe = Globe()(document.getElementById("globeViz"))
       .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
       .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
       .backgroundColor("rgba(0,0,0,0)")
-      .backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png")
       .atmosphereColor("#9ed1ff")
       .atmosphereAltitude(0.15)
         .pointsData(points)
@@ -185,42 +153,21 @@
         .polygonCapColor(() => "rgba(205, 215, 230, 0.5)")
         .polygonSideColor(() => "rgba(80, 92, 108, 0.35)")
         .polygonStrokeColor(() => "#f4f8ff")
-        .polygonAltitude(0.08)
+        .polygonAltitude(0.18)
         .polygonLabel(p => p.name)
         .labelsData(labelBadges)
         .labelLat((d) => d.lat)
         .labelLng((d) => d.lng)
-        .labelAltitude(0.081)
+        .labelAltitude(0.18)
         .labelText((d) => d.name)
         .labelSize(1.9)
         .labelDotRadius(0.3)
         .labelColor((d) => d.color)
         .labelResolution(3)
-        .labelIncludeDot(false)
+        .labelIncludeDot(true)
         .onLabelClick((d) => {
           locationText.textContent = d.name + " selected. Opening: " + d.url;
           window.open(d.url, "_blank", "noopener,noreferrer");
-        })
-        .htmlElementsData(photoPins)
-        .htmlLat((d) => d.lat)
-        .htmlLng((d) => d.lng)
-        .htmlAltitude(0.11)
-        .htmlTransitionDuration(0)
-        .htmlElement((d) => {
-          const wrap = document.createElement("div");
-          wrap.className = "moon-photo-pin";
-          wrap.title = d.name;
-          const img = document.createElement("img");
-          img.src = d.img;
-          img.alt = d.name + " highlight";
-          wrap.appendChild(img);
-          wrap.addEventListener("click", function (event) {
-            event.stopPropagation();
-            locationText.textContent = d.name + " selected. Opening: " + d.url;
-            window.open(d.url, "_blank", "noopener,noreferrer");
-          });
-          pinEls.set(d.name, wrap);
-          return wrap;
         })
         .onPolygonClick((p) => {
           locationText.textContent = p.name + " selected. Opening: " + p.url;
@@ -228,38 +175,14 @@
         });
 
     globe.controls().autoRotate = true;
-    globe.controls().autoRotateSpeed = 0.45;
+    globe.controls().autoRotateSpeed = 0.7;
     globe.pointOfView({ lat: 0, lng: -60, altitude: 2.0 }, 0);
-
-    function degToRad(v) { return v * Math.PI / 180; }
-    function angularDistanceDeg(aLat, aLng, bLat, bLng) {
-      const a1 = degToRad(aLat);
-      const b1 = degToRad(aLng);
-      const a2 = degToRad(bLat);
-      const b2 = degToRad(bLng);
-      const cosDelta = Math.sin(a1) * Math.sin(a2) + Math.cos(a1) * Math.cos(a2) * Math.cos(b1 - b2);
-      return Math.acos(Math.max(-1, Math.min(1, cosDelta))) * 180 / Math.PI;
-    }
-
-    function updatePinVisibility() {
-      const pov = globe.pointOfView();
-      if (!pov) return;
-      photoPins.forEach((pin) => {
-        const el = pinEls.get(pin.name);
-        if (!el) return;
-        const angle = angularDistanceDeg(pov.lat || 0, pov.lng || 0, pin.lat, pin.lng);
-        const visible = angle < 72; // hide earlier than default horizon clipping
-        el.style.opacity = visible ? "1" : "0";
-        el.style.pointerEvents = visible ? "auto" : "none";
-      });
-      requestAnimationFrame(updatePinVisibility);
-    }
-    requestAnimationFrame(updatePinVisibility);
 
     globe
       .globeImageUrl("assets/globe/moon.jpg")
       .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
       .backgroundColor("rgba(0,0,0,0)")
+      .backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png")
       .showAtmosphere(true)
       .atmosphereColor("#a9b4c3")
       .atmosphereAltitude(0.06);

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Globe Test 5 (Moon + Mars)</title>
+  <style>
+    :root {
+      --bg-a: #05070c;
+      --bg-b: #0b1220;
+      --text: #e7eef8;
+      --muted: #9fb0c8;
+      --accent: #6fd3ff;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 600px at 12% 10%, #14233f 0%, transparent 60%),
+        radial-gradient(900px 500px at 88% 90%, #101c36 0%, transparent 58%),
+        linear-gradient(145deg, var(--bg-a), var(--bg-b));
+      overflow: hidden;
+    }
+    .shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .panel {
+      position: relative;
+      border: 1px solid rgba(140, 170, 210, 0.35);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.12);
+    }
+    .globe {
+      position: absolute;
+      inset: 0;
+    }
+    .title {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 5;
+      padding: 8px 10px;
+      border: 1px solid rgba(140, 170, 210, 0.35);
+      border-radius: 10px;
+      background: rgba(6, 11, 20, 0.72);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .hud {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 14px;
+      z-index: 8;
+      padding: 9px 12px;
+      border: 1px solid rgba(140, 170, 210, 0.35);
+      border-radius: 10px;
+      background: rgba(6, 11, 20, 0.72);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 980px) {
+      .shell { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="panel">
+      <div class="title">Moon (Test 2)</div>
+      <div id="moonGlobe" class="globe" aria-label="Moon globe"></div>
+    </section>
+    <section class="panel">
+      <div class="title">Mars (Test 4)</div>
+      <div id="marsGlobe" class="globe" aria-label="Mars globe"></div>
+    </section>
+    <div class="hud" id="status">Click a label on either globe to open the related highlight page.</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/globe.gl"></script>
+  <script>
+    const statusEl = document.getElementById("status");
+
+    function makePolygons() {
+      return [
+        { name: "Projects", url: "projects.html", geometry: { type: "Polygon", coordinates: [[[-150,12],[-125,12],[-125,-12],[-150,-12],[-150,12]]] } },
+        { name: "Experience", url: "experience.html", geometry: { type: "Polygon", coordinates: [[[-110,12],[-85,12],[-85,-12],[-110,-12],[-110,12]]] } },
+        { name: "Education", url: "education.html", geometry: { type: "Polygon", coordinates: [[[-70,12],[-45,12],[-45,-12],[-70,-12],[-70,12]]] } },
+        { name: "Engagement", url: "engagement.html", geometry: { type: "Polygon", coordinates: [[[-30,12],[-5,12],[-5,-12],[-30,-12],[-30,12]]] } },
+        { name: "About", url: "about.html", geometry: { type: "Polygon", coordinates: [[[10,12],[35,12],[35,-12],[10,-12],[10,12]]] } }
+      ];
+    }
+
+    function makeLabels() {
+      return [
+        { name: "Projects", lat: 0, lng: -137.5, url: "projects.html", color: "#1f232b" },
+        { name: "Experience", lat: 0, lng: -97.5, url: "experience.html", color: "#1f232b" },
+        { name: "Education", lat: 0, lng: -57.5, url: "education.html", color: "#1f232b" },
+        { name: "Engagement", lat: 0, lng: -17.5, url: "engagement.html", color: "#1f232b" },
+        { name: "About", lat: 0, lng: 22.5, url: "about.html", color: "#1f232b" }
+      ];
+    }
+
+    function buildGlobe(el, texturePath, rotateSpeed) {
+      const polygons = makePolygons();
+      const labels = makeLabels();
+      const globe = Globe()(el)
+        .globeImageUrl(texturePath)
+        .bumpImageUrl("https://unpkg.com/three-globe/example/img/earth-topology.png")
+        .backgroundColor("rgba(0,0,0,0)")
+        .backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png")
+        .showAtmosphere(true)
+        .atmosphereColor("#a9b4c3")
+        .atmosphereAltitude(0.06)
+        .polygonsData(polygons)
+        .polygonGeoJsonGeometry((d) => d.geometry)
+        .polygonCapColor(() => "rgba(205, 215, 230, 0.5)")
+        .polygonSideColor(() => "rgba(80, 92, 108, 0.35)")
+        .polygonStrokeColor(() => "#f4f8ff")
+        .polygonAltitude(0.18)
+        .labelsData(labels)
+        .labelLat((d) => d.lat)
+        .labelLng((d) => d.lng)
+        .labelAltitude(0.18)
+        .labelText((d) => d.name)
+        .labelSize(1.9)
+        .labelDotRadius(0.3)
+        .labelColor((d) => d.color)
+        .labelResolution(3)
+        .labelIncludeDot(false)
+        .onLabelClick((d) => {
+          statusEl.textContent = d.name + " selected. Opening: " + d.url;
+          window.open(d.url, "_blank", "noopener,noreferrer");
+        })
+        .onPolygonClick((p) => {
+          statusEl.textContent = p.name + " selected. Opening: " + p.url;
+          window.open(p.url, "_blank", "noopener,noreferrer");
+        });
+
+      globe.controls().autoRotate = true;
+      globe.controls().autoRotateSpeed = rotateSpeed;
+      globe.pointOfView({ lat: 0, lng: -60, altitude: 2.0 }, 0);
+      return globe;
+    }
+
+    const moonEl = document.getElementById("moonGlobe");
+    const marsEl = document.getElementById("marsGlobe");
+    const moonGlobe = buildGlobe(moonEl, "assets/globe/moon.jpg", 0.45);
+    const marsGlobe = buildGlobe(marsEl, "assets/globe/mars.jpg", 0.45);
+
+    function resize() {
+      moonGlobe.width(moonEl.clientWidth).height(moonEl.clientHeight);
+      marsGlobe.width(marsEl.clientWidth).height(marsEl.clientHeight);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+  </script>
+</body>
+</html>
