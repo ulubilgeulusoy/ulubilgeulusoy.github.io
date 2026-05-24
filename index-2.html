@@ -82,6 +82,11 @@
     </div>
     <section class="highlights-carousel" aria-label="Highlights globe test">
       <div id="index2-stars" aria-hidden="true"></div>
+      <div class="index2-globe-toggle" role="group" aria-label="Globe type selector">
+        <button type="button" class="index2-toggle-btn active" data-globe="moon">Moon</button>
+        <button type="button" class="index2-toggle-btn" data-globe="mars">Mars</button>
+      </div>
+      <button type="button" class="index2-reset-btn" id="index2-reset-view">Reset View</button>
       <div id="index2-globe" role="region" aria-label="Moon globe with highlight images"></div>
     </section>
 
@@ -193,7 +198,7 @@
       if (!mapEl) return;
 
       const style = document.createElement("style");
-      style.textContent = ".highlights-carousel[aria-label='Highlights globe test']{position:relative;height:560px;overflow:hidden;border-radius:14px;margin-bottom:14px}#index2-stars{display:none}#index2-globe{position:absolute;inset:0;z-index:1}";
+      style.textContent = ".highlights-carousel[aria-label='Highlights globe test']{position:relative;height:560px;overflow:hidden;border-radius:14px;margin-bottom:14px}#index2-stars{display:none}#index2-globe{position:absolute;inset:0;z-index:1}.index2-globe-toggle{position:absolute;top:12px;left:12px;z-index:3;display:flex;gap:8px}.index2-toggle-btn{border:1px solid rgba(145,164,190,.55);background:rgba(8,14,26,.78);color:#e8f0fb;padding:7px 12px;border-radius:999px;font:600 .85rem/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;cursor:pointer}.index2-toggle-btn.active{background:rgba(55,88,135,.82);border-color:rgba(178,201,235,.95)}.index2-reset-btn{position:absolute;right:12px;bottom:12px;z-index:3;border:1px solid rgba(145,164,190,.55);background:rgba(8,14,26,.82);color:#e8f0fb;padding:8px 13px;border-radius:999px;font:600 .85rem/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;cursor:pointer}";
       document.head.appendChild(style);
 
       const photoPins = [
@@ -263,7 +268,27 @@
       });
       globe.controls().autoRotate = true;
       globe.controls().autoRotateSpeed = 0.3
-      globe.pointOfView({ lat: 0, lng: -60, altitude: 3.2 }, 0);
+      globe.pointOfView({ lat: 0, lng: -60, altitude: 1.5 }, 0);
+      const resetViewBtn = document.getElementById("index2-reset-view");
+      const toggleButtons = Array.from(document.querySelectorAll(".index2-toggle-btn"));
+      function setGlobeType(type) {
+        const isMars = type === "mars";
+        globe.globeImageUrl(isMars ? "assets/globe/mars.jpg" : "assets/globe/moon.jpg");
+        mapEl.setAttribute("aria-label", isMars ? "Mars globe with highlight images" : "Moon globe with highlight images");
+        toggleButtons.forEach(function (btn) {
+          btn.classList.toggle("active", btn.dataset.globe === type);
+        });
+      }
+      toggleButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setGlobeType(btn.dataset.globe === "mars" ? "mars" : "moon");
+        });
+      });
+      if (resetViewBtn) {
+        resetViewBtn.addEventListener("click", function () {
+          globe.pointOfView({ lat: 0, lng: -60, altitude: 1.5 }, 700);
+        });
+      }
       function degToRad(v) { return v * Math.PI / 180; }
       function angularDistanceDeg(aLat, aLng, bLat, bLng) { const a1 = degToRad(aLat); const b1 = degToRad(aLng); const a2 = degToRad(bLat); const b2 = degToRad(bLng); const cosDelta = Math.sin(a1) * Math.sin(a2) + Math.cos(a1) * Math.cos(a2) * Math.cos(b1 - b2); return Math.acos(Math.max(-1, Math.min(1, cosDelta))) * 180 / Math.PI; }
       function updatePinVisibility() { const pov = globe.pointOfView(); if (!pov) return; if ((pov.altitude || 0) > 4.3) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 4.3 }, 0); pov.altitude = 4.3; } if ((pov.altitude || 0) < 0.50) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 0.50 }, 0); pov.altitude = 0.50; } const size = getPinSize(pov.altitude); photoPins.forEach((pin) => { const el = pinEls.get(pin.id); if (!el) return; const angle = angularDistanceDeg(pov.lat || 0, pov.lng || 0, pin.lat, pin.lng); const visible = angle < 72; el.style.opacity = visible ? "1" : "0"; el.style.pointerEvents = visible ? "auto" : "none"; el.style.width = size.cardW + "px"; const img = el.querySelector("img"); if (img) img.style.height = size.cardH + "px"; }); requestAnimationFrame(updatePinVisibility); }
