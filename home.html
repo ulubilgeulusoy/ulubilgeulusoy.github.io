@@ -233,7 +233,9 @@
         const isMobile = w <= 760;
         const alt = typeof altitude === "number" ? altitude : 2.0;
         const clampedAlt = Math.max(1.1, Math.min(4.0, alt));
-        const t = (clampedAlt - 1.1) / (4.0 - 1.1); // 0 when zoomed in, 1 when zoomed out
+        const tMobile = (clampedAlt - 1.1) / (4.0 - 1.1); // 0 when zoomed in, 1 when zoomed out
+        const tDesktop = (Math.max(1.1, Math.min(4.3, alt)) - 1.1) / (4.8 - 1.1); // original desktop sizing curve
+        const t = isMobile ? tMobile : tDesktop;
         const eased = Math.pow(t, 1.85);
         const zoomFactor = 4.4 - (3.9 * eased);
         const zoomBoost = Math.pow(zoomFactor / 4.4, 0.55) * 4.4;
