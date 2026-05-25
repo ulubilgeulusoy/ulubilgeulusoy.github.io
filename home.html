@@ -230,13 +230,16 @@
       const pinEls = new Map();
       function getPinSize(altitude) {
         const w = mapEl.clientWidth || window.innerWidth || 1200;
+        const isMobile = w <= 760;
         const alt = typeof altitude === "number" ? altitude : 2.0;
         const clampedAlt = Math.max(1.1, Math.min(4.3, alt));
         const t = (clampedAlt - 1.1) / (4.8 - 1.1); // 0 when zoomed in, 1 when zoomed out
         const eased = Math.pow(t, 1.85);
         const zoomFactor = 4.4 - (3.9 * eased);
         const zoomBoost = Math.pow(zoomFactor / 4.4, 0.55) * 4.4;
-        const cardW = Math.max(48, Math.min(560, Math.round(w * 0.05 * zoomBoost)));
+        const mobileScale = isMobile ? 1.45 : 1;
+        const minCardW = isMobile ? 92 : 48;
+        const cardW = Math.max(minCardW, Math.min(560, Math.round(w * 0.05 * zoomBoost * mobileScale)));
         const cardH = Math.max(28, Math.min(340, Math.round(cardW * 0.61)));
         return { cardW, cardH };
       }
