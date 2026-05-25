@@ -237,8 +237,8 @@
         const eased = Math.pow(t, 1.85);
         const zoomFactor = 4.4 - (3.9 * eased);
         const zoomBoost = Math.pow(zoomFactor / 4.4, 0.55) * 4.4;
-        const mobileScale = isMobile ? (1.595 + (1 - t) * 1.45) : 1;
-        const minCardW = isMobile ? Math.round(101 + (1 - t) * 92) : 48;
+        const mobileScale = isMobile ? (1.755 + (1 - t) * 1.45) : 1;
+        const minCardW = isMobile ? Math.round(111 + (1 - t) * 92) : 48;
         const cardW = Math.max(minCardW, Math.min(560, Math.round(w * 0.05 * zoomBoost * mobileScale)));
         const cardH = Math.max(28, Math.min(340, Math.round(cardW * 0.61)));
         return { cardW, cardH };
