@@ -4,6 +4,21 @@ Personal portfolio website built with static HTML and CSS.
 
 Portfolio website: <a href="https://ulubilgeulusoy.github.io/" target="_blank" rel="noopener noreferrer">https://ulubilgeulusoy.github.io/</a>
 
+## Current Homepage Routing
+
+- `index.html` is a lightweight redirect entry page.
+- `index-2.html` is the active homepage content.
+- `index.backup-before-index2-switch.html` stores the previous `index.html` content for rollback.
+
+## Key Files
+
+- `index.html`: Redirects `/` to `index-2.html`.
+- `index-2.html`: Main homepage currently in use.
+- `about.html`, `education.html`, `experience.html`, `engagement.html`, `projects.html`, `publications.html`, `resume.html`, `contact.html`: Main site pages.
+- `style.css`: Shared site styling.
+- `analytics-loader.js`: Optional runtime loader for local/private analytics snippet.
+- `THIRD_PARTY_ASSETS.md`: Attribution and ownership notes for third-party assets.
+
 ## 3D Globe (About Page)
 
 The **My Places** section on `about.html` uses a 3D interactive globe powered by **globe.gl**.
@@ -48,7 +63,8 @@ References:
 
 Google Analytics is intentionally not committed to this repository.
 
-- `index.html` loads `analytics-loader.js`.
+- `index-2.html` loads `analytics-loader.js` (active homepage).
+- `index.html` is currently a redirect page.
 - `analytics-loader.js` tries to load `ga-private.html` at runtime.
 - `ga-private.html` is ignored by git via `.gitignore`.
 
