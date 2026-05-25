@@ -232,8 +232,8 @@
         const w = mapEl.clientWidth || window.innerWidth || 1200;
         const isMobile = w <= 760;
         const alt = typeof altitude === "number" ? altitude : 2.0;
-        const clampedAlt = Math.max(1.1, Math.min(4.3, alt));
-        const t = (clampedAlt - 1.1) / (4.8 - 1.1); // 0 when zoomed in, 1 when zoomed out
+        const clampedAlt = Math.max(1.1, Math.min(4.0, alt));
+        const t = (clampedAlt - 1.1) / (4.0 - 1.1); // 0 when zoomed in, 1 when zoomed out
         const eased = Math.pow(t, 1.85);
         const zoomFactor = 4.4 - (3.9 * eased);
         const zoomBoost = Math.pow(zoomFactor / 4.4, 0.55) * 4.4;
@@ -313,7 +313,7 @@
       }
       function degToRad(v) { return v * Math.PI / 180; }
       function angularDistanceDeg(aLat, aLng, bLat, bLng) { const a1 = degToRad(aLat); const b1 = degToRad(aLng); const a2 = degToRad(bLat); const b2 = degToRad(bLng); const cosDelta = Math.sin(a1) * Math.sin(a2) + Math.cos(a1) * Math.cos(a2) * Math.cos(b1 - b2); return Math.acos(Math.max(-1, Math.min(1, cosDelta))) * 180 / Math.PI; }
-      function updatePinVisibility() { const pov = globe.pointOfView(); if (!pov) return; if ((pov.altitude || 0) > 4.3) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 4.3 }, 0); pov.altitude = 4.3; } if ((pov.altitude || 0) < 0.50) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 0.50 }, 0); pov.altitude = 0.50; } const size = getPinSize(pov.altitude); activePins.forEach((pin) => { const el = pinEls.get(pin.id); if (!el) return; const angle = angularDistanceDeg(pov.lat || 0, pov.lng || 0, pin.lat, pin.lng); const visible = angle < 72; el.style.opacity = visible ? "1" : "0"; el.style.pointerEvents = visible ? "auto" : "none"; el.style.width = size.cardW + "px"; const img = el.querySelector("img"); if (img) img.style.height = size.cardH + "px"; }); requestAnimationFrame(updatePinVisibility); }
+      function updatePinVisibility() { const pov = globe.pointOfView(); if (!pov) return; if ((pov.altitude || 0) > 4.0) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 4.0 }, 0); pov.altitude = 4.0; } if ((pov.altitude || 0) < 0.50) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 0.50 }, 0); pov.altitude = 0.50; } const size = getPinSize(pov.altitude); activePins.forEach((pin) => { const el = pinEls.get(pin.id); if (!el) return; const angle = angularDistanceDeg(pov.lat || 0, pov.lng || 0, pin.lat, pin.lng); const visible = angle < 72; el.style.opacity = visible ? "1" : "0"; el.style.pointerEvents = visible ? "auto" : "none"; el.style.width = size.cardW + "px"; const img = el.querySelector("img"); if (img) img.style.height = size.cardH + "px"; }); requestAnimationFrame(updatePinVisibility); }
       requestAnimationFrame(updatePinVisibility);
       function resizeGlobe() { globe.width(mapEl.clientWidth); globe.height(mapEl.clientHeight); }
       function resizePins() {
