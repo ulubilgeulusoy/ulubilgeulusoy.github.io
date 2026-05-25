@@ -1,4 +1,4 @@
-# ulubilgeulusoy.github.io
+﻿# ulubilgeulusoy.github.io
 
 Personal portfolio website built with static HTML and CSS.
 
@@ -7,13 +7,13 @@ Portfolio website: <a href="https://ulubilgeulusoy.github.io/" target="_blank" r
 ## Current Homepage Routing
 
 - `index.html` is a lightweight redirect entry page.
-- `index-2.html` is the active homepage content.
+- `home.html` is the active homepage content.
 - `index.backup-before-index2-switch.html` stores the previous `index.html` content for rollback.
 
 ## Key Files
 
-- `index.html`: Redirects `/` to `index-2.html`.
-- `index-2.html`: Main homepage currently in use.
+- `index.html`: Redirects `/` to `home.html`.
+- `home.html`: Main homepage currently in use.
 - `about.html`, `education.html`, `experience.html`, `engagement.html`, `projects.html`, `publications.html`, `resume.html`, `contact.html`: Main site pages.
 - `style.css`: Shared site styling.
 - `analytics-loader.js`: Optional runtime loader for local/private analytics snippet.
@@ -63,7 +63,7 @@ References:
 
 Google Analytics is intentionally not committed to this repository.
 
-- `index-2.html` loads `analytics-loader.js` (active homepage).
+- `home.html` loads `analytics-loader.js` (active homepage).
 - `index.html` is currently a redirect page.
 - `analytics-loader.js` tries to load `ga-private.html` at runtime.
 - `ga-private.html` is ignored by git via `.gitignore`.
@@ -88,3 +88,4 @@ Notes:
 - Replace `G-XXXXXXXXXX` with your own Google Analytics measurement ID.
 - Do not commit `ga-private.html`.
 - If `ga-private.html` is missing, the site still works normally without analytics.
+
