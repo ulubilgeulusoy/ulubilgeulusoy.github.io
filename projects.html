@@ -880,6 +880,19 @@
     });
 
     setDomainTab('human-factors');
+
+    // Allow deep-linking directly to a project modal (e.g., projects.html?open=hrii-modal).
+    (function openModalFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const openId = params.get('open');
+      if (!openId) return;
+      const modal = document.querySelector(`[data-modal="${openId}"]`);
+      if (!modal) return;
+      modal.dataset.visible = 'true';
+      modal.setAttribute('aria-hidden', 'false');
+      const dialog = modal.querySelector('.modal');
+      if (dialog) dialog.focus({ preventScroll: true });
+    })();
   </script>
 </body>
 </html>

@@ -86,6 +86,7 @@
         <button type="button" class="index2-toggle-btn active" data-globe="moon">Moon</button>
         <button type="button" class="index2-toggle-btn" data-globe="mars">Mars</button>
       </div>
+      <a class="index2-projects-btn" id="index2-projects-btn" href="projects.html">See all projects</a>
       <button type="button" class="index2-reset-btn" id="index2-reset-view">Reset View</button>
       <div id="index2-globe" role="region" aria-label="Moon globe with highlight images"></div>
     </section>
@@ -198,10 +199,22 @@
       if (!mapEl) return;
 
       const style = document.createElement("style");
-      style.textContent = ".highlights-carousel[aria-label='Highlights globe test']{position:relative;height:560px;overflow:hidden;border-radius:14px;margin-bottom:14px}#index2-stars{display:none}#index2-globe{position:absolute;inset:0;z-index:1}.index2-globe-toggle{position:absolute;top:12px;left:12px;z-index:3;display:flex;gap:8px}.index2-toggle-btn{border:1px solid rgba(145,164,190,.55);background:rgba(8,14,26,.78);color:#e8f0fb;padding:7px 12px;border-radius:999px;font:600 .85rem/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;cursor:pointer}.index2-toggle-btn.active{background:rgba(55,88,135,.82);border-color:rgba(178,201,235,.95)}.index2-reset-btn{position:absolute;right:12px;bottom:12px;z-index:3;border:1px solid rgba(145,164,190,.55);background:rgba(8,14,26,.82);color:#e8f0fb;padding:8px 13px;border-radius:999px;font:600 .85rem/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;cursor:pointer}";
+      style.textContent = ".highlights-carousel[aria-label='Highlights globe test']{position:relative;height:560px;overflow:hidden;border-radius:14px;margin-bottom:14px}#index2-stars{display:none}#index2-globe{position:absolute;inset:0;z-index:1}.index2-globe-toggle{position:absolute;top:12px;left:12px;z-index:3;display:flex;gap:8px}.index2-toggle-btn{border:1px solid rgba(145,164,190,.55);background:rgba(8,14,26,.78);color:#e8f0fb;padding:7px 12px;border-radius:999px;font:600 .85rem/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;cursor:pointer}.index2-toggle-btn.active{background:rgba(55,88,135,.82);border-color:rgba(178,201,235,.95)}.index2-toggle-btn.active[data-globe='mars']{background:rgba(157,74,38,.9);border-color:rgba(236,163,125,.96)}.index2-projects-btn{position:absolute;top:12px;right:12px;z-index:3;border:1px solid rgba(145,164,190,.55);background:rgba(8,14,26,.82);color:#e8f0fb;padding:8px 13px;border-radius:999px;font:600 .85rem/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;text-decoration:none}.index2-projects-btn:hover{text-decoration:none;filter:brightness(1.08)}.index2-reset-btn{position:absolute;right:12px;bottom:12px;z-index:3;border:1px solid rgba(145,164,190,.55);background:rgba(8,14,26,.82);color:#e8f0fb;padding:8px 13px;border-radius:999px;font:600 .85rem/1 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;cursor:pointer}";
       document.head.appendChild(style);
 
-      const photoPins = [
+      const moonPins = [
+        { id: "projects-1", name: "Human-Robot Interaction", lat: 0, lng: -180, img: "project_pictures/experiment_setup_hri_4.jpg", url: "projects.html?open=hrii-modal" },
+        { id: "experience-1", name: "Human-AI Interaction", lat: 0, lng: -144, img: "project_pictures/experiment_setup.jpg", url: "projects.html?open=haii-modal" },
+        { id: "education-1", name: "Study with Astronauts", lat: 0, lng: -108, img: "project_pictures/astronaut_study.jpg", url: "projects.html?open=astronaut-survey-modal" },
+        { id: "engagement-1", name: "Capstone Demo for NASA", lat: 0, lng: -72, img: "project_pictures/cap3_demo.jpg", url: "projects.html?open=stri-modal" },
+        { id: "about-1", name: "ESA/DLR Collaboration", lat: 0, lng: -36, img: "project_pictures/LUNA_pillars.jpg", url: "projects.html?open=luna-modal" },
+        { id: "projects-2", name: "Human-Robot Interaction", lat: 0, lng: 0, img: "project_pictures/experiment_setup_hri_4.jpg", url: "projects.html?open=hrii-modal" },
+        { id: "experience-2", name: "Human-AI Interaction", lat: 0, lng: 36, img: "project_pictures/experiment_setup.jpg", url: "projects.html?open=haii-modal" },
+        { id: "education-2", name: "Study with Astronauts", lat: 0, lng: 72, img: "project_pictures/astronaut_study.jpg", url: "projects.html?open=astronaut-survey-modal" },
+        { id: "engagement-2", name: "Capstone Demo for NASA", lat: 0, lng: 108, img: "project_pictures/cap3_demo.jpg", url: "projects.html?open=stri-modal" },
+        { id: "about-2", name: "ESA/DLR Collaboration", lat: 0, lng: 144, img: "project_pictures/LUNA_pillars.jpg", url: "projects.html?open=luna-modal" }
+      ];
+      const marsPins = [
         { id: "projects-1", name: "Projects", lat: 0, lng: -180, img: "project_pictures/experiment_setup.jpg", url: "projects.html" },
         { id: "experience-1", name: "Experience", lat: 0, lng: -144, img: "highlight_pictures/experience.jpg", url: "experience.html" },
         { id: "education-1", name: "Education", lat: 0, lng: -108, img: "highlight_pictures/about.jpg", url: "education.html" },
@@ -213,6 +226,7 @@
         { id: "engagement-2", name: "Engagement", lat: 0, lng: 108, img: "highlight_pictures/engagement.jpg", url: "engagement.html" },
         { id: "about-2", name: "About", lat: 0, lng: 144, img: "galatasaray/gala_1.jpg", url: "about.html" }
       ];
+      let activePins = moonPins;
       const pinEls = new Map();
       function getPinSize(altitude) {
         const w = mapEl.clientWidth || window.innerWidth || 1200;
@@ -226,7 +240,7 @@
         const cardH = Math.max(28, Math.min(340, Math.round(cardW * 0.61)));
         return { cardW, cardH };
       }
-      const globe = Globe()(mapEl).backgroundColor("rgba(0,0,0,0)").backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png").globeImageUrl("assets/globe/moon.jpg").atmosphereColor("#a9b4c3").atmosphereAltitude(0.06).htmlElementsData(photoPins).htmlLat((d) => d.lat).htmlLng((d) => d.lng).htmlAltitude(0.11).htmlTransitionDuration(0).htmlElement((d) => {
+      const globe = Globe()(mapEl).backgroundColor("rgba(0,0,0,0)").backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png").globeImageUrl("assets/globe/moon.jpg").atmosphereColor("#a9b4c3").atmosphereAltitude(0.06).htmlElementsData(activePins).htmlLat((d) => d.lat).htmlLng((d) => d.lng).htmlAltitude(0.11).htmlTransitionDuration(0).htmlElement((d) => {
         const wrap = document.createElement("div");
         const size = getPinSize();
         wrap.style.width = size.cardW + "px";
@@ -270,10 +284,15 @@
       globe.controls().autoRotateSpeed = 0.3
       globe.pointOfView({ lat: 0, lng: -60, altitude: 1.5 }, 0);
       const resetViewBtn = document.getElementById("index2-reset-view");
+      const projectsBtn = document.getElementById("index2-projects-btn");
       const toggleButtons = Array.from(document.querySelectorAll(".index2-toggle-btn"));
       function setGlobeType(type) {
         const isMars = type === "mars";
         globe.globeImageUrl(isMars ? "assets/globe/mars.jpg" : "assets/globe/moon.jpg");
+        activePins = isMars ? marsPins : moonPins;
+        pinEls.clear();
+        globe.htmlElementsData(activePins);
+        if (projectsBtn) projectsBtn.style.display = isMars ? "none" : "inline-flex";
         mapEl.setAttribute("aria-label", isMars ? "Mars globe with highlight images" : "Moon globe with highlight images");
         toggleButtons.forEach(function (btn) {
           btn.classList.toggle("active", btn.dataset.globe === type);
@@ -291,7 +310,7 @@
       }
       function degToRad(v) { return v * Math.PI / 180; }
       function angularDistanceDeg(aLat, aLng, bLat, bLng) { const a1 = degToRad(aLat); const b1 = degToRad(aLng); const a2 = degToRad(bLat); const b2 = degToRad(bLng); const cosDelta = Math.sin(a1) * Math.sin(a2) + Math.cos(a1) * Math.cos(a2) * Math.cos(b1 - b2); return Math.acos(Math.max(-1, Math.min(1, cosDelta))) * 180 / Math.PI; }
-      function updatePinVisibility() { const pov = globe.pointOfView(); if (!pov) return; if ((pov.altitude || 0) > 4.3) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 4.3 }, 0); pov.altitude = 4.3; } if ((pov.altitude || 0) < 0.50) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 0.50 }, 0); pov.altitude = 0.50; } const size = getPinSize(pov.altitude); photoPins.forEach((pin) => { const el = pinEls.get(pin.id); if (!el) return; const angle = angularDistanceDeg(pov.lat || 0, pov.lng || 0, pin.lat, pin.lng); const visible = angle < 72; el.style.opacity = visible ? "1" : "0"; el.style.pointerEvents = visible ? "auto" : "none"; el.style.width = size.cardW + "px"; const img = el.querySelector("img"); if (img) img.style.height = size.cardH + "px"; }); requestAnimationFrame(updatePinVisibility); }
+      function updatePinVisibility() { const pov = globe.pointOfView(); if (!pov) return; if ((pov.altitude || 0) > 4.3) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 4.3 }, 0); pov.altitude = 4.3; } if ((pov.altitude || 0) < 0.50) { globe.pointOfView({ lat: pov.lat || 0, lng: pov.lng || 0, altitude: 0.50 }, 0); pov.altitude = 0.50; } const size = getPinSize(pov.altitude); activePins.forEach((pin) => { const el = pinEls.get(pin.id); if (!el) return; const angle = angularDistanceDeg(pov.lat || 0, pov.lng || 0, pin.lat, pin.lng); const visible = angle < 72; el.style.opacity = visible ? "1" : "0"; el.style.pointerEvents = visible ? "auto" : "none"; el.style.width = size.cardW + "px"; const img = el.querySelector("img"); if (img) img.style.height = size.cardH + "px"; }); requestAnimationFrame(updatePinVisibility); }
       requestAnimationFrame(updatePinVisibility);
       function resizeGlobe() { globe.width(mapEl.clientWidth); globe.height(mapEl.clientHeight); }
       function resizePins() {
@@ -444,6 +463,7 @@
 
 </body>
 </html>
+
 
 
 
