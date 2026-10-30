@@ -6,7 +6,7 @@
   <title>Engagement - Ulubilge Ulusoy</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="wide-page">
+<body class="wide-page engagement-page">
   <div class="nav">
     <div class="nav-inner">
       <div class="leftnav">
@@ -35,19 +35,21 @@
 
   <main class="wrap">
     <h1>Engagement</h1>
-    <p class="subtitle">Overview of my invited talks, teaching, service, and external media engagement. Use the folder tabs to switch sections.</p>
+    <p class="subtitle">Overview of my invited talks, teaching, service, and external media engagement. Select a category to explore activities.</p>
 
-    <div class="engagement-tabs" role="tablist" aria-label="Engagement sections">
-      <button class="engagement-tab active" type="button" role="tab" aria-selected="true" aria-controls="section-talks" id="tab-talks" data-tab-target="section-talks">Talks</button>
+    <div class="engagement-layout">
+    <div class="engagement-tabs" role="tablist" aria-label="Engagement sections" aria-orientation="vertical">
+      <button class="engagement-tab active" type="button" role="tab" aria-selected="true" aria-controls="section-service" id="tab-service" data-tab-target="section-service">Service</button>
+      <button class="engagement-tab" type="button" role="tab" aria-selected="false" aria-controls="section-talks" id="tab-talks" data-tab-target="section-talks">Talks</button>
       <button class="engagement-tab" type="button" role="tab" aria-selected="false" aria-controls="section-teaching" id="tab-teaching" data-tab-target="section-teaching">Teaching</button>
-      <button class="engagement-tab" type="button" role="tab" aria-selected="false" aria-controls="section-service" id="tab-service" data-tab-target="section-service">Service</button>
       <button class="engagement-tab" type="button" role="tab" aria-selected="false" aria-controls="section-media" id="tab-media" data-tab-target="section-media">Media</button>
     </div>
 
-    <section class="section engagement-panel active" id="section-talks" role="tabpanel" aria-labelledby="tab-talks">
+    <div class="engagement-content">
+    <section class="section engagement-panel" id="section-talks" role="tabpanel" aria-labelledby="tab-talks" hidden>
     <h2>Keynotes and Talks</h2>
-    <div class="card">
-      <div class="talk-item">
+    <div class="engagement-card-grid">
+      <article class="card talk-item">
         <div class="talk-content">
           <div class="talk-header">
             <div class="talk-title-group">
@@ -58,9 +60,9 @@
           <p class="meta"><strong>Topic:</strong> Earth Independent Long Duration Exploration Missions</p>
         </div>
         <p class="pub-actions talk-actions"><a class="pub-link-btn" href="https://www.colorado.edu/aerospace/skywardshowcase2026" target="_blank" rel="noopener noreferrer">See Details</a></p>
-      </div>
+      </article>
 
-      <div class="talk-item">
+      <article class="card talk-item">
         <div class="talk-content">
           <div class="talk-header">
             <div class="talk-title-group">
@@ -72,13 +74,13 @@
           <p class="meta"><strong>Topic:</strong> The Real-Time Support Needs of Astronauts for Maintenance</p>
         </div>
         <p class="pub-actions talk-actions"><a class="pub-link-btn" href="https://lsic.jhuapl.edu/Events/Agenda/index.php?id=614" target="_blank" rel="noopener noreferrer">See Details</a></p>
-      </div>
+      </article>
     </div>
     </section>
 
     <section class="section engagement-panel" id="section-teaching" role="tabpanel" aria-labelledby="tab-teaching" hidden>
     <h2>Teaching</h2>
-    <div class="card">
+    <div class="engagement-card-grid"><article class="card">
       <div class="talk-title-group">
               <span class="talk-tag">Guest Lecturer</span>
               <p class="meta">University of Southern California (USC)</p>
@@ -86,7 +88,7 @@
             </div>
       <p class="meta"><strong>Lecture:</strong> Human Spaceflight Destinations</p>
         
-      <hr class="sep" />
+      </article><article class="card">
 
       <div class="talk-title-group">
               <span class="talk-tag">Guest Lecturer</span>
@@ -95,7 +97,7 @@
             </div>
       <p class="meta"><strong>Lecture:</strong> Human AI Teaming in Space</p>
 
-      <hr class="sep" />
+      </article><article class="card">
 
       <div class="talk-title-group">
               <span class="talk-tag">Guest Lecturer</span>
@@ -104,7 +106,7 @@
             </div>
       <p class="meta"><strong>Lecture:</strong> Design and Test Readiness Reviews Guidelines</p>
 
-      <hr class="sep" />
+      </article><article class="card">
 
       <div class="talk-title-group">
               <span class="talk-tag">Guest Lecturer</span>
@@ -113,13 +115,14 @@
             </div>
       <p class="meta"><strong>Lecture:</strong> Human Factors Experimental Methods</p>
 
-    </div>
+    </article></div>
     </section>
 
     
-    <section class="section engagement-panel" id="section-service" role="tabpanel" aria-labelledby="tab-service" hidden>
+    <section class="section engagement-panel active" id="section-service" role="tabpanel" aria-labelledby="tab-service">
       <h2 class="section-title">Service</h2>
 
+      <div class="engagement-card-grid">
       <div class="card service-card">
         <div class="service-row">
           <!-- Optional logo (uncomment and set the src if you have it) -->
@@ -134,7 +137,7 @@
             <div class="service-unit">Human Spaceflight Committee</div>
 
             <div class="service-meta">
-              <span class="service-role">Candidate Member</span>
+              <span class="service-role">Member</span>
               <span class="service-sep">•</span>
               <span class="service-dates">2025 - Present</span>
             </div>
@@ -152,12 +155,13 @@
           </div>
         </div>
       </div>
+    </div>
     </section>
 
     <section class="section engagement-panel" id="section-media" role="tabpanel" aria-labelledby="tab-media" hidden>
     <h2>Media Contributions</h2>
-    <div class="card">
-      <div class="talk-item">
+    <div class="engagement-card-grid">
+      <article class="card talk-item">
         <div class="talk-content">
           <div class="talk-header">
             <div class="talk-title-group">
@@ -167,10 +171,13 @@
           <p class="meta">Forbes • March 2020</p>
         </div>
         <p class="pub-actions talk-actions"><a class="pub-link-btn" href="https://www.forbes.com/sites/gregautry/2020/03/17/space-right-here-at-home-in-socal/" target="_blank" rel="noopener noreferrer">Read Article</a></p>
-      </div>
+      </article>
     </div>
     </section>
 
+
+    </div>
+    </div>
 
   <footer class="page-pager">
     <a class="page-pager-link" href="education.html" aria-label="Go to previous page: Education">&larr; Previous: Education</a>
@@ -200,15 +207,22 @@
         });
       }
 
+      const compact = window.matchMedia("(max-width: 900px)");
+      function syncOrientation() {
+        document.querySelector(".engagement-tabs").setAttribute("aria-orientation", compact.matches ? "horizontal" : "vertical");
+      }
+      syncOrientation();
+      compact.addEventListener("change", syncOrientation);
+      setActive(tabs[0]);
       tabs.forEach(function (tab, index) {
         tab.addEventListener("click", function () {
           setActive(tab);
         });
 
         tab.addEventListener("keydown", function (event) {
-          if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+          if (!["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp"].includes(event.key)) return;
           event.preventDefault();
-          const delta = event.key === "ArrowRight" ? 1 : -1;
+          const delta = (event.key === "ArrowRight" || event.key === "ArrowDown") ? 1 : -1;
           const nextIndex = (index + delta + tabs.length) % tabs.length;
           tabs[nextIndex].focus();
           setActive(tabs[nextIndex]);

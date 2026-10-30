@@ -922,6 +922,50 @@ ul{ margin: 10px 0 0 18px; }
 }
 
 /* Engagement talks */
+.engagement-page .engagement-layout{
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+.engagement-page .engagement-tabs{
+  position: sticky;
+  top: 90px;
+  flex-direction: column;
+  margin: 0;
+}
+.engagement-page .engagement-tab{
+  text-align: left;
+  border: 1px solid #3f4b5f;
+  border-radius: 12px;
+}
+.engagement-page .engagement-tab.active{ border-color: #4f617d; transform: none; }
+.engagement-page .engagement-content{ min-width: 0; }
+.engagement-page .engagement-panel{ border-top: 0; padding-top: 0; }
+.engagement-page .engagement-card-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.engagement-page .engagement-card-grid > .card{ grid-column: auto; min-width: 0; }
+.engagement-page .engagement-card-grid > .talk-item{
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+}
+.engagement-page .talk-actions{ margin-top: auto; }
+@media (max-width: 900px){
+  .engagement-page .engagement-layout{ grid-template-columns: 1fr; gap: 16px; }
+  .engagement-page .engagement-tabs{
+    position: static;
+    flex-direction: row;
+    gap: 6px;
+  }
+  .engagement-page .engagement-tab{ padding: 7px 12px; }
+  .engagement-page .engagement-card-grid{ grid-template-columns: 1fr; }
+}
 .talk-item + .talk-item{
   margin-top: 16px;
   padding-top: 16px;
