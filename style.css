@@ -632,7 +632,7 @@ footer{
 }
 .about-globe-layout{
   display: grid;
-  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
   gap: 14px;
   align-items: stretch;
 }
@@ -641,6 +641,33 @@ footer{
   border-radius: 12px;
   padding: 14px;
   background: rgba(16,24,38,0.65);
+}
+.about-place-image-panel{
+  margin: 0;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(16,24,38,0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+.about-place-image-panel img{
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.about-place-image-panel [hidden]{ display: none; }
+.about-place-image-panel p{ margin: 0; }
+.about-place-image-panel figcaption{ color: var(--muted); font-size: 0.9rem; }
+@media (max-width: 1100px){
+  .about-globe-layout{ grid-template-columns: 1fr; }
+  .about-place-image-panel{ min-height: 240px; }
 }
 .about-places-panel h3{
   margin: 0 0 8px;
@@ -654,6 +681,42 @@ footer{
 }
 .about-carousels{
   margin-top: 16px;
+}
+/* Compact personal interests dashboard; the places section stays independent. */
+.about-page .about-interest-dashboard{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+.about-page .about-interest-card{ min-width: 0; grid-column: auto; }
+.about-page .about-interest-history{ grid-column: span 2; grid-row: span 2; }
+.about-page .about-interest-cars{ grid-column: span 2; }
+.about-page .about-interest-card > .subtitle{ margin: 0 0 16px; }
+.about-page .about-interest-card .about-slide{ min-height: 0; padding: 10px; }
+.about-page .about-interest-card .about-slide-image{ height: 230px; }
+.about-page .about-interest-history .about-slide-image{ height: 540px; }
+.about-page .about-interest-cars .about-slide-image{ height: 320px; }
+.about-page .about-interest-books .about-slide-image{ object-fit: contain; }
+.about-page .about-interest-creative{ display: flex; flex-direction: column; justify-content: center; }
+@media (max-width: 1100px){
+  .about-page .about-interest-dashboard{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .about-page .about-interest-history{ grid-row: auto; }
+  .about-page .about-interest-cars{ grid-column: auto; }
+  .about-page .about-interest-history .about-slide-image{ height: 380px; }
+  .about-page .about-interest-cars .about-slide-image{ height: 230px; }
+}
+@media (max-width: 760px){
+  .about-page .about-interest-dashboard{ grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .about-page .about-interest-card{ grid-column: auto; }
+  .about-page .about-interest-card .about-slide-image{ height: 276px; }
+}
+@media (prefers-reduced-motion: no-preference){
+  .about-page .wrap .home-reveal{
+    transition: opacity 650ms ease, transform 650ms ease;
+  }
+  .about-page .wrap .home-reveal.is-pending{ opacity: 0; transform: translateY(25px); }
+  .about-page .wrap .home-reveal.is-revealed{ opacity: 1; transform: translateY(0); }
 }
 .about-text-card{
   margin: 0 0 14px;

@@ -6,7 +6,7 @@
   <title>About - Ulubilge Ulusoy</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="wide-page">
+<body class="wide-page about-page">
   <div class="nav">
     <div class="nav-inner">
       <div class="leftnav">
@@ -48,6 +48,11 @@
             <p id="about-place-detail">Click a pin on the globe to see details about that city.</p>
           </article>
           <div id="about-map" class="about-map" role="region" aria-label="Interactive globe of important places"></div>
+          <figure class="about-place-image-panel" aria-live="polite">
+            <img id="about-place-image" alt="" hidden />
+            <p id="about-place-image-placeholder" class="small">Select a place on the globe to see its image.</p>
+            <figcaption id="about-place-image-caption">My Places</figcaption>
+          </figure>
         </div>
       </div>
     </div>
@@ -56,19 +61,16 @@
     <section class="about-carousels" aria-label="Personal interests">
       <h2>Outside of Astronautics: What I Enjoy</h2>
 
-      <article class="card about-text-card">
-        <p class="subtitle">Outside of space research, I am a big fan of ancient history, especially the civilizations of the Mediterranean region, and I enjoy visiting cities where that history still lives. I also enjoy reading science fiction; Improbable was pivotal in shaping my early intellectual curiosity during high school.</p>
-      </article>
-
-      <div class="about-carousel-grid about-carousel-grid-top">
-        <article class="card about-carousel-card about-card-wide">
+      <div class="about-interest-dashboard">
+<article class="card about-interest-card about-interest-history about-carousel-card">
           <header class="about-carousel-head">
-            <p class="overline">Ancient Sites</p>
+            <h3>Ancient History &amp; Travel</h3>
             <div class="carousel-controls">
               <button class="carousel-btn about-carousel-btn-prev" type="button" aria-label="Previous slide for Ancient History">&#8249;</button>
               <button class="carousel-btn about-carousel-btn-next" type="button" aria-label="Next slide for Ancient History">&#8250;</button>
             </div>
           </header>
+          <p class="subtitle">Outside of space research, I am a big fan of ancient history, especially the civilizations of the Mediterranean region, and I enjoy visiting cities where that history still lives.</p>
           <div class="about-carousel" data-carousel>
             <div class="about-carousel-track">
               <div class="about-slide">
@@ -130,15 +132,15 @@
             </div>
           </div>
         </article>
-
-        <article class="card about-carousel-card about-card-narrow about-books-card">
+<article class="card about-interest-card about-interest-books about-carousel-card about-books-card">
           <header class="about-carousel-head">
-            <p class="overline">Favorite Books</p>
+            <h3>Favorite Books</h3>
             <div class="carousel-controls">
               <button class="carousel-btn about-carousel-btn-prev" type="button" aria-label="Previous slide for Favorite Books">&#8249;</button>
               <button class="carousel-btn about-carousel-btn-next" type="button" aria-label="Next slide for Favorite Books">&#8250;</button>
             </div>
           </header>
+          <p class="subtitle">I also enjoy reading science fiction; Improbable was pivotal in shaping my early intellectual curiosity during high school.</p>
           <div class="about-carousel" data-carousel>
             <div class="about-carousel-track">
               <div class="about-slide">
@@ -172,21 +174,15 @@
             </div>
           </div>
         </article>
-      </div>
-
-      <article class="card about-text-card">
-        <p class="subtitle">To this day, I still try to play basketball once a week and enjoy watching football (soccer) matches of my favorite team, Galatasaray. I am also a car enthusiast who enjoys rewatching episodes of Top Gear and The Grand Tour and retracing parts of their United States road trips.</p>
-      </article>
-
-      <div class="about-carousel-grid about-carousel-grid-bottom">
-        <article class="card about-carousel-card about-card-narrow">
+<article class="card about-interest-card about-interest-sports about-carousel-card">
           <header class="about-carousel-head">
-            <p class="overline">Sports</p>
+            <h3>Sports</h3>
             <div class="carousel-controls">
               <button class="carousel-btn about-carousel-btn-prev" type="button" aria-label="Previous slide for Basketball and Galatasaray">&#8249;</button>
               <button class="carousel-btn about-carousel-btn-next" type="button" aria-label="Next slide for Basketball and Galatasaray">&#8250;</button>
             </div>
           </header>
+          <p class="subtitle">To this day, I still try to play basketball once a week and enjoy watching football (soccer) matches of my favorite team, Galatasaray.</p>
           <div class="about-carousel" data-carousel>
             <div class="about-carousel-track">
               <div class="about-slide">
@@ -204,15 +200,15 @@
             </div>
           </div>
         </article>
-
-        <article class="card about-carousel-card about-card-wide">
+<article class="card about-interest-card about-interest-cars about-carousel-card">
           <header class="about-carousel-head">
-            <p class="overline">Top Gear and The Grand Tour</p>
+            <h3>Cars: Top Gear and The Grand Tour</h3>
             <div class="carousel-controls">
               <button class="carousel-btn about-carousel-btn-prev" type="button" aria-label="Previous slide for Top Gear and The Grand Tour">&#8249;</button>
               <button class="carousel-btn about-carousel-btn-next" type="button" aria-label="Next slide for Top Gear and The Grand Tour">&#8250;</button>
             </div>
           </header>
+          <p class="subtitle">I am also a car enthusiast who enjoys rewatching episodes of Top Gear and The Grand Tour and retracing parts of their United States road trips.</p>
           <div class="about-carousel" data-carousel>
             <div class="about-carousel-track">
               <div class="about-slide">
@@ -234,11 +230,11 @@
             </div>
           </div>
         </article>
-      </div>
-
-      <article class="card about-text-card">
+<article class="card about-interest-card about-interest-creative">
+        <h3>Creative Projects</h3>
         <p class="subtitle">Also, when I have free time, I enjoy creating humorous photo edits with Paint3D and editing videos using Kdenlive.</p>
       </article>
+      </div>
     </section>
 
     <footer class="page-pager">
@@ -254,28 +250,45 @@
       if (!mapEl) return;
       const placeNameEl = document.getElementById("about-place-name");
       const placeDetailEl = document.getElementById("about-place-detail");
+      const placeImageEl = document.getElementById("about-place-image");
+      const placeImagePlaceholderEl = document.getElementById("about-place-image-placeholder");
+      const placeImageCaptionEl = document.getElementById("about-place-image-caption");
+
+      function showPlaceImagePlaceholder(name) {
+        placeImageEl.hidden = true;
+        placeImageEl.removeAttribute("src");
+        placeImagePlaceholderEl.hidden = false;
+        placeImagePlaceholderEl.textContent = "Image placeholder for " + name;
+      }
+      placeImageEl.addEventListener("error", function () {
+        showPlaceImagePlaceholder(placeImageCaptionEl.textContent);
+      });
 
       const places = [
         {
           name: "Adana, Türkiye",
+          image: "ancient_sites/ancient_1.jpg", // Temporary stand-in; replace with an Adana photo.
           lat: 37.0,
           lng: 35.3213,
           detail: "I was born in Adana, Türkiye, where I lived until I was six before moving to Istanbul with my family. I am a classic Mediterranean at heart and have always felt most at home near the sea."
         },
         {
           name: "Istanbul, Türkiye",
+          image: "ancient_sites/ancient_7.jpg", // Temporary stand-in.
           lat: 41.0082,
           lng: 28.9784,
           detail: "Istanbul is where I spent eighteen years of my life. There, I attended Sehremini Anatolian High School and was captain of the basketball team for two years. I later began my space engineering journey at Istanbul Technical University and completed my undergraduate thesis on the conceptual design of an artificial gravity spacecraft."
         },
         {
           name: "Los Angeles, California",
+          image: "highlight_pictures/education.jpg", // Temporary stand-in.
           lat: 34.0522,
           lng: -118.2437,
           detail: "In late 2018, I moved to Los Angeles, where I lived for seven years. During this time, I deepened my focus on liquid propulsion and human spaceflight while pursuing my Master's and PhD. I had the opportunity to be advised by a former NASA astronaut, which further shaped my perspective on operational human spaceflight."
         },
         {
           name: "Boulder, Colorado",
+          image: "highlight_pictures/experience.jpg", // Temporary stand-in.
           lat: 40.01499,
           lng: -105.27055,
           detail: "I now live in Boulder, where I contribute to human spaceflight research at the Bioastronautics Laboratory at CU Boulder. My work focuses on understanding the human element of space operations by evaluating physiological signals during interactions with AI and robotic systems."
@@ -301,6 +314,15 @@
         .onPointClick(function (p) {
           if (placeNameEl) placeNameEl.textContent = p.name;
           if (placeDetailEl) placeDetailEl.textContent = p.detail;
+          placeImageCaptionEl.textContent = p.name + " — temporary test image";
+          if (p.image) {
+            placeImageEl.alt = p.name;
+            placeImageEl.src = p.image;
+            placeImageEl.hidden = false;
+            placeImagePlaceholderEl.hidden = true;
+          } else {
+            showPlaceImagePlaceholder(p.name);
+          }
           globe.pointOfView({ lat: p.lat, lng: p.lng, altitude: 1.5 }, 900);
         });
 
@@ -376,6 +398,45 @@
 
         update();
       });
+    })();
+  </script>
+  <script>
+    (function initAboutReveals() {
+      let observer;
+      let targets = [];
+      function showAll() {
+        if (observer) observer.disconnect();
+        targets.forEach(function (element) {
+          element.classList.remove("is-pending", "home-reveal", "is-revealed");
+        });
+      }
+      try {
+        const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+        if (motion.matches || !("IntersectionObserver" in window)) return;
+
+        // Reveal each story as a unit while keeping the top section visible.
+        targets = Array.from(document.querySelectorAll(".about-page .about-interest-card"));
+        observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            entry.target.classList.toggle("is-pending", !entry.isIntersecting);
+            entry.target.classList.toggle("is-revealed", entry.isIntersecting);
+          });
+        }, { threshold: 0.05 });
+
+        // Register every target before enabling hidden states.
+        targets.forEach(function (element) { observer.observe(element); });
+        if (motion.addEventListener) motion.addEventListener("change", showAll, { once: true });
+        targets.forEach(function (element) {
+          element.classList.add("home-reveal", "is-pending");
+          // Keyboard navigation must never land on an invisible link.
+          element.addEventListener("focusin", function () {
+            element.classList.remove("is-pending", "home-reveal");
+            observer.unobserve(element);
+          }, { once: true });
+        });
+      } catch (error) {
+        showAll();
+      }
     })();
   </script>
 </body>
