@@ -281,6 +281,29 @@ h3{ margin: 0 0 8px; }
 .edu-content{
   width: 100%;
 }
+@media (min-width: 1200px){
+  .education-grid .edu-content{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 32px;
+    align-items: start;
+  }
+  .education-grid .edu-head{
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .education-grid .edu-date{
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .education-grid .edu-expand{
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    min-width: 0;
+  }
+}
 .edu-head{
   display: flex;
   align-items: center;
