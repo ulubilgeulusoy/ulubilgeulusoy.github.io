@@ -926,6 +926,23 @@ ul{ margin: 10px 0 0 18px; }
 }
 
 /* Service card */
+.engagement-page .service-card{ display: flex; flex-direction: column; }
+.engagement-page .service-card .service-row{ flex: 1; }
+.engagement-page .service-card .service-content{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.engagement-page .service-bottom-row{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  gap: 12px;
+  width: 100%;
+}
+.engagement-page .service-actions{ margin: auto 0 0; flex-shrink: 0; }
+.engagement-page .service-actions .pub-link-btn{ white-space: nowrap; }
 .service-card{ padding: 18px; }
 .service-row{
   display: flex;
