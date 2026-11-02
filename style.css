@@ -711,13 +711,7 @@ footer{
   .about-page .about-interest-card{ grid-column: auto; }
   .about-page .about-interest-card .about-slide-image{ height: 276px; }
 }
-@media (prefers-reduced-motion: no-preference){
-  .about-page .wrap .home-reveal{
-    transition: opacity 650ms ease, transform 650ms ease;
-  }
-  .about-page .wrap .home-reveal.is-pending{ opacity: 0; transform: translateY(25px); }
-  .about-page .wrap .home-reveal.is-revealed{ opacity: 1; transform: translateY(0); }
-}
+
 .about-text-card{
   margin: 0 0 14px;
   border-color: var(--border);
@@ -2071,4 +2065,17 @@ ul{ margin: 10px 0 0 18px; }
   .home-image-placeholder{ aspect-ratio: 16 / 9; }
   .home-project-grid,
   .home-page .news-grid{ grid-template-columns: 1fr; }
+}
+
+/* Shared scroll reveals: visible by default, enabled only after observer setup. */
+@media (prefers-reduced-motion: no-preference){
+  body.home-page .wrap .site-reveal,
+  body.wide-page .wrap .site-reveal{
+    transition: opacity 650ms ease, transform 650ms ease;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  body.home-page .wrap .site-reveal.is-pending,
+  body.wide-page .wrap .site-reveal.is-pending{ opacity: 0; transform: translateY(25px); }
+  body.home-page .wrap .site-reveal.is-revealed,
+  body.wide-page .wrap .site-reveal.is-revealed{ opacity: 1; transform: translateY(0); }
 }

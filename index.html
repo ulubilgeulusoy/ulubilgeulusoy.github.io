@@ -5,24 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ulubilge Ulusoy Portfolio</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Content stays visible until the homepage observer initializes. */
-    @media (prefers-reduced-motion: no-preference) {
-      .home-page .wrap .home-reveal {
-        transition: opacity 650ms ease, transform 650ms ease;
-        transition-delay: var(--reveal-delay, 0ms);
-      }
-      .home-page .wrap .home-reveal.is-pending {
-        opacity: 0;
-        transform: translateY(25px);
-      }
-      .home-page .wrap .home-reveal.is-revealed {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
-  <meta property="og:title" content="Ulubilge Ulusoy Portfolio" />
+<meta property="og:title" content="Ulubilge Ulusoy Portfolio" />
   <meta property="og:description" content="Human factors engineer specializing in AI-enabled crew support." />
   <meta property="og:image" content="https://ulubilgeulusoy.github.io/index_pictures/index_4.jpg" />
   <meta property="og:url" content="https://ulubilgeulusoy.github.io/" />
@@ -200,55 +183,7 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-  <script>
-    (function initHomeReveals() {
-      let observer;
-      let targets = [];
-      function showAll() {
-        if (observer) observer.disconnect();
-        targets.forEach(function (element) {
-          element.classList.remove("is-pending", "home-reveal", "is-revealed");
-        });
-      }
-      try {
-        const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-        if (motion.matches || !("IntersectionObserver" in window)) return;
-
-        // Reveal headings and navigation independently; avoid nested animations.
-        targets = Array.from(document.querySelectorAll(
-          ".home-page #featured-title, .home-page .home-portfolio-nav, " +
-          ".home-page #section-news, .home-page .home-project-grid > .card, " +
-          ".home-page .news-grid > .card"
-        ));
-        observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            entry.target.classList.toggle("is-pending", !entry.isIntersecting);
-            entry.target.classList.toggle("is-revealed", entry.isIntersecting);
-          });
-        }, { threshold: 0.05 });
-
-        document.querySelectorAll(".home-project-grid, .news-grid").forEach(function (grid) {
-          Array.from(grid.children).forEach(function (card, index) {
-            card.style.setProperty("--reveal-delay", (index * 100) + "ms");
-          });
-        });
-        // Register every target before enabling hidden states.
-        targets.forEach(function (element) { observer.observe(element); });
-        if (motion.addEventListener) motion.addEventListener("change", showAll, { once: true });
-        targets.forEach(function (element) {
-          element.classList.add("home-reveal", "is-pending");
-          // Keyboard navigation must never land on an invisible link.
-          element.addEventListener("focusin", function () {
-            element.classList.remove("is-pending", "home-reveal");
-            observer.unobserve(element);
-          }, { once: true });
-        });
-      } catch (error) {
-        showAll();
-      }
-    })();
-  </script>
-
+  <script src="scroll-reveal.js"></script>
 </body>
 </html>
 

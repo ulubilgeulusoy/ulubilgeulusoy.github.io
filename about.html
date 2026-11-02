@@ -400,45 +400,7 @@
       });
     })();
   </script>
-  <script>
-    (function initAboutReveals() {
-      let observer;
-      let targets = [];
-      function showAll() {
-        if (observer) observer.disconnect();
-        targets.forEach(function (element) {
-          element.classList.remove("is-pending", "home-reveal", "is-revealed");
-        });
-      }
-      try {
-        const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-        if (motion.matches || !("IntersectionObserver" in window)) return;
-
-        // Reveal each story as a unit while keeping the top section visible.
-        targets = Array.from(document.querySelectorAll(".about-page .about-interest-card"));
-        observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            entry.target.classList.toggle("is-pending", !entry.isIntersecting);
-            entry.target.classList.toggle("is-revealed", entry.isIntersecting);
-          });
-        }, { threshold: 0.05 });
-
-        // Register every target before enabling hidden states.
-        targets.forEach(function (element) { observer.observe(element); });
-        if (motion.addEventListener) motion.addEventListener("change", showAll, { once: true });
-        targets.forEach(function (element) {
-          element.classList.add("home-reveal", "is-pending");
-          // Keyboard navigation must never land on an invisible link.
-          element.addEventListener("focusin", function () {
-            element.classList.remove("is-pending", "home-reveal");
-            observer.unobserve(element);
-          }, { once: true });
-        });
-      } catch (error) {
-        showAll();
-      }
-    })();
-  </script>
+  <script src="scroll-reveal.js"></script>
 </body>
 </html>
 
