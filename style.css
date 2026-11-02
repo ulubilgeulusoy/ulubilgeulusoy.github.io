@@ -2067,6 +2067,18 @@ ul{ margin: 10px 0 0 18px; }
   .home-page .news-grid{ grid-template-columns: 1fr; }
 }
 
+.resume-page .wrap{
+  width: 100%;
+  max-width: 980px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+.resume-page .resume-document{
+  display: block;
+  height: auto;
+  aspect-ratio: 595.28 / 950;
+}
+
 /* Shared scroll reveals: visible by default, enabled only after observer setup. */
 @media (prefers-reduced-motion: no-preference){
   body.home-page .wrap .site-reveal,

@@ -6,7 +6,7 @@
   <title>Resume - Ulubilge Ulusoy</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="wide-page">
+<body class="wide-page resume-page">
   <div class="nav">
     <div class="nav-inner">
       <div class="leftnav">
@@ -37,7 +37,7 @@
     <div class="resume-title-row">
       <h1>Resume</h1>
     </div>
-    <iframe class="embed" src="resume/Resume Ulubilge Ulusoy.pdf#navpanes=0&view=FitH"></iframe>
+    <iframe class="embed resume-document" title="Ulubilge Ulusoy résumé" src="resume/Resume Ulubilge Ulusoy.pdf#navpanes=0&amp;view=FitH"></iframe>
     <div class="btnrow">
       <a class="btn" href="resume/Resume Ulubilge Ulusoy.pdf" target="_blank" rel="noopener">Download</a>
     </div>
@@ -48,6 +48,22 @@
     </footer>
   </main>
   <script src="scroll-reveal.js"></script>
+  <script>
+    (function sizeResumeViewer() {
+      const viewer = document.querySelector(".resume-document");
+      function resize() {
+        // The current PDF is one A4 page; reserve space for the viewer toolbar and margins.
+        viewer.style.height = Math.ceil(viewer.clientWidth * (841.89 / 595.28) + 120) + "px";
+      }
+      resize();
+      if ("ResizeObserver" in window) {
+        const observer = new ResizeObserver(resize);
+        observer.observe(viewer.parentElement);
+      } else {
+        window.addEventListener("resize", resize);
+      }
+    })();
+  </script>
 </body>
 </html>
 
