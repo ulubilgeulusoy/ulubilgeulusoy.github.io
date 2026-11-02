@@ -35,19 +35,19 @@
 
   <main class="wrap">
     <h1>About</h1>
-    <p class="subtitle">
-      My passion lies in enabling human spaceflight, not only to expand humanity within our solar system but ultimately to reach interstellar space. Throughout my life, I have made decisions about my education, projects, and career that align with this vision. <b>Explore the map below to learn more about the cities that have shaped my path.</b>
-    </p>
 
     <h2>My Places</h2>
     <div class="grid">
       <div class="card span">
         <div class="about-globe-layout">
           <article class="about-places-panel" aria-live="polite">
-            <h3 id="about-place-name">My Places</h3>
-            <p id="about-place-detail">Click a pin on the globe to see details about that city.</p>
+            <h3 id="about-place-name">About Me</h3>
+            <p id="about-place-detail">My passion lies in enabling human spaceflight, not only to expand humanity within our solar system but ultimately to reach interstellar space. Throughout my life, I have made decisions about my education, projects, and career that align with this vision. <strong>Explore the map to learn more about the cities that have shaped my path.</strong> Click a pin on the globe to see details about that city.</p>
           </article>
-          <div id="about-map" class="about-map" role="region" aria-label="Interactive globe of important places"></div>
+          <div class="about-map-frame">
+            <div id="about-map" class="about-map" role="region" aria-label="Interactive globe of important places"></div>
+            <button type="button" class="ghost-btn about-map-reset" id="about-map-reset">Reset view</button>
+          </div>
           <figure class="about-place-image-panel" aria-live="polite">
             <img id="about-place-image" alt="" hidden />
             <p id="about-place-image-placeholder" class="small">Select a place on the globe to see its image.</p>
@@ -253,6 +253,12 @@
       const placeImageEl = document.getElementById("about-place-image");
       const placeImagePlaceholderEl = document.getElementById("about-place-image-placeholder");
       const placeImageCaptionEl = document.getElementById("about-place-image-caption");
+      const initialState = {
+        name: placeNameEl.textContent,
+        detail: placeDetailEl.innerHTML,
+        placeholder: placeImagePlaceholderEl.textContent,
+        caption: placeImageCaptionEl.textContent
+      };
 
       function showPlaceImagePlaceholder(name) {
         placeImageEl.hidden = true;
@@ -328,6 +334,19 @@
 
       globe.controls().autoRotate = false;
       globe.pointOfView({ lat: 35, lng: -10, altitude: 2.0 }, 0);
+      document.getElementById("about-map-reset").addEventListener("click", function () {
+        globe.controls().autoRotate = false;
+        globe.pointOfView({ lat: 35, lng: -10, altitude: 2.0 },
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 700);
+        placeNameEl.textContent = initialState.name;
+        placeDetailEl.innerHTML = initialState.detail;
+        placeImageEl.hidden = true;
+        placeImageEl.removeAttribute("src");
+        placeImageEl.alt = "";
+        placeImagePlaceholderEl.hidden = false;
+        placeImagePlaceholderEl.textContent = initialState.placeholder;
+        placeImageCaptionEl.textContent = initialState.caption;
+      });
 
       function resizeGlobe() {
         globe.width(mapEl.clientWidth);
