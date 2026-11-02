@@ -1102,6 +1102,11 @@ ul{ margin: 10px 0 0 18px; }
   cursor: pointer;
 }
 .ghost-btn:hover{ filter: brightness(1.08); }
+.projects-tabs-mode .project-card .ghost-btn{
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.projects-tabs-mode .project-card .card-header h3{ min-width: 0; }
 
 .modal-overlay{
   position: fixed;
