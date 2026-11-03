@@ -137,6 +137,41 @@
       .interest-books-collage .books-collage img{ height: auto; }
       .interest-books-collage .books-collage figcaption{ overflow-x: auto; }
     }
+    .interest-roadtrip-feature .interest-body{ grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); }
+    .interest-roadtrip-feature .interest-media{ position: relative; }
+    .interest-roadtrip-feature .about-carousel-head{
+      position: absolute; top: 12px; right: 12px; z-index: 2; margin: 0;
+    }
+    .interest-roadtrip-feature .carousel-btn{ background: rgba(16,24,38,0.85); }
+    .interest-roadtrip-feature .about-carousel{ border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .interest-roadtrip-feature .about-slide{
+      position: relative;
+      flex: 0 0 calc(100% / 3);
+      min-width: 0;
+      padding: 0;
+    }
+    .interest-roadtrip-feature .about-slide + .about-slide{ border-left: 1px solid var(--border); }
+    .interest-roadtrip-feature .about-slide-image{
+      height: clamp(380px, 38vw, 560px); object-fit: cover; margin: 0; border: 0; border-radius: 0;
+    }
+    .interest-roadtrip-feature .about-slide > p{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px 12px 14px;
+      background: linear-gradient(transparent, rgba(11,15,20,0.9));
+      color: var(--text);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    @media (max-width: 1100px){
+      .interest-roadtrip-feature .interest-body{ grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 760px){
+      .interest-roadtrip-feature .about-slide{ flex-basis: 100%; }
+      .interest-roadtrip-feature .about-slide-image{ height: 440px; }
+    }
   </style>
 </head>
 <body class="wide-page about-page">
@@ -312,7 +347,7 @@
             </div>
           </div></div></div></div>
         </details>
-        <details class="card interest-entry about-carousel-card">
+        <details class="card interest-entry about-carousel-card interest-roadtrip-feature">
           <summary><span class="interest-number">04</span><h3>Cars & Road Trips</h3></summary>
           <div class="interest-expansion"><div class="interest-body"><p class="subtitle">I am also a car enthusiast who enjoys rewatching episodes of Top Gear and The Grand Tour and retracing parts of their United States road trips.</p><div class="interest-media"><div class="about-carousel-head"><div class="carousel-controls">
               <button class="carousel-btn about-carousel-btn-prev" type="button" aria-label="Previous slide for Top Gear and The Grand Tour">&#8249;</button>
@@ -478,11 +513,16 @@
         let touchStartX = 0;
         let touchStartY = 0;
         let touchActive = false;
+        const roadTrip = card.classList.contains("interest-roadtrip-feature");
+        const mobile = window.matchMedia("(max-width: 760px)");
+        function visibleCount() { return roadTrip && !mobile.matches ? 3 : 1; }
+        function lastIndex() { return Math.max(0, slides.length - visibleCount()); }
 
         function update() {
-          track.style.transform = "translateX(-" + (index * 100) + "%)";
+          index = Math.min(index, lastIndex());
+          track.style.transform = "translateX(-" + (index * 100 / visibleCount()) + "%)";
           if (prevBtn) prevBtn.disabled = index === 0;
-          if (nextBtn) nextBtn.disabled = index === slides.length - 1;
+          if (nextBtn) nextBtn.disabled = index === lastIndex();
         }
 
         if (prevBtn) {
@@ -494,7 +534,7 @@
 
         if (nextBtn) {
           nextBtn.addEventListener("click", function () {
-            index = Math.min(slides.length - 1, index + 1);
+            index = Math.min(lastIndex(), index + 1);
             update();
           });
         }
@@ -516,13 +556,14 @@
           if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
 
           if (deltaX < 0) {
-            index = Math.min(slides.length - 1, index + 1);
+            index = Math.min(lastIndex(), index + 1);
           } else {
             index = Math.max(0, index - 1);
           }
           update();
         }, { passive: true });
 
+        if (roadTrip) mobile.addEventListener("change", update);
         update();
       });
     })();
