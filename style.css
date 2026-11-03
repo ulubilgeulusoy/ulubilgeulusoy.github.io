@@ -681,6 +681,22 @@ footer{
   line-height: 1.6;
   text-align: left;
 }
+.about-places-panel #about-place-detail > p + p{ margin-top: 14px; }
+.about-places-instructions{
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.about-places-instructions h4{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.about-places-instructions svg{ flex-shrink: 0; }
+.about-places-panel .about-places-instructions p{ color: var(--muted); font-size: 0.9rem; }
 .about-carousels{
   margin-top: 16px;
 }

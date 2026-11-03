@@ -5,6 +5,47 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>About - Ulubilge Ulusoy</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Minimal interests directory, scoped to this section only. */
+    .about-interest-directory .interest-entry{
+      padding: 0;
+      border: 0;
+      border-top: 1px solid var(--border);
+      border-radius: 0;
+      background: transparent;
+    }
+    .about-interest-directory .interest-entry:last-child{ border-bottom: 1px solid var(--border); }
+    .interest-entry > summary{
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 0;
+      cursor: pointer;
+      list-style: none;
+    }
+    .interest-entry > summary::-webkit-details-marker{ display: none; }
+    .interest-entry > summary::after{ content: "+"; margin-left: auto; color: var(--muted); font-size: 1.5rem; }
+    .interest-entry[open] > summary::after{ content: "\2212"; }
+    .interest-entry > summary h3{ margin: 0; font-size: clamp(1.25rem, 2vw, 1.8rem); }
+    .interest-number{ color: var(--muted); font-size: 0.9rem; }
+    .interest-expansion{ overflow: hidden; }
+    .interest-body{
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: 32px;
+      padding: 0 0 28px;
+      align-items: center;
+    }
+    .interest-body > .subtitle{ margin: 0; max-width: 60ch; }
+    .interest-media{ min-width: 0; }
+    .interest-media .about-carousel-head{ justify-content: flex-end; }
+    .interest-media .about-slide{ min-height: 0; padding: 10px; }
+    .interest-media .about-slide-image{ height: clamp(260px, 32vw, 480px); object-fit: contain; }
+    @media (max-width: 760px){
+      .interest-body{ grid-template-columns: minmax(0, 1fr); gap: 16px; }
+      .interest-entry > summary{ gap: 12px; padding: 20px 0; }
+    }
+  </style>
 </head>
 <body class="wide-page about-page">
   <div class="nav">
@@ -42,8 +83,18 @@
       <div class="card span">
         <div class="about-globe-layout">
           <article class="about-places-panel" aria-live="polite">
-            <h3 id="about-place-name">About Me</h3>
-            <p id="about-place-detail">My passion lies in enabling human spaceflight, not only to expand humanity within our solar system but ultimately to reach interstellar space. Throughout my life, I have made decisions about my education, projects, and career that align with this vision. <strong>Explore the map to learn more about the cities that have shaped my path.</strong> Click a pin on the globe to see details about that city.</p>
+            <h3 id="about-place-name">My Journey</h3>
+            <div id="about-place-detail">
+              <p>My passion lies in enabling human spaceflight, not only to expand humanity within our solar system but ultimately to reach interstellar space.</p>
+              <p>Throughout my life, I have made decisions about my education, projects, and career that align with this vision.</p>
+            </div>
+            <section class="about-places-instructions" aria-labelledby="about-places-explore-title">
+              <h4 id="about-places-explore-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                Explore My Places
+              </h4>
+              <p>Select a city on the globe to discover the places that have shaped my journey.</p>
+            </section>
           </article>
           <div class="about-map-frame">
             <div id="about-map" class="about-map" role="region" aria-label="Interactive globe of important places"></div>
@@ -62,17 +113,13 @@
     <section class="about-carousels" aria-label="Personal interests">
       <h2>Outside of Astronautics: What I Enjoy</h2>
 
-      <div class="about-interest-dashboard">
-<article class="card about-interest-card about-interest-history about-carousel-card">
-          <header class="about-carousel-head">
-            <h3>Ancient History &amp; Travel</h3>
-            <div class="carousel-controls">
+      <div class="about-interest-directory">
+        <details class="card interest-entry about-carousel-card" open>
+          <summary><span class="interest-number">01</span><h3>Ancient History &amp; Travel</h3></summary>
+          <div class="interest-expansion"><div class="interest-body"><p class="subtitle">Outside of space research, I am a big fan of ancient history, especially the civilizations of the Mediterranean region, and I enjoy visiting cities where that history still lives.</p><div class="interest-media"><div class="about-carousel-head"><div class="carousel-controls">
               <button class="carousel-btn about-carousel-btn-prev" type="button" aria-label="Previous slide for Ancient History">&#8249;</button>
               <button class="carousel-btn about-carousel-btn-next" type="button" aria-label="Next slide for Ancient History">&#8250;</button>
-            </div>
-          </header>
-          <p class="subtitle">Outside of space research, I am a big fan of ancient history, especially the civilizations of the Mediterranean region, and I enjoy visiting cities where that history still lives.</p>
-          <div class="about-carousel" data-carousel>
+            </div></div><div class="about-carousel" data-carousel>
             <div class="about-carousel-track">
               <div class="about-slide">
                 <img class="about-slide-image" src="ancient_sites/ancient_1.jpg" alt="Ancient site photo 1">
@@ -131,18 +178,14 @@
                 <p>Ostia, Italy: City Buildings</p>
               </div>
             </div>
-          </div>
-        </article>
-<article class="card about-interest-card about-interest-books about-carousel-card about-books-card">
-          <header class="about-carousel-head">
-            <h3>Favorite Books</h3>
-            <div class="carousel-controls">
+          </div></div></div></div>
+        </details>
+        <details class="card interest-entry about-carousel-card">
+          <summary><span class="interest-number">02</span><h3>Favorite Books</h3></summary>
+          <div class="interest-expansion"><div class="interest-body"><p class="subtitle">I also enjoy reading science fiction; Improbable was pivotal in shaping my early intellectual curiosity during high school.</p><div class="interest-media"><div class="about-carousel-head"><div class="carousel-controls">
               <button class="carousel-btn about-carousel-btn-prev" type="button" aria-label="Previous slide for Favorite Books">&#8249;</button>
               <button class="carousel-btn about-carousel-btn-next" type="button" aria-label="Next slide for Favorite Books">&#8250;</button>
-            </div>
-          </header>
-          <p class="subtitle">I also enjoy reading science fiction; Improbable was pivotal in shaping my early intellectual curiosity during high school.</p>
-          <div class="about-carousel" data-carousel>
+            </div></div><div class="about-carousel" data-carousel>
             <div class="about-carousel-track">
               <div class="about-slide">
                 <img class="about-slide-image about-slide-image-book" src="about_pictures/books/improbable_adam_fawer.jpg" alt="Improbable by Adam Fawer book cover">
@@ -173,18 +216,14 @@
                 <p>Foundation</p>
               </div>
             </div>
-          </div>
-        </article>
-<article class="card about-interest-card about-interest-sports about-carousel-card">
-          <header class="about-carousel-head">
-            <h3>Sports</h3>
-            <div class="carousel-controls">
+          </div></div></div></div>
+        </details>
+        <details class="card interest-entry about-carousel-card">
+          <summary><span class="interest-number">03</span><h3>Sports</h3></summary>
+          <div class="interest-expansion"><div class="interest-body"><p class="subtitle">To this day, I still try to play basketball once a week and enjoy watching football (soccer) matches of my favorite team, Galatasaray.</p><div class="interest-media"><div class="about-carousel-head"><div class="carousel-controls">
               <button class="carousel-btn about-carousel-btn-prev" type="button" aria-label="Previous slide for Basketball and Galatasaray">&#8249;</button>
               <button class="carousel-btn about-carousel-btn-next" type="button" aria-label="Next slide for Basketball and Galatasaray">&#8250;</button>
-            </div>
-          </header>
-          <p class="subtitle">To this day, I still try to play basketball once a week and enjoy watching football (soccer) matches of my favorite team, Galatasaray.</p>
-          <div class="about-carousel" data-carousel>
+            </div></div><div class="about-carousel" data-carousel>
             <div class="about-carousel-track">
               <div class="about-slide">
                 <img class="about-slide-image" src="galatasaray/gala_1.jpg" alt="Galatasaray photo 1">
@@ -199,18 +238,14 @@
                 <p>Istanbul, Türkiye: Galatasaray stadium</p>
               </div>
             </div>
-          </div>
-        </article>
-<article class="card about-interest-card about-interest-cars about-carousel-card">
-          <header class="about-carousel-head">
-            <h3>Cars: Top Gear and The Grand Tour</h3>
-            <div class="carousel-controls">
+          </div></div></div></div>
+        </details>
+        <details class="card interest-entry about-carousel-card">
+          <summary><span class="interest-number">04</span><h3>Cars and Road Trips</h3></summary>
+          <div class="interest-expansion"><div class="interest-body"><p class="subtitle">I am also a car enthusiast who enjoys rewatching episodes of Top Gear and The Grand Tour and retracing parts of their United States road trips.</p><div class="interest-media"><div class="about-carousel-head"><div class="carousel-controls">
               <button class="carousel-btn about-carousel-btn-prev" type="button" aria-label="Previous slide for Top Gear and The Grand Tour">&#8249;</button>
               <button class="carousel-btn about-carousel-btn-next" type="button" aria-label="Next slide for Top Gear and The Grand Tour">&#8250;</button>
-            </div>
-          </header>
-          <p class="subtitle">I am also a car enthusiast who enjoys rewatching episodes of Top Gear and The Grand Tour and retracing parts of their United States road trips.</p>
-          <div class="about-carousel" data-carousel>
+            </div></div><div class="about-carousel" data-carousel>
             <div class="about-carousel-track">
               <div class="about-slide">
                 <img class="about-slide-image about-slide-image-tg" src="tg/tg_1.jpg" alt="Top Gear photo 1">
@@ -229,12 +264,12 @@
                 <p>Nelson, Nevada: A camp location from TGT S3E8</p>
               </div>
             </div>
-          </div>
-        </article>
-<article class="card about-interest-card about-interest-creative">
-        <h3>Creative Projects</h3>
-        <p class="subtitle">Also, when I have free time, I enjoy creating humorous photo edits with Paint3D and editing videos using Kdenlive.</p>
-      </article>
+          </div></div></div></div>
+        </details>
+        <details class="card interest-entry about-carousel-card">
+          <summary><span class="interest-number">05</span><h3>Creative Projects</h3></summary>
+          <div class="interest-expansion"><div class="interest-body"><p class="subtitle">Also, when I have free time, I enjoy creating humorous photo edits with Paint3D and editing videos using Kdenlive.</p></div></div>
+        </details>
       </div>
     </section>
 
@@ -417,6 +452,32 @@
         }, { passive: true });
 
         update();
+      });
+    })();
+  </script>
+  <script>
+    (function initInterestDirectory() {
+      document.querySelectorAll(".interest-entry").forEach(function (entry) {
+        const summary = entry.querySelector("summary");
+        const content = entry.querySelector(".interest-expansion");
+        let animation;
+        summary.addEventListener("click", function (event) {
+          if (!content.animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          event.preventDefault();
+          if (animation) return;
+          const closing = entry.open;
+          if (!closing) entry.open = true;
+          const height = content.scrollHeight;
+          animation = content.animate([
+            { height: closing ? height + "px" : "0px", opacity: closing ? 1 : 0 },
+            { height: closing ? "0px" : height + "px", opacity: closing ? 0 : 1 }
+          ], { duration: 350, easing: "ease", fill: "both" });
+          animation.onfinish = function () {
+            entry.open = !closing;
+            animation.cancel();
+            animation = null;
+          };
+        });
       });
     })();
   </script>
