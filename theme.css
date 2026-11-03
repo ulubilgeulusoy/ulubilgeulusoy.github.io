@@ -81,6 +81,6 @@ html[data-theme="light"] .interest-books-collage .books-collage figcaption{
 }
 html[data-theme="light"] .about-map{ background: #101826; }
 html[data-theme="light"] .about-map-reset{ background: rgba(16,24,38,0.85); color: #eef2f7; }
-html[data-theme="light"] .home-page .news-face-front .meta{ color: var(--muted); }
+html[data-theme="light"] .home-page .news-grid:not(.news-feature-layout) .news-face-front .meta{ color: var(--muted); }
 html[data-theme="light"] .book-spotlight,
 html[data-theme="light"] .book-shelf-card{ background: #edf0f4; border-color: var(--border); }

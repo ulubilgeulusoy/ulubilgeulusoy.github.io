@@ -18,6 +18,46 @@
  
   
   <link rel="stylesheet" href="theme.css">
+  <style>
+    .home-page .news-editorial{ display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 28px; align-items: stretch; }
+    .home-page .news-editorial > .card{ grid-column: auto; min-width: 0; }
+    .home-page .news-editorial-feature{ padding: 0; overflow: hidden; position: relative; border: 0; background: #101826; }
+    .news-editorial-link{ color: var(--text); text-decoration: none; }
+    .news-editorial-link:hover{ text-decoration: none; }
+    #news-feature-slot, #news-feature-slot > a{ height: 100%; }
+    #news-feature-slot > a{ display: flex; align-items: flex-end; position: relative; isolation: isolate; min-height: 540px; }
+    #news-feature-slot .news-editorial-image{ position: absolute; inset: 0; z-index: -2; }
+    #news-feature-slot img{ display: block; width: 100%; height: 100%; object-fit: cover; border: 0; border-radius: 0; opacity: 1; transition: opacity 200ms ease; }
+    #news-feature-slot > a:hover img,
+    #news-feature-slot > a:focus-visible img{ opacity: 0.45; }
+    @media (prefers-reduced-motion: reduce){
+      #news-feature-slot img{ transition: none; }
+    }
+    #news-feature-slot > a::after{ content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(transparent, rgba(5,9,16,0.96)); }
+    #news-feature-slot .news-editorial-copy{ padding: 100px 28px 74px; color: #eef2f7; }
+    #news-feature-slot h3{ font-size: clamp(1.35rem, 2vw, 2rem); max-width: 42ch; }
+    #news-feature-slot .meta{ color: #d8e1f1; }
+    #news-feature-slot .news-external-icon{ display: none; }
+    .news-read-label{ font-size: 0.9rem; text-decoration: underline; text-underline-offset: 4px; }
+    .news-editorial-controls{ position: absolute; bottom: 18px; right: 20px; display: flex; gap: 12px; align-items: center; color: #eef2f7; }
+    .news-editorial-controls[hidden]{ display: none; }
+    .news-editorial-controls .carousel-btn{ background: rgba(16,24,38,0.85); color: #eef2f7; }
+    .home-page .news-editorial-list{ padding: 0; border: 0; background: transparent; display: flex; flex-direction: column; }
+    .news-editorial-list > a{ display: flex; align-items: center; gap: 20px; padding: 24px 8px; border-bottom: 1px solid var(--border); flex: 1; }
+    .news-editorial-list > a:first-child{ border-top: 1px solid var(--border); }
+    .news-editorial-list .news-editorial-image, .news-editorial-list .news-read-label{ display: none; }
+    .news-editorial-list .news-editorial-copy{ flex: 1; }
+    .news-editorial-list h3{ margin-bottom: 10px; font-size: 1.1rem; }
+    .news-editorial-list .meta{ margin: 0; }
+    .news-external-icon{ font-size: 1.5rem; color: var(--link); }
+    .news-editorial-link:hover h3{ text-decoration: underline; text-underline-offset: 4px; }
+    .news-editorial-link:focus-visible{ outline: 2px solid var(--link); outline-offset: -3px; }
+    @media (max-width: 760px){
+      .home-page .news-editorial{ grid-template-columns: minmax(0, 1fr); gap: 20px; }
+      #news-feature-slot > a{ min-height: 420px; }
+      #news-feature-slot .news-editorial-copy{ padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
 </head>
 <body class="home-page">
     <div class="nav">
@@ -86,19 +126,19 @@
           <img class="home-project-image" src="project_pictures/experiment_setup_hri_4.jpg" alt="Human-robot interaction experiment setup" loading="lazy" />
 
           <div class="home-featured-copy"><h3>Human-Robot Interaction</h3>
-          <p class="subtitle">Examined how astronauts may interact with robotic agents during simulated space habitat maintenance. Led the effort from concept through execution.</p></div>
+          <p class="subtitle">Examined how astronauts may interact with robotic agents during simulated space habitat maintenance. Led the effort from concept through execution.</p><span class="home-project-label">See project</span></div>
         </a>
         <a class="card home-featured-card" href="projects.html?open=haii-modal" aria-label="View project: Human-AI Collaboration">
           <img class="home-project-image" src="project_pictures/experiment_setup.jpg" alt="Human-AI collaboration experiment setup" loading="lazy" />
 
           <div class="home-featured-copy"><h3>Human-AI Collaboration</h3>
-          <p class="subtitle">Studied how astronauts may interact with AI mission control agents during simulated space habitat maintenance. Led the study design and implementation.</p></div>
+          <p class="subtitle">Studied how astronauts may interact with AI mission control agents during simulated space habitat maintenance. Led the study design and implementation.</p><span class="home-project-label">See project</span></div>
         </a>
         <a class="card home-featured-card" href="projects.html?open=astronaut-survey-modal" aria-label="View project: Space Operations Characterization">
           <img class="home-project-image" src="project_pictures/astronaut_study.jpg" alt="Former astronauts survey study" loading="lazy" />
           <span class="image-credit">Image credit: NASA</span>
           <div class="home-featured-copy"><h3>Characterizing Space Operations</h3>
-          <p class="subtitle">Surveyed 10 former astronauts to characterize maintenance support between crews and mission control, informing a human-AI interaction framework for space operations.</p></div>
+          <p class="subtitle">Surveyed 10 former astronauts to characterize maintenance support between crews and mission control, informing a human-AI interaction framework for space operations.</p><span class="home-project-label">See project</span></div>
         </a>
       </div>
     </section>
@@ -114,62 +154,51 @@
     </nav> -->
 
     <h2 id="section-news">Ulu in the News</h2>
-    <div class="grid news-grid">
-      <article class="card span news-flip-card">
-        <div class="news-flip-inner">
-          <div class="news-face news-face-front">
-            <div class="image-with-credit">
-              <img class="modal-img-thumb-news" src="news_pictures/mars.jpg" alt="Astronaut in habitat simulation workspace"/>
-              <span class="image-credit">Image credit: NASA</span>
-            </div>
-            <h3>AI and astronauts: How one CU Boulder researcher is helping prepare humans for Mars</h3>
-            <p class="pub-actions mobile-news-action"><a class="pub-link-btn" href="https://www.dailycamera.com/2026/01/05/ai-astronauts-cu-boulder-research-mars/" target="_blank" rel="noopener noreferrer">Read Article</a></p>
-            <p class="meta">Daily Camera • January 2026</p>  
-          </div>
+    <section class="news-editorial" aria-labelledby="section-news">
+      <div class="card news-editorial-feature" role="region" aria-roledescription="carousel" aria-label="Featured news articles">
+        <div id="news-feature-slot"><a class="news-editorial-link" href="https://www.dailycamera.com/2026/01/05/ai-astronauts-cu-boulder-research-mars/" target="_blank" rel="noopener noreferrer">
+            <div class="news-editorial-image"><img class="modal-img-thumb-news" src="news_pictures/mars.jpg" alt="Astronaut in habitat simulation workspace"/><span class="image-credit">Image credit: NASA</span></div>
+            <div class="news-editorial-copy"><h3>AI and astronauts: How one CU Boulder researcher is helping prepare humans for Mars</h3><p class="meta">Daily Camera • January 2026</p><span class="news-read-label">Read article</span></div>
+            <span class="news-external-icon" aria-hidden="true">&#8599;</span>
+          </a></div>
+        <div class="news-editorial-controls" hidden>
+          <button class="carousel-btn" type="button" id="news-previous" aria-label="Previous featured article">&#8249;</button>
+          <span id="news-position" aria-live="polite">1 / 4</span>
+          <button class="carousel-btn" type="button" id="news-next" aria-label="Next featured article">&#8250;</button>
         </div>
-      </article>
-      <article class="card span news-flip-card">
-        <div class="news-flip-inner">
-          <div class="news-face news-face-front">
-            <div class="image-with-credit">
-              <img class="modal-img-thumb-news" src="news_pictures/ai_robot.webp" alt="Robot and astronaut in collaborative mission scene"/>
-              <span class="image-credit">Image credit: NASA</span>
-            </div>
-            <h3>Postdoc working on AI for astronauts</h3>
-            <p class="pub-actions mobile-news-action"><a class="pub-link-btn" href="https://www.colorado.edu/aerospace/2025/12/01/postdoc-working-ai-astronauts" target="_blank" rel="noopener noreferrer">Read Article</a></p>
-            <p class="meta">CU Boulder • December 2025</p>
-          </div>
-        </div>
-      </article>
-      <article class="card span news-flip-card">
-        <div class="news-flip-inner">
-          <div class="news-face news-face-front">
-            <div class="image-with-credit">
-              <img class="modal-img-thumb-news" src="news_pictures/home_hab.webp" alt="Interior concept of deep-space habitat module"/>
-              <span class="image-credit">Image credit: NASA</span>
-            </div>
-            <h3>Imagining the Future of Deep Space Habitats</h3>
-            <p class="pub-actions mobile-news-action"><a class="pub-link-btn" href="https://viterbischool.usc.edu/news/2025/05/imagining-the-future-of-deep-space-habitats/" target="_blank" rel="noopener noreferrer">Read Article</a></p>
-            <p class="meta">USC • May 2025</p>
-          </div>
-        </div>
-      </article>
-
-      <article class="card span news-flip-card">
-        <div class="news-flip-inner">
-          <div class="news-face news-face-front">
-            <div class="image-with-credit">
-              <img class="modal-img-thumb-news" src="highlight_pictures/about.jpg" alt="IAF"/>
-              <span class="image-credit">Image credit: IAF</span>
-            </div>
-            <h3>USC Researcher Explores Human-AI Collaboration for Future Space Missions</h3>
-            <p class="pub-actions mobile-news-action"><a class="pub-link-btn" href="https://viterbischool.usc.edu/news/2024/12/usc-researcher-explores-human-ai-collaboration-for-future-space-missions/" target="_blank" rel="noopener noreferrer">Read Article</a></p>
-            <p class="meta">USC &bull; December 2024</p>
-          </div>
-        </div>
-      </article>
-      
-    </div>
+      </div>
+      <div class="card news-editorial-list" id="news-editorial-list" aria-label="More news articles"><a class="news-editorial-link" href="https://www.colorado.edu/aerospace/2025/12/01/postdoc-working-ai-astronauts" target="_blank" rel="noopener noreferrer">
+            <div class="news-editorial-image"><img class="modal-img-thumb-news" src="news_pictures/ai_robot.webp" alt="Robot and astronaut in collaborative mission scene"/><span class="image-credit">Image credit: NASA</span></div>
+            <div class="news-editorial-copy"><h3>Postdoc working on AI for astronauts</h3><p class="meta">CU Boulder • December 2025</p><span class="news-read-label">Read article</span></div>
+            <span class="news-external-icon" aria-hidden="true">&#8599;</span>
+          </a><a class="news-editorial-link" href="https://viterbischool.usc.edu/news/2025/05/imagining-the-future-of-deep-space-habitats/" target="_blank" rel="noopener noreferrer">
+            <div class="news-editorial-image"><img class="modal-img-thumb-news" src="news_pictures/home_hab.webp" alt="Interior concept of deep-space habitat module"/><span class="image-credit">Image credit: NASA</span></div>
+            <div class="news-editorial-copy"><h3>Imagining the Future of Deep Space Habitats</h3><p class="meta">USC • May 2025</p><span class="news-read-label">Read article</span></div>
+            <span class="news-external-icon" aria-hidden="true">&#8599;</span>
+          </a><a class="news-editorial-link" href="https://viterbischool.usc.edu/news/2024/12/usc-researcher-explores-human-ai-collaboration-for-future-space-missions/" target="_blank" rel="noopener noreferrer">
+            <div class="news-editorial-image"><img class="modal-img-thumb-news" src="highlight_pictures/about.jpg" alt="IAF"/><span class="image-credit">Image credit: IAF</span></div>
+            <div class="news-editorial-copy"><h3>USC Researcher Explores Human-AI Collaboration for Future Space Missions</h3><p class="meta">USC &bull; December 2024</p><span class="news-read-label">Read article</span></div>
+            <span class="news-external-icon" aria-hidden="true">&#8599;</span>
+          </a></div>
+    </section>
+    <script>
+      (function initEditorialNews() {
+        const section = document.querySelector(".news-editorial");
+        const feature = section.querySelector("#news-feature-slot");
+        const list = section.querySelector("#news-editorial-list");
+        const articles = Array.from(section.querySelectorAll(".news-editorial-link"));
+        let index = 0;
+        function show(delta) {
+          index = (index + delta + articles.length) % articles.length;
+          feature.replaceChildren(articles[index]);
+          list.replaceChildren(...articles.filter(function (_, i) { return i !== index; }));
+          section.querySelector("#news-position").textContent = (index + 1) + " / " + articles.length;
+        }
+        section.querySelector("#news-previous").addEventListener("click", function () { show(-1); });
+        section.querySelector("#news-next").addEventListener("click", function () { show(1); });
+        section.querySelector(".news-editorial-controls").hidden = false;
+      })();
+    </script>
 
     <footer>
       <br><i>This website was built as an experiment in AI augmented web development using HTML.</i>
