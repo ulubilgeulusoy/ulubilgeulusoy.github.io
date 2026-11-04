@@ -119,11 +119,11 @@
     .interest-books-collage .books-collage img{
       display: block;
       width: 100%;
-      height: auto;
+      height: 100%;
       min-height: 0;
       aspect-ratio: 3 / 2;
-      align-self: center;
-      object-fit: contain;
+      align-self: stretch;
+      object-fit: cover;
     }
     .interest-books-collage .books-collage figcaption{
       margin: 0;
@@ -185,6 +185,12 @@
     }
     @media (max-width: 760px){
       .interest-roadtrip-feature .about-slide{ flex-basis: 100%; }
+    }
+    @media (min-width: 761px){
+      .about-interest-directory .interest-media{
+        width: 92%;
+        justify-self: start;
+      }
     }
     .about-page main img[role="button"]{ cursor: zoom-in; }
     .about-page main img[role="button"]:focus-visible{ outline: 2px solid var(--link); outline-offset: 3px; }
@@ -437,14 +443,14 @@
             <figure class="interest-media books-collage">
               <img src="about_pictures/books/favorite_books_collage.png" alt="Collage of eight favorite book covers, listed in the caption" loading="lazy">
               <figcaption>
-                <span class="book-caption-line"><em>Improbable, Adam Fawer </em>
-                <span class="book-caption-line"><em>The End of Eternity, Isaac Asimov</em>
-                <span class="book-caption-line"><em>The Dice Man, Luke Rhinehart</em>
-                <span class="book-caption-line"><em>Robot Visions, Isaac Asimov</em>
-                <span class="book-caption-line"><em>2001: A Space Odyssey, Arthur C. Clarke</em>
-                <span class="book-caption-line"><em>The Moon Is a Harsh Mistress, Robert A. Heinlein</em>
-                <span class="book-caption-line"><em>Foundation, Isaac Asimov</em>
-                <span class="book-caption-line"><em>Harry Potter and the Order of the Phoenix, J. K. Rowling</em>
+                <span class="book-caption-line"><em>Improbable [Adam Fawer], </em>
+                <span class="book-caption-line"><em>The End of Eternity [Isaac Asimov], </em>
+                <span class="book-caption-line"><em>The Dice Man [Luke Rhinehart],</em>
+                <span class="book-caption-line"><em>Robot Visions [Isaac Asimov],</em>
+                <span class="book-caption-line"><em>2001: A Space Odyssey [Arthur C. Clarke],</em>
+                <span class="book-caption-line"><em>The Moon Is a Harsh Mistress [Robert A. Heinlein],</em>
+                <span class="book-caption-line"><em>Foundation [Isaac Asimov],</em>
+                <span class="book-caption-line"><em>Harry Potter and the Order of the Phoenix [J. K. Rowling].</em>
               </figcaption>
             </figure>
           </div></div>
