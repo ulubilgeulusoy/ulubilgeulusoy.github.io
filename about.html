@@ -41,7 +41,7 @@
     .interest-media{ min-width: 0; }
     .interest-media .about-carousel-head{ justify-content: flex-end; }
     .interest-media .about-slide{ min-height: 0; padding: 10px; }
-    .interest-media .about-slide-image{ height: clamp(260px, 32vw, 480px); object-fit: contain; }
+    .interest-media .about-slide-image{ width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
     @media (max-width: 760px){
       .interest-body{ grid-template-columns: minmax(0, 1fr); gap: 16px; }
       .interest-entry > summary{ gap: 12px; padding: 20px 0; }
@@ -66,11 +66,23 @@
     }
     .interest-history-feature .about-slide{
       position: relative;
+      min-width: 0;
       min-height: 0;
       padding: 0;
     }
+    .interest-history-feature .ancient-image-page{
+      flex: 0 0 100%;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--border);
+      align-content: start;
+    }
+    .interest-history-feature .about-slide + .about-slide{ border-left: 1px solid var(--border); }
     .interest-history-feature .about-slide-image{
-      height: clamp(320px, 36vw, 520px);
+      height: auto;
+      aspect-ratio: 3 / 2;
       object-fit: cover;
       margin: 0;
       border: 0;
@@ -88,7 +100,8 @@
     }
     @media (max-width: 760px){
       .interest-history-feature .interest-body{ grid-template-columns: minmax(0, 1fr); }
-      .interest-history-feature .about-slide-image{ height: 320px; }
+      .interest-history-feature .about-slide{ flex-basis: 100%; }
+      .interest-history-feature .ancient-image-page{ grid-template-columns: minmax(0, 1fr); }
     }
     .interest-books-collage .interest-body{
       grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
@@ -106,9 +119,10 @@
     .interest-books-collage .books-collage img{
       display: block;
       width: 100%;
-      height: 100%;
+      height: auto;
       min-height: 0;
-      aspect-ratio: 5 / 3;
+      aspect-ratio: 3 / 2;
+      align-self: center;
       object-fit: contain;
     }
     .interest-books-collage .books-collage figcaption{
@@ -153,7 +167,7 @@
     }
     .interest-roadtrip-feature .about-slide + .about-slide{ border-left: 1px solid var(--border); }
     .interest-roadtrip-feature .about-slide-image{
-      height: clamp(380px, 38vw, 560px); object-fit: cover; margin: 0; border: 0; border-radius: 0;
+      height: auto; aspect-ratio: 3 / 2; object-fit: cover; margin: 0; border: 0; border-radius: 0;
     }
     .interest-roadtrip-feature .about-slide > p{
       position: absolute;
@@ -171,7 +185,6 @@
     }
     @media (max-width: 760px){
       .interest-roadtrip-feature .about-slide{ flex-basis: 100%; }
-      .interest-roadtrip-feature .about-slide-image{ height: 440px; }
     }
     .about-page main img[role="button"]{ cursor: zoom-in; }
     .about-page main img[role="button"]:focus-visible{ outline: 2px solid var(--link); outline-offset: 3px; }
@@ -353,11 +366,23 @@
             <div class="about-carousel-track">
               <div class="about-slide">
                 <img class="about-slide-image" src="ancient_sites/ancient_1.jpg" alt="Ancient site photo 1">
-                <p>Phaselis, Antalya, Türkiye: Portions of the city remain submerged underwater </p>
+                <p>Phaselis, Antalya, Türkiye: City submerged underwater </p>
               </div>
               <div class="about-slide">
                 <img class="about-slide-image" src="ancient_sites/ancient_3.jpg" alt="Ancient site photo 3">
                 <p>Phaselis, Antalya, Türkiye: Ancient ruins surrounded by forest</p>
+              </div>
+              <div class="about-slide">
+                <img class="about-slide-image" src="ancient_sites/ancient_16.jpg" alt="Ancient site photo 1">
+                <p>Troy, Çanakkale, Türkiye: City ruins </p>
+              </div>
+              <div class="about-slide">
+                <img class="about-slide-image" src="ancient_sites/ancient_18.jpg" alt="Ancient site photo 3">
+                <p>Assos, Çanakkale, Türkiye: Temple of Athena</p>
+              </div>
+              <div class="about-slide">
+                <img class="about-slide-image" src="ancient_sites/ancient_20.jpg" alt="Ancient site photo 4">
+                <p>Side, Antalya, Türkiye: Temple of Apollo</p>
               </div>
               <div class="about-slide">
                 <img class="about-slide-image" src="ancient_sites/ancient_5.jpg" alt="Ancient site photo 5">
@@ -393,10 +418,6 @@
               </div>
               <div class="about-slide">
                 <img class="about-slide-image" src="ancient_sites/ancient_9.jpg" alt="Ancient site photo 2">
-                <p>Rome, Italy: Forum</p>
-              </div>
-              <div class="about-slide">
-                <img class="about-slide-image" src="ancient_sites/ancient_10.jpg" alt="Ancient site photo 4">
                 <p>Rome, Italy: Forum</p>
               </div>
               <div class="about-slide">
@@ -617,13 +638,31 @@
         let touchStartY = 0;
         let touchActive = false;
         const roadTrip = card.classList.contains("interest-roadtrip-feature");
+        const ancientHistory = card.classList.contains("interest-history-feature");
         const mobile = window.matchMedia("(max-width: 760px)");
-        function visibleCount() { return roadTrip && !mobile.matches ? 3 : 1; }
-        function lastIndex() { return Math.max(0, slides.length - visibleCount()); }
+        function visibleCount() {
+          if (mobile.matches) return 1;
+          return ancientHistory ? 4 : roadTrip ? 3 : 1;
+        }
+        function lastIndex() {
+          return ancientHistory ? Math.ceil(slides.length / visibleCount()) - 1 : Math.max(0, slides.length - visibleCount());
+        }
+        function arrangeAncientPages() {
+          if (!ancientHistory) return;
+          const pages = document.createDocumentFragment();
+          const count = visibleCount();
+          for (let i = 0; i < slides.length; i += count) {
+            const page = document.createElement("div");
+            page.className = "ancient-image-page";
+            Array.from(slides).slice(i, i + count).forEach(function (slide) { page.appendChild(slide); });
+            pages.appendChild(page);
+          }
+          track.replaceChildren(pages);
+        }
 
         function update() {
           index = Math.min(index, lastIndex());
-          track.style.transform = "translateX(-" + (index * 100 / visibleCount()) + "%)";
+          track.style.transform = "translateX(-" + (ancientHistory ? index * 100 : index * 100 / visibleCount()) + "%)";
           if (prevBtn) prevBtn.disabled = index === 0;
           if (nextBtn) nextBtn.disabled = index === lastIndex();
         }
@@ -666,7 +705,12 @@
           update();
         }, { passive: true });
 
-        if (roadTrip) mobile.addEventListener("change", update);
+        if (roadTrip || ancientHistory) mobile.addEventListener("change", function () {
+          index = 0;
+          arrangeAncientPages();
+          update();
+        });
+        arrangeAncientPages();
         update();
       });
     })();
