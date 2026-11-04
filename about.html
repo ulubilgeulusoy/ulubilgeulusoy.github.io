@@ -197,6 +197,77 @@
     .image-viewer-stage.is-dragging{ cursor: grabbing; }
     .about-image-viewer p{ margin: 0; text-align: center; color: var(--muted); }
     .about-image-viewer .image-viewer-close{ position: absolute; top: 14px; right: 20px; }
+    .about-page .journey-section{ padding: 0; border: 0; background: transparent; }
+    .about-page .journey-layout{
+      display: grid;
+      grid-template-columns: minmax(0, 1.95fr) minmax(0, 1fr);
+      gap: 32px;
+      align-items: stretch;
+      padding: 0 24px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: transparent;
+    }
+    .journey-map-column{ min-width: 0; align-self: center; }
+    .about-page .journey-globe-card{
+      display: grid;
+      grid-template-columns: minmax(160px, 0.55fr) minmax(0, 1.4fr);
+      gap: 20px;
+      align-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      min-width: 0;
+      align-self: start;
+    }
+    .journey-globe-card .about-map-frame{ position: relative; height: 480px; overflow: hidden; border-radius: 10px; }
+    .journey-globe-card .about-map-reset{ position: absolute; bottom: 12px; right: 12px; z-index: 5; }
+    .journey-map-column .about-places-instructions{ margin: 0 0 16px; padding: 0; border: 0; }
+    .journey-map-column .about-places-instructions p{ color: var(--muted); font-size: 0.9rem; margin: 0; }
+    .journey-side{
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 16px;
+      min-width: 0;
+      height: 480px;
+      box-sizing: border-box;
+      padding: 24px 0;
+    }
+    .about-page .journey-layout .about-map-frame > .about-map{
+      height: 480px;
+      min-height: 0;
+      border: 0;
+      border-radius: 0;
+    }
+    .about-page .journey-layout .journey-side > .about-places-panel,
+    .about-page .journey-layout .journey-side > .about-place-image-panel{
+      padding: 0; border: 0; border-radius: 0; background: transparent;
+    }
+    .about-page .journey-layout .journey-side > .about-places-panel{ min-height: 0; max-height: 200px; overflow-y: auto; }
+    .about-page .journey-layout .about-place-image-panel{
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      justify-items: center;
+      min-height: 0;
+      gap: 8px;
+    }
+    .about-page .journey-layout .about-place-image-panel img{
+      width: auto;
+      max-width: 100%;
+      height: 100%;
+      aspect-ratio: 5 / 4;
+      object-fit: cover;
+      border-radius: 12px;
+      max-height: 100%;
+      flex-shrink: 0;
+    }
+    @media (max-width: 1100px){
+      .about-page .journey-layout{ grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 24px; }
+      .about-page .journey-globe-card{ grid-template-columns: minmax(0, 1fr); }
+      .journey-globe-card .about-map-frame{ height: 360px; }
+      .about-page .journey-layout .about-map-frame > .about-map{ height: 360px; min-height: 0; }
+    }
   </style>
   <link rel="stylesheet" href="theme.css">
 </head>
@@ -231,16 +302,11 @@
     <h1>About</h1>
     <p class="subtitle">Explore the places, experiences, and passions that have shaped who I am.</p>
 
-    <h2>My Places</h2>
     <div class="grid">
-      <div class="card span">
-        <div class="about-globe-layout">
-          <article class="about-places-panel" aria-live="polite">
-            <h3 id="about-place-name">My Journey</h3>
-            <div id="about-place-detail">
-              <p>My passion lies in enabling human spaceflight, not only to expand humanity within our solar system but ultimately to reach interstellar space.</p>
-              <p>Throughout my life, I have made decisions about my education, projects, and career that align with this vision.</p>
-            </div>
+      <div class="card span journey-section">
+        <div class="about-globe-layout journey-layout">
+          <div class="journey-globe-card">
+          <div class="journey-map-column">
             <section class="about-places-instructions" aria-labelledby="about-places-explore-title">
               <h4 id="about-places-explore-title">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
@@ -248,16 +314,27 @@
               </h4>
               <p>Select a city on the globe to discover the places that have shaped my journey.</p>
             </section>
-          </article>
+          </div>
           <div class="about-map-frame">
             <div id="about-map" class="about-map" role="region" aria-label="Interactive globe of important places"></div>
             <button type="button" class="ghost-btn about-map-reset" id="about-map-reset">Reset view</button>
           </div>
+          </div>
+          <div class="journey-side">
+          <article class="about-places-panel" aria-live="polite">
+            <h3 id="about-place-name">My Journey</h3>
+            <div id="about-place-detail">
+              <p>My passion lies in enabling human spaceflight, not only to expand humanity within our solar system but ultimately to reach interstellar space.</p>
+              <p>Throughout my life, I have made decisions about my education, projects, and career that align with this vision.</p>
+            </div>
+
+          </article>
           <figure class="about-place-image-panel" aria-live="polite">
             <img id="about-place-image" alt="" hidden />
             <p id="about-place-image-placeholder" class="small">Select a place on the globe to see its image.</p>
             <figcaption id="about-place-image-caption">My Places</figcaption>
           </figure>
+          </div>
         </div>
       </div>
     </div>
