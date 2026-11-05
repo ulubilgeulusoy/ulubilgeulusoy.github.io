@@ -1136,6 +1136,27 @@ ul{ margin: 10px 0 0 18px; }
   white-space: nowrap;
 }
 .projects-tabs-mode .project-card .card-header h3{ min-width: 0; }
+.project-photo-button{
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.project-photo-button:focus-visible{ outline: 2px solid var(--link); outline-offset: 3px; }
+.projects-tabs-mode .project-card img{ opacity: 1; transition: opacity 200ms ease; }
+.projects-tabs-mode .project-card:hover img,
+.projects-tabs-mode .project-card:focus-within img{ opacity: 0.45; }
+.projects-tabs-mode .project-card:hover .card-header h3,
+.projects-tabs-mode .project-card:focus-within .card-header h3{
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce){
+  .projects-tabs-mode .project-card img{ transition: none; }
+}
 
 .modal-overlay{
   position: fixed;
