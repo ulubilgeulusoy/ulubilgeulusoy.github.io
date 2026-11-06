@@ -70,8 +70,8 @@ html[data-theme="light"] .modal-overlay{ background: rgba(24,32,43,0.5); }
 html[data-theme="light"] .modal{ box-shadow: 0 18px 60px rgba(20,30,40,0.2); }
 html[data-theme="light"] .repo-icon{ filter: brightness(0.25); }
 /* Keep photographic overlays readable and the globe's space setting intact. */
-html[data-theme="light"] :is(.interest-history-feature, .interest-roadtrip-feature, .interest-sports-feature) .about-slide > p{ color: #eef2f7; }
-html[data-theme="light"] :is(.interest-history-feature, .interest-roadtrip-feature, .interest-sports-feature) .carousel-btn{
+html[data-theme="light"] :is(.interest-history-feature, .interest-roadtrip-feature, .interest-sports-feature, .interest-photography-feature) .about-slide > p{ color: #eef2f7; }
+html[data-theme="light"] :is(.interest-history-feature, .interest-roadtrip-feature, .interest-sports-feature, .interest-photography-feature) .carousel-btn{
   background: rgba(16,24,38,0.85);
   color: #eef2f7;
 }
