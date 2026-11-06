@@ -546,28 +546,28 @@
       const places = [
         {
           name: "Adana, Türkiye",
-          image: "ancient_sites/ancient_1.jpg", // Temporary stand-in; replace with an Adana photo.
+          image: "globe_pictures/adana.jpg",
           lat: 37.0,
           lng: 35.3213,
           detail: "I was born in Adana, Türkiye, where I lived until I was six before moving to Istanbul with my family. I am a classic Mediterranean at heart and have always felt most at home near the sea."
         },
         {
           name: "Istanbul, Türkiye",
-          image: "ancient_sites/ancient_7.jpg", // Temporary stand-in.
+          image: "globe_pictures/istanbul.jpg",
           lat: 41.0082,
           lng: 28.9784,
           detail: "Istanbul is where I spent eighteen years of my life. There, I attended Sehremini Anatolian High School and was captain of the basketball team for two years. I later began my space engineering journey at Istanbul Technical University and completed my undergraduate thesis on the conceptual design of an artificial gravity spacecraft."
         },
         {
           name: "Los Angeles, California",
-          image: "highlight_pictures/education.jpg", // Temporary stand-in.
+          image: "globe_pictures/losangeles.jpg",
           lat: 34.0522,
           lng: -118.2437,
           detail: "In late 2018, I moved to Los Angeles, where I lived for seven years. During this time, I deepened my focus on liquid propulsion and human spaceflight while pursuing my Master's and PhD. I had the opportunity to be advised by a former NASA astronaut, which further shaped my perspective on operational human spaceflight."
         },
         {
           name: "Boulder, Colorado",
-          image: "highlight_pictures/experience.jpg", // Temporary stand-in.
+          image: "globe_pictures/boulder.jpg",
           lat: 40.01499,
           lng: -105.27055,
           detail: "I now live in Boulder, where I contribute to human spaceflight research at the Bioastronautics Laboratory at CU Boulder. My work focuses on understanding the human element of space operations by evaluating physiological signals during interactions with AI and robotic systems."
@@ -593,7 +593,7 @@
         .onPointClick(function (p) {
           if (placeNameEl) placeNameEl.textContent = p.name;
           if (placeDetailEl) placeDetailEl.textContent = p.detail;
-          placeImageCaptionEl.textContent = p.name + " — temporary test image";
+          placeImageCaptionEl.textContent = p.name;
           if (p.image) {
             placeImageEl.alt = p.name;
             placeImageEl.src = p.image;
@@ -856,7 +856,7 @@
       stage.addEventListener("pointercancel", stopDrag);
       stage.addEventListener("lostpointercapture", stopDrag);
       window.addEventListener("resize", function () { if (viewer.open) transformImage(); });
-      document.querySelectorAll("main img").forEach(function (image) {
+      document.querySelectorAll("main img:not(#about-place-image)").forEach(function (image) {
         image.tabIndex = 0;
         image.setAttribute("role", "button");
         image.setAttribute("aria-haspopup", "dialog");
